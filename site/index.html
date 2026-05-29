@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Personal Briefing — 2026-05-29 02:36</title>
+<title>Personal Briefing — 2026-05-29 02:39</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,18 +13,19 @@
   <header class="mb-10 rounded-2xl border border-[#eceae4] bg-[#f7f4ed] p-6 dark:border-[#2a2925] dark:bg-[#171717] sm:p-8">
     <div class="mb-12 flex items-center justify-between gap-4">
       <a href="#home" class="text-base font-semibold tracking-[-0.03em] text-[#1c1c1c] dark:text-[#fcfbf8]">Daily Newsletter</a>
-      <nav class="flex flex-wrap gap-2 text-sm">
-        <a class="lovable-shadow rounded-md bg-[#1c1c1c] px-4 py-2 text-[#fcfbf8]" href="#home">Home</a>
-        <a class="rounded-md border border-[rgba(28,28,28,0.4)] px-4 py-2 text-[#1c1c1c] dark:border-[#4a4740] dark:text-[#fcfbf8]" href="#must">Must Read</a>
-        <a class="rounded-md border border-[rgba(28,28,28,0.4)] px-4 py-2 text-[#1c1c1c] dark:border-[#4a4740] dark:text-[#fcfbf8]" href="#themes">Themes</a>
+      <nav class="flex flex-wrap gap-2 text-sm" role="tablist" aria-label="Newsletter sections">
+        <button type="button" data-tab="home" role="tab" aria-selected="true" class="tab-button lovable-shadow rounded-md bg-[#1c1c1c] px-4 py-2 text-[#fcfbf8]">Home</button>
+        <button type="button" data-tab="must" role="tab" aria-selected="false" class="tab-button rounded-md border border-[rgba(28,28,28,0.4)] px-4 py-2 text-[#1c1c1c] dark:border-[#4a4740] dark:text-[#fcfbf8]">Must Read</button>
+        <button type="button" data-tab="themes" role="tab" aria-selected="false" class="tab-button rounded-md border border-[rgba(28,28,28,0.4)] px-4 py-2 text-[#1c1c1c] dark:border-[#4a4740] dark:text-[#fcfbf8]">Themes</button>
       </nav>
     </div>
     <p class="mb-4 text-sm text-[#5f5f5d] dark:text-[#b8b2a8]">Personal intelligence briefing</p>
     <h1 class="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-[-0.055em] text-[#1c1c1c] dark:text-[#fcfbf8] sm:text-6xl">Today’s signal, without the feed.</h1>
-    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-[#5f5f5d] dark:text-[#b8b2a8]">2026-05-29 02:36 · plain links only · no generated summaries</p>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-[#5f5f5d] dark:text-[#b8b2a8]">2026-05-29 02:39 · plain links only · no generated summaries</p>
   </header>
   <div class="grid gap-5">
-    
+    <div data-panel="home" role="tabpanel">
+      
     <section id="home" class="rounded-2xl border border-[#eceae4] bg-[#f7f4ed] p-5 dark:border-[#2a2925] dark:bg-[#171717]">
       <div class="mb-4 flex items-end justify-between gap-4 border-b border-[#eceae4] pb-4 dark:border-[#2a2925]">
         <h2 class="text-2xl font-semibold tracking-[-0.04em] text-[#1c1c1c] dark:text-[#fcfbf8]">Home</h2>
@@ -82,7 +83,9 @@
     </div>
     </section>
     
-    
+    </div>
+    <div data-panel="must" role="tabpanel" hidden>
+      
     <section id="must" class="rounded-2xl border border-[#eceae4] bg-[#f7f4ed] p-5 dark:border-[#2a2925] dark:bg-[#171717]">
       <div class="mb-4 flex items-end justify-between gap-4 border-b border-[#eceae4] pb-4 dark:border-[#2a2925]">
         <h2 class="text-2xl font-semibold tracking-[-0.04em] text-[#1c1c1c] dark:text-[#fcfbf8]">Must Read</h2>
@@ -91,9 +94,11 @@
       <div class="space-y-3"><p class='rounded-xl border border-dashed border-[#eceae4] p-4 text-[#5f5f5d] dark:border-[#2a2925] dark:text-[#b8b2a8]'>No major must-read items today.</p></div>
     </section>
     
-    <section id="themes" class="rounded-2xl border border-[#eceae4] bg-[#f7f4ed] p-5 dark:border-[#2a2925] dark:bg-[#171717]">
-      <div class="mb-5 flex items-end justify-between gap-4 border-b border-[#eceae4] pb-4 dark:border-[#2a2925]"><h2 class="text-2xl font-semibold tracking-[-0.04em]">Themes</h2><span class="text-xs uppercase tracking-[0.16em] text-[#5f5f5d] dark:text-[#b8b2a8]">max 3 each</span></div>
-      <div class="space-y-8">
+    </div>
+    <div data-panel="themes" role="tabpanel" hidden>
+      <section id="themes" class="rounded-2xl border border-[#eceae4] bg-[#f7f4ed] p-5 dark:border-[#2a2925] dark:bg-[#171717]">
+        <div class="mb-5 flex items-end justify-between gap-4 border-b border-[#eceae4] pb-4 dark:border-[#2a2925]"><h2 class="text-2xl font-semibold tracking-[-0.04em]">Themes</h2><span class="text-xs uppercase tracking-[0.16em] text-[#5f5f5d] dark:text-[#b8b2a8]">max 3 each</span></div>
+        <div class="space-y-8">
         <section id="theme-politics-geopolitics" class="space-y-3 pt-2">
           <div class="flex items-center justify-between gap-4">
             <h3 class="text-xl font-semibold tracking-[-0.035em] text-[#1c1c1c] dark:text-[#fcfbf8]">Politics / Geopolitics</h3>
@@ -339,7 +344,26 @@
     
         </section>
         </div>
-    </section>
+      </section>
+    </div>
   </div>
   <footer class="py-10 text-center text-xs text-[#5f5f5d] dark:text-[#b8b2a8]">Generated by Hermes · curated from trusted sources</footer>
-</main></body></html>
+</main>
+<script>
+const activeClasses = ['lovable-shadow','bg-[#1c1c1c]','text-[#fcfbf8]'];
+const inactiveClasses = ['border','border-[rgba(28,28,28,0.4)]','text-[#1c1c1c]','dark:border-[#4a4740]','dark:text-[#fcfbf8]'];
+function setTab(name) {
+  document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
+  document.querySelectorAll('[data-tab]').forEach(button => {
+    const active = button.dataset.tab === name;
+    button.setAttribute('aria-selected', active ? 'true' : 'false');
+    activeClasses.forEach(cls => button.classList.toggle(cls, active));
+    inactiveClasses.forEach(cls => button.classList.toggle(cls, !active));
+  });
+  history.replaceState(null, '', '#' + name);
+}
+document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => setTab(button.dataset.tab)));
+const initial = location.hash.replace('#','');
+if (['home','must','themes'].includes(initial)) setTab(initial);
+</script>
+</body></html>
