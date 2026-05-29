@@ -1,514 +1,554 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Personal Briefing — 2026-05-29 02:45</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Newsletter — 2026-05-29 02:54</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-<script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['DM Sans','system-ui','sans-serif'] } } } }</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'] } } } }</script>
 <style>
-body { font-family:'DM Sans',system-ui,sans-serif; }
-.tab-active { background:#0f172a; color:white; box-shadow:rgba(255,255,255,.25) 0 .5px 0 0 inset, rgba(15,23,42,.35) 0 0 0 .5px inset, rgba(15,23,42,.12) 0 12px 30px; }
-.tab-inactive { background:rgba(255,255,255,.72); color:#334155; border:1px solid rgba(148,163,184,.45); }
+body { font-family: Inter, system-ui, sans-serif; background:#181818; }
+.lovable-logo { background: conic-gradient(from 210deg,#ff6a00,#ff2bb8,#4c8dff,#ff6a00); }
+.tab-active { background:#f4f4f0; color:#1b1b1b; }
+.tab-inactive { background:transparent; color:#aaa; }
+.fallback-gradient::after { content:""; position:absolute; inset:-18%; background:radial-gradient(circle at 50% 76%,#ff6a00 0 24%,#ff2b8a 42%,#4c8dff 68%,transparent 82%); filter:blur(24px); opacity:.9; }
 </style>
-</head><body class="min-h-screen overflow-x-hidden bg-white text-slate-950 antialiased">
-<div class="pointer-events-none fixed inset-0 -z-10">
-  <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_5%,rgba(99,102,241,.20),transparent_32%),radial-gradient(circle_at_85%_10%,rgba(236,72,153,.18),transparent_30%),radial-gradient(circle_at_50%_95%,rgba(34,197,94,.14),transparent_34%)]"></div>
-  <div class="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,.70),rgba(255,255,255,.95)_45%,#fff)]"></div>
-</div>
-<main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 sm:py-10">
-  <header class="relative mb-8 overflow-hidden rounded-[2.25rem] border border-slate-200 bg-white/80 p-6 shadow-[0_30px_120px_rgba(15,23,42,0.10)] backdrop-blur-xl sm:p-8">
-    <div class="absolute right-[-90px] top-[-90px] h-64 w-64 rounded-full bg-gradient-to-br from-fuchsia-300/50 via-indigo-300/40 to-cyan-300/40 blur-2xl"></div>
-    <div class="relative mb-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <a href="#home" class="text-base font-semibold tracking-[-0.03em] text-slate-950">Daily Newsletter</a>
-      <nav class="inline-flex w-fit rounded-xl border border-slate-200 bg-white/70 p-1 shadow-sm backdrop-blur" role="tablist" aria-label="Newsletter sections">
-        <button type="button" data-tab="home" role="tab" aria-selected="true" class="tab-button tab-active rounded-lg px-4 py-2 text-sm font-semibold transition">Home</button>
-        <button type="button" data-tab="must" role="tab" aria-selected="false" class="tab-button tab-inactive rounded-lg px-4 py-2 text-sm font-semibold transition">Must Read</button>
-        <button type="button" data-tab="themes" role="tab" aria-selected="false" class="tab-button tab-inactive rounded-lg px-4 py-2 text-sm font-semibold transition">Themes</button>
-      </nav>
-    </div>
-    <div class="relative max-w-4xl">
-      <div class="mb-4 inline-flex rounded-full bg-indigo-50 px-3 py-1 text-sm font-semibold text-indigo-700 ring-1 ring-indigo-100">Personal intelligence briefing</div>
-      <h1 class="text-5xl font-semibold leading-[0.98] tracking-[-0.065em] text-slate-950 sm:text-7xl">Today’s signal, without the feed.</h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">2026-05-29 02:45 · plain links only · no generated summaries</p>
+</head><body class="min-h-screen bg-[#181818] text-white antialiased">
+<main class="mx-auto min-h-screen max-w-[720px] bg-[#181818] px-5 pb-12 pt-7">
+  <header class="sticky top-0 z-20 -mx-5 border-b border-white/[0.06] bg-[#181818]/92 px-5 pb-5 pt-3 backdrop-blur-xl">
+    <div class="flex items-center justify-between gap-4">
+      <a href="#home" class="flex items-center gap-2.5" aria-label="Daily Newsletter home">
+        <span class="lovable-logo grid h-9 w-9 place-items-center rounded-[10px] shadow-[0_0_28px_rgba(255,43,184,.28)]"><span class="h-4 w-4 rounded-full bg-white/20 blur-[1px]"></span></span>
+        <span class="text-[40px] font-extrabold leading-none tracking-[-0.07em] text-white">Lovable</span>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="https://mehdibenfredj.github.io/daily_newsletter/" class="rounded-xl bg-[#f4f4f0] px-4 py-3 text-[16px] font-semibold leading-none text-[#1b1b1b]">Get started</a>
+        <button class="relative h-9 w-9" aria-label="Menu"><span class="absolute left-1 top-2 h-0.5 w-7 bg-[#d9d9d9]"></span><span class="absolute left-1 top-4 h-0.5 w-5 bg-[#d9d9d9]"></span><span class="absolute left-1 top-6 h-0.5 w-7 bg-[#d9d9d9]"></span></button>
+      </div>
     </div>
   </header>
 
-  <div class="grid gap-5">
+  <section class="relative -mx-5 overflow-hidden px-5 pb-9 pt-28 text-center">
+    <div class="absolute inset-x-[-12%] bottom-0 h-[420px] bg-[radial-gradient(circle_at_50%_78%,#ff6a00_0_22%,#ff2b8a_42%,#4c8dff_69%,transparent_82%)] blur-2xl opacity-95"></div>
+    <div class="relative mx-auto max-w-[620px]">
+      <h1 class="text-[44px] font-extrabold leading-[1.02] tracking-[-0.065em] text-white sm:text-6xl">Build something Lovable</h1>
+      <p class="mx-auto mt-4 max-w-[420px] text-[22px] font-semibold leading-tight tracking-[-0.035em] text-[#b8b8b8]">Today’s signal, without the feed</p>
+      <div class="mx-auto mt-10 rounded-[2rem] border border-black/70 bg-[#222] p-5 text-left shadow-[0_24px_80px_rgba(0,0,0,.45)] ring-1 ring-white/10">
+        <p class="mb-10 text-[20px] font-medium tracking-[-0.03em] text-[#d7d7d7]">Ask Hermes for the best things worth reading today</p>
+        <div class="flex items-center justify-between text-[#9d9d9d]"><span class="grid h-12 w-12 place-items-center rounded-full bg-white/[0.07] text-3xl font-light">+</span><span class="font-semibold">Build⌄</span><span>⌾</span><span class="grid h-12 w-12 place-items-center rounded-full bg-[#d8d8d8] text-xl text-[#181818]">↑</span></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mb-8 mt-2 grid grid-cols-3 rounded-2xl border border-white/10 bg-white/[0.05] p-1" role="tablist" aria-label="Newsletter sections">
+    <button type="button" data-tab="home" role="tab" aria-selected="true" class="tab-button tab-active rounded-xl px-3 py-3 text-sm font-bold transition">Home</button>
+    <button type="button" data-tab="must" role="tab" aria-selected="false" class="tab-button tab-inactive rounded-xl px-3 py-3 text-sm font-bold transition">Must Read</button>
+    <button type="button" data-tab="themes" role="tab" aria-selected="false" class="tab-button tab-inactive rounded-xl px-3 py-3 text-sm font-bold transition">Themes</button>
+  </nav>
+
+  <div class="grid gap-10">
     <div data-panel="home" role="tabpanel">
-    <section id="home" class="rounded-[2rem] border border-slate-200/80 bg-white/85 p-4 shadow-[0_24px_100px_rgba(15,23,42,0.08)] backdrop-blur sm:p-6">
-      <div class="mb-5 flex items-end justify-between gap-4 border-b border-slate-200 pb-4">
-        <div>
-          <p class="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-500">top picks</p>
-          <h2 class="text-3xl font-semibold tracking-[-0.055em] text-slate-950">Home</h2>
-        </div>
+    <section id="home" class="space-y-5">
+      <div class="space-y-1">
+        <p class="text-sm font-semibold text-[#8c8c8c]">top picks</p>
+        <h2 class="text-[42px] font-bold leading-none tracking-[-0.065em] text-white sm:text-6xl">Home</h2>
       </div>
-      <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-rose-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-500 to-orange-500"></div>
+      <div class="grid gap-7">
+    <article class="group space-y-3">
       
-        <a href="https://www.foreignaffairs.com/iran/trumps-least-bad-option-iran" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/05/27/2026-05-25T100403Z_1580276791_RC26GLACNN5F_RTRMADP_3_IRAN-CRISIS.JPG?itok=1l9l-EOb" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.foreignaffairs.com/iran/trumps-least-bad-option-iran" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://cdn-live.foreignaffairs.com/sites/default/files/styles/x_large_1x/public/images/2026/05/27/2026-05-25T100403Z_1580276791_RC26GLACNN5F_RTRMADP_3_IRAN-CRISIS.JPG?itok=1l9l-EOb" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-rose-700 bg-rose-50 ring-rose-200">Critical</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Foreign Affairs</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Foreign Affairs</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.foreignaffairs.com/iran/trumps-least-bad-option-iran">Trump’s Least Bad Option in Iran</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.foreignaffairs.com/iran/trumps-least-bad-option-iran">Trump’s Least Bad Option in Iran</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.bbc.com/news/articles/c5y708l015mo?at_medium=RSS&amp;at_campaign=rss" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/e633/live/6551a390-cd33-11ef-b4d0-4da3e3ebfd74.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.bbc.com/news/articles/c5y708l015mo?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/e633/live/6551a390-cd33-11ef-b4d0-4da3e3ebfd74.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">BBC News</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC News</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.bbc.com/news/articles/c5y708l015mo?at_medium=RSS&amp;at_campaign=rss">SAS troops accused of war crimes not referred to police over morale fears, inquiry hears</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/news/articles/c5y708l015mo?at_medium=RSS&amp;at_campaign=rss">SAS troops accused of war crimes not referred to police over morale fears, inquiry hears</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.bbc.com/news/articles/ceqpelq5reqo?at_medium=RSS&amp;at_campaign=rss" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/59cf/live/3d9d20a0-5aee-11f1-b682-cf91850925ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.bbc.com/news/articles/ceqpelq5reqo?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/59cf/live/3d9d20a0-5aee-11f1-b682-cf91850925ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">BBC News</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC News</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.bbc.com/news/articles/ceqpelq5reqo?at_medium=RSS&amp;at_campaign=rss">Netanyahu says he has directed IDF to increase control of Gaza to 70%</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/news/articles/ceqpelq5reqo?at_medium=RSS&amp;at_campaign=rss">Netanyahu says he has directed IDF to increase control of Gaza to 70%</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.euractiv.com/news/firepower-zelenskyy-warns-us-and-eu-of-critical-shortages-in-ukraines-air-defences/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://www.euractiv.com/content/uploads/sites/2/2025/11/FIREPOWER-2-1182x788.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.euractiv.com/news/firepower-zelenskyy-warns-us-and-eu-of-critical-shortages-in-ukraines-air-defences/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://www.euractiv.com/content/uploads/sites/2/2025/11/FIREPOWER-2-1182x788.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Euractiv</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Euractiv</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.euractiv.com/news/firepower-zelenskyy-warns-us-and-eu-of-critical-shortages-in-ukraines-air-defences/">FIREPOWER: Zelenskyy warns US and EU of critical shortages in Ukraine’s air defences</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.euractiv.com/news/firepower-zelenskyy-warns-us-and-eu-of-critical-shortages-in-ukraines-air-defences/">FIREPOWER: Zelenskyy warns US and EU of critical shortages in Ukraine’s air defences</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Software Engineering / Architecture</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Cloudflare Blog</span>
+        <a href="https://blog.cloudflare.com/our-unified-data-platform/" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Software Engineering / Architecture</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Cloudflare Blog</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://blog.cloudflare.com/our-unified-data-platform/">How we built Cloudflare&#x27;s data platform and an AI agent on top of it</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://blog.cloudflare.com/our-unified-data-platform/">How we built Cloudflare&#x27;s data platform and an AI agent on top of it</a>
       </div>
     </article>
     </div>
     </section>
     </div>
     <div data-panel="must" role="tabpanel" hidden>
-    <section id="must" class="rounded-[2rem] border border-slate-200/80 bg-white/85 p-4 shadow-[0_24px_100px_rgba(15,23,42,0.08)] backdrop-blur sm:p-6">
-      <div class="mb-5 flex items-end justify-between gap-4 border-b border-slate-200 pb-4">
-        <div>
-          <p class="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-500">major only</p>
-          <h2 class="text-3xl font-semibold tracking-[-0.055em] text-slate-950">Must Read</h2>
-        </div>
+    <section id="must" class="space-y-5">
+      <div class="space-y-1">
+        <p class="text-sm font-semibold text-[#8c8c8c]">major only</p>
+        <h2 class="text-[42px] font-bold leading-none tracking-[-0.065em] text-white sm:text-6xl">Must Read</h2>
       </div>
-      <div class="grid gap-4 md:grid-cols-2"><p class='rounded-2xl border border-dashed border-slate-300 bg-white/70 p-5 text-slate-500 md:col-span-2'>No major must-read items today.</p></div>
+      <div class="grid gap-7"><p class='rounded-3xl bg-white/[0.06] p-5 text-[#9c9c9c]'>No major must-read items today.</p></div>
     </section>
     </div>
     <div data-panel="themes" role="tabpanel" hidden>
-      <section id="themes" class="rounded-[2rem] border border-slate-200/80 bg-white/85 p-4 shadow-[0_24px_100px_rgba(15,23,42,0.08)] backdrop-blur sm:p-6">
-        <div class="mb-6 flex items-end justify-between gap-4 border-b border-slate-200 pb-4"><div><p class="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-indigo-500">max 3 each</p><h2 class="text-3xl font-semibold tracking-[-0.055em] text-slate-950">Themes</h2></div></div>
-        <div class="space-y-5">
-        <section id="theme-general-news" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">General News</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">3 picks</span>
+      <section id="themes" class="space-y-7">
+        <div class="space-y-1"><p class="text-sm font-semibold text-[#8c8c8c]">max 3 each</p><h2 class="text-[42px] font-bold leading-none tracking-[-0.065em] text-white sm:text-6xl">Themes</h2></div>
+        <div class="space-y-10">
+        <section id="theme-general-news" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">General News</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-        <a href="https://www.bbc.com/news/videos/c4g0kqxqz92o?at_medium=RSS&amp;at_campaign=rss" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/2892/live/adcf5280-5ab2-11f1-8b8c-6d33e1d5abb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.bbc.com/news/videos/c4g0kqxqz92o?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/2892/live/adcf5280-5ab2-11f1-8b8c-6d33e1d5abb6.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">BBC News</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC News</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.bbc.com/news/videos/c4g0kqxqz92o?at_medium=RSS&amp;at_campaign=rss">Israel intensifies strikes on Lebanon during ceasefire, videos show</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/news/videos/c4g0kqxqz92o?at_medium=RSS&amp;at_campaign=rss">Israel intensifies strikes on Lebanon during ceasefire, videos show</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.franceinfo.fr/monde/iran/guerre-entre-les-etats-unis-israel-et-l-iran/guerre-au-moyen-orient-benyamin-netanyahou-dit-avoir-donne-l-ordre-a-l-armee-israelienne-de-prendre-70-de-la-bande-de-gaza_8034611.html#xtor=RSS-3-[lestitres]" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://www.franceinfo.fr/pictures/Jc3iXT-NIaQfoMb6A5GptsJ_p50/0x227:4364x2682/432x243/filters:format(jpg)/2026/05/28/6a18affe22b33093872019.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.franceinfo.fr/monde/iran/guerre-entre-les-etats-unis-israel-et-l-iran/guerre-au-moyen-orient-benyamin-netanyahou-dit-avoir-donne-l-ordre-a-l-armee-israelienne-de-prendre-70-de-la-bande-de-gaza_8034611.html#xtor=RSS-3-[lestitres]" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://www.franceinfo.fr/pictures/Jc3iXT-NIaQfoMb6A5GptsJ_p50/0x227:4364x2682/432x243/filters:format(jpg)/2026/05/28/6a18affe22b33093872019.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Franceinfo</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Franceinfo</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.franceinfo.fr/monde/iran/guerre-entre-les-etats-unis-israel-et-l-iran/guerre-au-moyen-orient-benyamin-netanyahou-dit-avoir-donne-l-ordre-a-l-armee-israelienne-de-prendre-70-de-la-bande-de-gaza_8034611.html#xtor=RSS-3-[lestitres]">Guerre au Moyen-Orient : Benyamin Netanyahou dit avoir donné l&#x27;ordre à l&#x27;armée israélienne de prendre 70% de la bande de Gaza</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.franceinfo.fr/monde/iran/guerre-entre-les-etats-unis-israel-et-l-iran/guerre-au-moyen-orient-benyamin-netanyahou-dit-avoir-donne-l-ordre-a-l-armee-israelienne-de-prendre-70-de-la-bande-de-gaza_8034611.html#xtor=RSS-3-[lestitres]">Guerre au Moyen-Orient : Benyamin Netanyahou dit avoir donné l&#x27;ordre à l&#x27;armée israélienne de prendre 70% de la bande de Gaza</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.franceinfo.fr/replay-magazine/france-2/complement-d-enquete/video-pressions-en-faveur-de-marine-le-pen-sanctions-envers-un-magistrat-qui-a-approuve-un-mandat-d-arret-contre-netanyahou-des-ingerences-americaines-contre-la-justice-francaise_8031953.html#xtor=RSS-3-[lestitres]" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://www.franceinfo.fr/pictures/zdghtpQF-bwYjCojBsn1wx7YL9o/0x0:1920x1080/432x243/filters:format(jpg)/2026/05/28/6a188cfb07f92570715533.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.franceinfo.fr/replay-magazine/france-2/complement-d-enquete/video-pressions-en-faveur-de-marine-le-pen-sanctions-envers-un-magistrat-qui-a-approuve-un-mandat-d-arret-contre-netanyahou-des-ingerences-americaines-contre-la-justice-francaise_8031953.html#xtor=RSS-3-[lestitres]" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://www.franceinfo.fr/pictures/zdghtpQF-bwYjCojBsn1wx7YL9o/0x0:1920x1080/432x243/filters:format(jpg)/2026/05/28/6a188cfb07f92570715533.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Franceinfo</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Franceinfo</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.franceinfo.fr/replay-magazine/france-2/complement-d-enquete/video-pressions-en-faveur-de-marine-le-pen-sanctions-envers-un-magistrat-qui-a-approuve-un-mandat-d-arret-contre-netanyahou-des-ingerences-americaines-contre-la-justice-francaise_8031953.html#xtor=RSS-3-[lestitres]">Pressions en faveur de Marine Le Pen, sanctions envers un magistrat qui a approuvé un mandat d&#x27;arrêt contre Netanyahou… des ingérences américaines contre la justice française</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.franceinfo.fr/replay-magazine/france-2/complement-d-enquete/video-pressions-en-faveur-de-marine-le-pen-sanctions-envers-un-magistrat-qui-a-approuve-un-mandat-d-arret-contre-netanyahou-des-ingerences-americaines-contre-la-justice-francaise_8031953.html#xtor=RSS-3-[lestitres]">Pressions en faveur de Marine Le Pen, sanctions envers un magistrat qui a approuvé un mandat d&#x27;arrêt contre Netanyahou… des ingérences américaines contre la justice française</a>
       </div>
     </article>
     </div>
         </section>
         
 
-        <section id="theme-politics-geopolitics" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">Politics / Geopolitics</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">3 picks</span>
+        <section id="theme-politics-geopolitics" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Politics / Geopolitics</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-        <a href="https://www.euractiv.com/news/interview-ukraine-should-accept-associate-membership-ex-pm-says/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://www.euractiv.com/content/uploads/sites/2/2026/05/ukrania-1219x788.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.euractiv.com/news/interview-ukraine-should-accept-associate-membership-ex-pm-says/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://www.euractiv.com/content/uploads/sites/2/2026/05/ukrania-1219x788.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Euractiv</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Euractiv</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.euractiv.com/news/interview-ukraine-should-accept-associate-membership-ex-pm-says/">INTERVIEW: Ukraine should accept ‘associate membership’, ex-PM says</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.euractiv.com/news/interview-ukraine-should-accept-associate-membership-ex-pm-says/">INTERVIEW: Ukraine should accept ‘associate membership’, ex-PM says</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.euractiv.com/news/iran-condemns-us-ceasefire-violations-after-strikes-in-south/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://www.euractiv.com/content/uploads/sites/2/2026/05/GettyImages-2276029086.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.euractiv.com/news/iran-condemns-us-ceasefire-violations-after-strikes-in-south/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://www.euractiv.com/content/uploads/sites/2/2026/05/GettyImages-2276029086.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Euractiv</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Euractiv</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.euractiv.com/news/iran-condemns-us-ceasefire-violations-after-strikes-in-south/">Iran condemns US ceasefire ‘violations’ after strikes in south</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.euractiv.com/news/iran-condemns-us-ceasefire-violations-after-strikes-in-south/">Iran condemns US ceasefire ‘violations’ after strikes in south</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.euractiv.com/news/moscow-fears-us-could-push-venezuela-to-sell-its-soviet-era-weapons-to-ukraine/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://www.euractiv.com/content/uploads/sites/2/2026/05/GettyImages-1233823202.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.euractiv.com/news/moscow-fears-us-could-push-venezuela-to-sell-its-soviet-era-weapons-to-ukraine/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://www.euractiv.com/content/uploads/sites/2/2026/05/GettyImages-1233823202.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Euractiv</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Euractiv</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.euractiv.com/news/moscow-fears-us-could-push-venezuela-to-sell-its-soviet-era-weapons-to-ukraine/">Moscow fears US could push Venezuela to sell its Soviet-era weapons to Ukraine</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.euractiv.com/news/moscow-fears-us-could-push-venezuela-to-sell-its-soviet-era-weapons-to-ukraine/">Moscow fears US could push Venezuela to sell its Soviet-era weapons to Ukraine</a>
       </div>
     </article>
     </div>
         </section>
         
 
-        <section id="theme-ai-agentic" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">AI / Agentic</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">3 picks</span>
+        <section id="theme-ai-agentic" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">AI / Agentic</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">arXiv cs.AI</span>
+        <a href="https://arxiv.org/abs/2501.09934" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">arXiv cs.AI</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://arxiv.org/abs/2501.09934">HEART: Achieving Timely Multi-Model Training for Vehicle-Edge-Cloud-Integrated Hierarchical Federated Learning</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://arxiv.org/abs/2501.09934">HEART: Achieving Timely Multi-Model Training for Vehicle-Edge-Cloud-Integrated Hierarchical Federated Learning</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">arXiv cs.AI</span>
+        <a href="https://arxiv.org/abs/2503.02857" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">arXiv cs.AI</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://arxiv.org/abs/2503.02857">Deepfake-Eval-2024: A Multi-Modal In-the-Wild Benchmark of Deepfakes Circulated in 2024</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://arxiv.org/abs/2503.02857">Deepfake-Eval-2024: A Multi-Modal In-the-Wild Benchmark of Deepfakes Circulated in 2024</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">arXiv cs.AI</span>
+        <a href="https://arxiv.org/abs/2503.22655" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">arXiv cs.AI</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://arxiv.org/abs/2503.22655">Text-Only Data Synthesis for Vision Language Model Training</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://arxiv.org/abs/2503.22655">Text-Only Data Synthesis for Vision Language Model Training</a>
       </div>
     </article>
     </div>
         </section>
         
 
-        <section id="theme-algeria" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">Algeria</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">3 picks</span>
+        <section id="theme-algeria" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Algeria</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-        <a href="https://lagazettedufennec.com/algerie-le-fennec-le-plus-cher-sur-le-marche-est/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/03/Algerie-Nigeria-10-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://lagazettedufennec.com/algerie-le-fennec-le-plus-cher-sur-le-marche-est/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/03/Algerie-Nigeria-10-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">La Gazette du Fennec</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">La Gazette du Fennec</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://lagazettedufennec.com/algerie-le-fennec-le-plus-cher-sur-le-marche-est/">Algérie : Le Fennec le plus cher sur le marché est…</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://lagazettedufennec.com/algerie-le-fennec-le-plus-cher-sur-le-marche-est/">Algérie : Le Fennec le plus cher sur le marché est…</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://lagazettedufennec.com/algerie-une-raison-medicale-pourrait-retarder-encore-larrivee-de-boudaoui/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/04/Hicham-Boudaoui-8-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://lagazettedufennec.com/algerie-une-raison-medicale-pourrait-retarder-encore-larrivee-de-boudaoui/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/04/Hicham-Boudaoui-8-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">La Gazette du Fennec</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">La Gazette du Fennec</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://lagazettedufennec.com/algerie-une-raison-medicale-pourrait-retarder-encore-larrivee-de-boudaoui/">Algérie : Une raison médicale pourrait retarder (encore) l’arrivée de Boudaoui</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://lagazettedufennec.com/algerie-une-raison-medicale-pourrait-retarder-encore-larrivee-de-boudaoui/">Algérie : Une raison médicale pourrait retarder (encore) l’arrivée de Boudaoui</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://lagazettedufennec.com/coupe-du-monde-2026-algerie-confusion-autour-de-la-convocation-dun-fennec/" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/04/Algerie-13-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://lagazettedufennec.com/coupe-du-monde-2026-algerie-confusion-autour-de-la-convocation-dun-fennec/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/04/Algerie-13-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">La Gazette du Fennec</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">La Gazette du Fennec</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://lagazettedufennec.com/coupe-du-monde-2026-algerie-confusion-autour-de-la-convocation-dun-fennec/">Coupe du Monde 2026/Algérie : Confusion autour de la convocation d’un Fennec</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://lagazettedufennec.com/coupe-du-monde-2026-algerie-confusion-autour-de-la-convocation-dun-fennec/">Coupe du Monde 2026/Algérie : Confusion autour de la convocation d’un Fennec</a>
       </div>
     </article>
     </div>
         </section>
         
 
-        <section id="theme-fc-barcelona" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">FC Barcelona</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">3 picks</span>
+        <section id="theme-fc-barcelona" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">FC Barcelona</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-        <a href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187684/etta-eyong-rechaza-oferta-cska-moscu-aun-suena-barca.html" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://imagenes2.mundodeportivo.com/files/og_thumbnail/uploads/2026/05/25/6a148d370179c.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187684/etta-eyong-rechaza-oferta-cska-moscu-aun-suena-barca.html" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://imagenes2.mundodeportivo.com/files/og_thumbnail/uploads/2026/05/25/6a148d370179c.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">FC Barcelona</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Mundo Deportivo Barça</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">FC Barcelona</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Mundo Deportivo Barça</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187684/etta-eyong-rechaza-oferta-cska-moscu-aun-suena-barca.html">Etta Eyong rechaza una oferta del CSKA de Moscú y aún sueña con el Barça</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187684/etta-eyong-rechaza-oferta-cska-moscu-aun-suena-barca.html">Etta Eyong rechaza una oferta del CSKA de Moscú y aún sueña con el Barça</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187761/encendido-elogio-cancelo-barca.html" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://imagenes2.mundodeportivo.com/files/og_thumbnail/files/fp/uploads/2026/05/17/6a0a2cc9f088a.r_d.1530-837-0.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187761/encendido-elogio-cancelo-barca.html" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://imagenes2.mundodeportivo.com/files/og_thumbnail/files/fp/uploads/2026/05/17/6a0a2cc9f088a.r_d.1530-837-0.jpeg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">FC Barcelona</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Mundo Deportivo Barça</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">FC Barcelona</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Mundo Deportivo Barça</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187761/encendido-elogio-cancelo-barca.html">El encendido elogio de Cancelo al Barça</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260525/1004187761/encendido-elogio-cancelo-barca.html">El encendido elogio de Cancelo al Barça</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-amber-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+    <article class="group space-y-3">
       
-        <a href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260526/1004187686/contraste-barca-egipto-hamza-abdelkarim.html" class="block overflow-hidden rounded-[1.15rem] border border-slate-200 bg-slate-100">
-          <img src="https://imagenes2.mundodeportivo.com/files/og_thumbnail/files/fp/uploads/2026/05/25/6a148bc1bdbed.r_d.763-543-0.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-44 w-full object-cover transition duration-500 group-hover:scale-[1.03]" onerror="this.closest('a').style.display='none'">
+        <a href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260526/1004187686/contraste-barca-egipto-hamza-abdelkarim.html" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
+          <img src="https://imagenes2.mundodeportivo.com/files/og_thumbnail/files/fp/uploads/2026/05/25/6a148bc1bdbed.r_d.763-543-0.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
         </a>
         
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">FC Barcelona</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-amber-800 bg-amber-50 ring-amber-200">Important</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Mundo Deportivo Barça</span>
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">FC Barcelona</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Mundo Deportivo Barça</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260526/1004187686/contraste-barca-egipto-hamza-abdelkarim.html">El contraste entre el Barça y Egipto por Hamza Abdelkarim</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.mundodeportivo.com/futbol/fc-barcelona/20260526/1004187686/contraste-barca-egipto-hamza-abdelkarim.html">El contraste entre el Barça y Egipto por Hamza Abdelkarim</a>
       </div>
     </article>
     </div>
         </section>
         
 
-        <section id="theme-software-engineering-architecture" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">Software Engineering / Architecture</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">1 picks</span>
+        <section id="theme-software-engineering-architecture" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Software Engineering / Architecture</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">1 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-sky-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-400 to-indigo-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Software Engineering / Architecture</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-sky-800 bg-sky-50 ring-sky-200">Watch</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">LWN</span>
+        <a href="https://lwn.net/Articles/1075060/" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Software Engineering / Architecture</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">LWN</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://lwn.net/Articles/1075060/">Security updates for Thursday</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://lwn.net/Articles/1075060/">Security updates for Thursday</a>
       </div>
     </article>
     </div>
         </section>
         
 
-        <section id="theme-football" class="rounded-[1.5rem] border border-slate-200 bg-white/70 p-4">
-          <div class="mb-4 flex items-center justify-between gap-4">
-            <h3 class="text-xl font-semibold tracking-[-0.04em] text-slate-950">Football</h3>
-            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">3 picks</span>
+        <section id="theme-football" class="space-y-4">
+          <div class="flex items-end justify-between gap-4">
+            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Football</h3>
+            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
           </div>
-          <div class="grid gap-4 md:grid-cols-2">
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-sky-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-400 to-indigo-500"></div>
+          <div class="grid gap-7">
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Football</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-sky-800 bg-sky-50 ring-sky-200">Watch</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Opta Analyst Football</span>
+        <a href="https://theanalyst.com/articles/how-arsenal-can-beat-psg-champions-league-final" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Football</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Opta Analyst Football</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://theanalyst.com/articles/how-arsenal-can-beat-psg-champions-league-final">Press High, Attack Down the Left, and Defend For Their Lives: How Arsenal Can Beat PSG</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://theanalyst.com/articles/how-arsenal-can-beat-psg-champions-league-final">Press High, Attack Down the Left, and Defend For Their Lives: How Arsenal Can Beat PSG</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-sky-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-400 to-indigo-500"></div>
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Football</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-sky-800 bg-sky-50 ring-sky-200">Watch</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Opta Analyst Football</span>
+        <a href="https://theanalyst.com/articles/psg-vs-arsenal-fatigue-rotation-champions-league-final-stats" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Football</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Opta Analyst Football</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://theanalyst.com/articles/psg-vs-arsenal-fatigue-rotation-champions-league-final-stats">Rotated PSG vs Exhausted Arsenal: Will Fatigue Decide Champions League Final?</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://theanalyst.com/articles/psg-vs-arsenal-fatigue-rotation-champions-league-final-stats">Rotated PSG vs Exhausted Arsenal: Will Fatigue Decide Champions League Final?</a>
       </div>
     </article>
     
 
-    <article class="group relative overflow-hidden rounded-[1.6rem] border border-sky-200 bg-white p-3 shadow-[0_18px_60px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.02] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_80px_rgba(15,23,42,0.12)]">
-      <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-400 to-indigo-500"></div>
+    <article class="group space-y-3">
       
-      <div class="p-2 pt-4">
-        <div class="mb-3 flex flex-wrap gap-2 text-[11px] leading-none">
-          <span class="rounded-full bg-slate-100 px-2.5 py-1.5 font-medium text-slate-600 ring-1 ring-slate-200">Football</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold ring-1 text-sky-800 bg-sky-50 ring-sky-200">Watch</span>
-          <span class="rounded-full bg-white px-2.5 py-1.5 font-medium text-slate-500 ring-1 ring-slate-200">Opta Analyst Football</span>
+        <a href="https://theanalyst.com/articles/psg-vs-arsenal-prediction-champions-league-final-05-2026" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]">
+          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#4c8dff] via-[#8b5cf6] to-[#ff4bb8]"></div>
+          <div class="absolute inset-0 bg-black/10"></div>
+        </a>
+        
+      <div class="space-y-2 px-0.5">
+        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Football</span>
+          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
+          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Opta Analyst Football</span>
         </div>
-        <a class="block text-[17px] font-semibold leading-snug tracking-[-0.02em] text-slate-950 decoration-slate-300 underline-offset-4 transition hover:text-indigo-700 hover:underline" href="https://theanalyst.com/articles/psg-vs-arsenal-prediction-champions-league-final-05-2026">PSG vs Arsenal: Opta Supercomputer Champions League Final Prediction</a>
+        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://theanalyst.com/articles/psg-vs-arsenal-prediction-champions-league-final-05-2026">PSG vs Arsenal: Opta Supercomputer Champions League Final Prediction</a>
       </div>
     </article>
     </div>
@@ -517,7 +557,7 @@ body { font-family:'DM Sans',system-ui,sans-serif; }
       </section>
     </div>
   </div>
-  <footer class="py-10 text-center text-xs font-medium text-slate-500">Generated by Hermes · curated from trusted sources</footer>
+  <footer class="py-10 text-center text-sm font-medium text-[#8c8c8c]">2026-05-29 02:54 · plain links only · no generated summaries</footer>
 </main>
 <script>
 function setTab(name) {
