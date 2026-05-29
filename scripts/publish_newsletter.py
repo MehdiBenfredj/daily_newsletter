@@ -22,6 +22,10 @@ def run(cmd: list[str], cwd: Path | None = None) -> str:
 
 
 def main() -> None:
+    # Always integrate remote edits before publishing to avoid rejected pushes
+    # when the user edits the GitHub Pages repo from GitHub's UI.
+    run(["git", "pull", "--rebase", "origin", "main"], cwd=REPO)
+
     run(["python3", str(GENERATOR), "generate"])
     today = datetime.now().strftime("%Y-%m-%d")
     src = SOURCE_OUT / f"briefing-{today}.html"
