@@ -1,14 +1,6 @@
 {
   "themes": [
     {
-      "theme": "Tech",
-      "sources": [{
-        "name": "The Verge",
-        "url": "https://www.theverge.com/rss/index.xml",
-        "tier": 5
-      }]
-    },
-    {
       "theme": "AI / Agentic",
       "sources": [
         {
@@ -29,8 +21,11 @@
         {
           "name": "Hugging Face Blog",
           "url": "https://huggingface.co/papers",
-		  "type": "website",
-          "tier": 4
+          "type": "website",
+          "tier": 4,
+          "include_url_regex": "/papers/|/blog/",
+          "exclude_url_regex": "/papers$|/blog$|/spaces/|/models/|/datasets/",
+          "max_items": 20
         },
         {
           "name": "arXiv cs.AI",
@@ -58,6 +53,11 @@
       "theme": "Software Engineering / Architecture",
       "sources": [
         {
+          "name": "The Verge",
+          "url": "https://www.theverge.com/rss/index.xml",
+          "tier": 5
+        },
+        {
           "name": "Martin Fowler",
           "url": "https://martinfowler.com/feed.atom",
           "tier": 5
@@ -65,7 +65,8 @@
         {
           "name": "Netflix Tech Blog",
           "url": "https://netflixtechblog.com/feed",
-          "tier": 5
+          "tier": 5,
+          "insecure_ssl": true
         },
         {
           "name": "Cloudflare Blog",
@@ -132,7 +133,11 @@
           "url": "https://www.tsa-algerie.com/feed/",
           "tier": 4
         },
-        { "name": "El Watan", "url": "https://elwatan-dz.com/feed", "tier": 4 },
+        {
+          "name": "El Watan",
+          "url": "https://elwatan-dz.com/feed",
+          "tier": 4
+        },
         {
           "name": "Le Soir d'Algérie",
           "url": "https://news.google.com/rss/search?q=site%3Awww.lesoirdalgerie.com%20when%3A1d&hl=fr&gl=FR&ceid=FR%3Afr",
@@ -143,7 +148,11 @@
           "url": "https://www.jeuneafrique.com/pays/algerie/feed/",
           "tier": 4
         },
-        { "name": "DZfoot", "url": "https://www.dzfoot.com/feed", "tier": 4 },
+        {
+          "name": "DZfoot",
+          "url": "https://www.dzfoot.com/feed",
+          "tier": 4
+        },
         {
           "name": "La Gazette du Fennec",
           "url": "https://lagazettedufennec.com/feed/",
@@ -164,11 +173,11 @@
           "url": "https://news.google.com/rss/search?q=site%3Areuters.com%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen",
           "tier": 5
         },
-		{
-			"name": "Courrier Internationa",
-			"url" :"https://www.courrierinternational.com/feed/rubrique/geopolitique/rss.xml",
-			"tier" : 5
-		},
+        {
+          "name": "Courrier International",
+          "url": "https://www.courrierinternational.com/feed/rubrique/geopolitique/rss.xml",
+          "tier": 5
+        },
         {
           "name": "Politico Europe",
           "url": "https://www.politico.eu/feed/",
@@ -232,7 +241,7 @@
       ]
     },
     {
-      "theme": "Paris Local",
+      "theme": "France / Paris Local",
       "sources": [
         {
           "name": "Paris.fr",
@@ -242,14 +251,18 @@
         {
           "name": "Île-de-France Mobilités",
           "url": "https://data.iledefrance-mobilites.fr/explore/dataset/actualites/table/",
-          "tier": 5
+          "tier": 5,
+          "type": "website",
+          "include_url_regex": "/actualites/|/explore/dataset/actualites",
+          "max_items": 10
         },
         {
           "name": "RATP",
           "type": "API",
           "url": "https://prim.iledefrance-mobilites.fr/marketplace/disruptions_bulk/disruptions/v2",
           "auth": "apiKey",
-          "tier": 5
+          "tier": 5,
+          "homepage": "https://www.iledefrance-mobilites.fr/"
         },
         {
           "name": "Actu Paris",

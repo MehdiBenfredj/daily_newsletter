@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -10,11 +11,11 @@ from datetime import datetime
 from pathlib import Path
 
 HOME = Path.home()
-REPO = HOME / "projects" / "daily_newsletter"
+REPO = Path(os.environ.get("NEWSLETTER_REPO", str(HOME / "projects" / "daily_newsletter")))
 SITE = REPO / "site"
 ARCHIVE = SITE / "archive"
-SOURCE_OUT = HOME / ".hermes" / "newsletter" / "output"
-GENERATOR = HOME / ".hermes" / "scripts" / "personal_newsletter.py"
+SOURCE_OUT = Path(os.environ.get("NEWSLETTER_RUNTIME", str(HOME / ".hermes" / "newsletter"))) / "output"
+GENERATOR = REPO / "scripts" / "personal_newsletter.py"
 
 
 def run(cmd: list[str], cwd: Path | None = None) -> str:
@@ -26,7 +27,7 @@ def main() -> None:
     # when the user edits the GitHub Pages repo from GitHub's UI.
     run(["git", "pull", "--rebase", "origin", "main"], cwd=REPO)
 
-    run(["python3", str(GENERATOR), "generate"])
+    run(["python3", str(GENERATOR), "generate", "--collect-first"])
     today = datetime.now().strftime("%Y-%m-%d")
     src = SOURCE_OUT / f"briefing-{today}.html"
     if not src.exists():
