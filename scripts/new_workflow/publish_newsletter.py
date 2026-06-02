@@ -1,8 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.11
 """Publish generated Hermes newsletter HTML into the GitHub Pages repo."""
 from __future__ import annotations
 
 import argparse
+import email.utils
 import html
 import json
 import os
@@ -13,6 +14,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
 from http.client import IncompleteRead, RemoteDisconnected
 from pathlib import Path
@@ -228,6 +230,49 @@ def xml_child(element: ET.Element, names: list[str]) -> ET.Element | None:
     return None
 
 
+def parse_published_datetime(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+
+    raw_value = value.strip()
+    try:
+        parsed = email.utils.parsedate_to_datetime(raw_value)
+    except (TypeError, ValueError):
+        parsed = None
+
+    if parsed is None:
+        iso_value = raw_value
+        if iso_value.endswith("Z"):
+            iso_value = f"{iso_value[:-1]}+00:00"
+        try:
+            parsed = datetime.fromisoformat(iso_value)
+        except ValueError:
+            return None
+
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def was_published_in_last_24_hours(information: dict[str, Any], now: datetime | None = None) -> bool:
+    published_at = parse_published_datetime(information.get("date_published"))
+    if published_at is None:
+        return False
+
+    current_time = now or datetime.now(timezone.utc)
+    current_time = current_time.astimezone(timezone.utc)
+    return current_time - timedelta(hours=24) <= published_at <= current_time
+
+
+def filter_recent_information(information: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    now = datetime.now(timezone.utc)
+    return [
+        item
+        for item in information
+        if isinstance(item, dict) and was_published_in_last_24_hours(item, now)
+    ]
+
+
 def parse_rss_information(processed: dict[str, Any]) -> list[dict[str, Any]]:
     raw_data = processed.get("data")
     if not isinstance(raw_data, str):
@@ -253,7 +298,7 @@ def parse_rss_information(processed: dict[str, Any]) -> list[dict[str, Any]]:
             {
                 "url": link,
                 "title": xml_text(xml_child(entry, ["title"])),
-                "date_published": xml_text(xml_child(entry, ["pubDate", "published", "updated"])),
+                "date_published": xml_text(xml_child(entry, ["pubDate", "published", "updated", "date"])),
                 "description": xml_text(xml_child(entry, ["description", "summary"])),
             }
         )
@@ -391,11 +436,11 @@ def parse_processed_source(source: dict[str, Any]) -> list[dict[str, Any]]:
     if not isinstance(processed, dict):
         return []
     if source_type in {"rss", "feed", "atom", "xml"}:
-        return parse_rss_information(processed)
+        return filter_recent_information(parse_rss_information(processed))
     if source_type in {"website", "html", "web"}:
-        return parse_website_information(source, processed)
+        return filter_recent_information(parse_website_information(source, processed))
     if source_type == "api":
-        return parse_api_information(source, processed)
+        return filter_recent_information(parse_api_information(source, processed))
     raise ValueError(
         f"unsupported source type {source_type!r} for {source.get('name')}")
 
