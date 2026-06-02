@@ -29,12 +29,12 @@
         },
         {
           "name": "arXiv cs.AI",
-          "url": "https://export.arxiv.org/rss/cs.AI",
+          "url": "https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=20",
           "tier": 4
         },
         {
           "name": "arXiv cs.CL",
-          "url": "https://export.arxiv.org/rss/cs.CL",
+          "url": "https://export.arxiv.org/api/query?search_query=cat:cs.CL&sortBy=submittedDate&sortOrder=descending&max_results=20",
           "tier": 4
         },
         {
@@ -95,7 +95,7 @@
       "sources": [
         {
           "name": "Barça Universal",
-          "url": "https://barcauniversal.com/feed/",
+          "url": "https://news.google.com/rss/search?q=site%3Abarcauniversal.com%20when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
           "tier": 3
         }
       ]
@@ -126,6 +126,10 @@
         {
           "name": "APS Algérie",
           "url": "https://www.aps.dz/fr",
+          "type": "website",
+          "include_url_regex": "/fr/",
+          "exclude_url_regex": "/fr$|/archive|/dossier|/video|/infographie|/flagdzz|/_next/",
+          "max_items": 20,
           "tier": 5
         },
         {
@@ -135,7 +139,7 @@
         },
         {
           "name": "El Watan",
-          "url": "https://elwatan-dz.com/feed",
+          "url": "https://news.google.com/rss/search?q=site%3Aelwatan.dz%20when%3A30d&hl=fr&gl=FR&ceid=FR%3Afr",
           "tier": 4
         },
         {
@@ -146,6 +150,7 @@
         {
           "name": "Jeune Afrique Algérie",
           "url": "https://www.jeuneafrique.com/pays/algerie/feed/",
+          "fallback_url": "https://news.google.com/rss/search?q=site%3Ajeuneafrique.com%20Alg%C3%A9rie%20when%3A30d&hl=fr&gl=FR&ceid=FR%3Afr",
           "tier": 4
         },
         {
@@ -195,7 +200,7 @@
         },
         {
           "name": "Vie Publique",
-          "url": "https://www.vie-publique.fr/rss.xml",
+          "url": "https://news.google.com/rss/search?q=site%3Avie-publique.fr%20when%3A7d&hl=fr&gl=FR&ceid=FR%3Afr",
           "tier": 5
         }
       ]
@@ -250,10 +255,9 @@
         },
         {
           "name": "Île-de-France Mobilités",
-          "url": "https://data.iledefrance-mobilites.fr/explore/dataset/actualites/table/",
+          "url": "https://data.iledefrance-mobilites.fr/explore/dataset/actualites/rss/?",
           "tier": 5,
-          "type": "website",
-          "include_url_regex": "/actualites/|/explore/dataset/actualites",
+          "type": "rss",
           "max_items": 10
         },
         {
@@ -266,7 +270,8 @@
         },
         {
           "name": "Actu Paris",
-          "url": "https://actu.fr/rss.xml",
+          "url": "https://actu.fr/paris/rss.xml",
+          "fallback_url": "https://news.google.com/rss/search?q=site%3Aactu.fr%2File-de-france%2Fparis_75056%20when%3A1d&hl=fr&gl=FR&ceid=FR%3Afr",
           "tier": 3
         },
         {
