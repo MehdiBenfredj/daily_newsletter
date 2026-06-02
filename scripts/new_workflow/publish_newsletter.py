@@ -439,23 +439,48 @@ def printable_processed_sources(data: dict[str, Any]) -> list[dict[str, Any]]:
         raise ValueError(
             "expected processed data to contain a 'processed_sources' list")
 
-    printable_sources: list[dict[str, Any]] = []
+    printable_information: list[dict[str, Any]] = []
+    information_index = 1
     for source in processed_sources:
         if not isinstance(source, dict):
             continue
 
-        printable_sources.append(
-            {
-                "theme": source.get("theme"),
-                "name": source.get("name"),
-                "url": source.get("url"),
-                "type": source.get("type", "rss"),
-                "ok": source.get("ok"),
-                "information": source.get("information", []),
-            }
-        )
+        source_information = source.get("information", [])
+        if not isinstance(source_information, list):
+            continue
 
-    return printable_sources
+        for information in source_information:
+            if not isinstance(information, dict):
+                continue
+
+            printable_item: dict[str, Any] = {
+                "index": information_index,
+                "source": source.get("name"),
+            }
+            if information.get("title"):
+                printable_item["title"] = information.get("title")
+            if information.get("description"):
+                printable_item["description"] = information.get("description")
+
+            printable_information.append(printable_item)
+            information_index += 1
+
+    return printable_information
+
+
+def print_information_counts_by_source(data: dict[str, Any]) -> None:
+    processed_sources = data.get("processed_sources", [])
+    if not isinstance(processed_sources, list):
+        raise ValueError(
+            "expected processed data to contain a 'processed_sources' list")
+
+    for source in processed_sources:
+        if not isinstance(source, dict):
+            continue
+
+        information = source.get("information", [])
+        information_count = len(information) if isinstance(information, list) else 0
+        print(f"{source.get('name')}: {information_count} information items")
 
 
 def parse_args() -> argparse.Namespace:
@@ -474,6 +499,7 @@ def main() -> None:
     data = collect_from_sources(args.sources)
     data = process_sources(data)
     data = parse_processed_data(data)
+    print_information_counts_by_source(data)
     # print processed sources  to file
     (REPO / "processed_sources.json").write_text(
         json.dumps(printable_processed_sources(data), ensure_ascii=False
