@@ -3,15 +3,15 @@ package output_test
 import (
 	"testing"
 
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/output"
 )
 
 func TestPrintableProcessedSources(t *testing.T) {
-	got := output.Printable([]newsletter.ProcessedSource{
+	got := output.GetOutputItems([]types.ProcessedSource{
 		{
 			Name: "OpenAI",
-			Info: []newsletter.Information{
+			Info: []types.Information{
 				{Title: "First", Description: "Desc"},
 				{Title: "Second"},
 			},

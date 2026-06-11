@@ -19,12 +19,23 @@ site/
 
 ## Publishing
 
+Create a local `.env` file from the template before publishing:
+
+```sh
+cp .env.template .env
+```
+
+Set `OPENROUTER_API_KEY` so the publisher can rate each collected item. The
+optional `OPENROUTER_MODEL` value defaults to `openrouter/auto`. Set
+`PRIM_API_KEY` when using sources that require Prim API authentication.
+
 ```sh
 go run ./cmd/publish-newsletter
 ```
 
 The command reads `site/sources.json`, fetches configured RSS/website/API sources,
-prints per-source information counts, and writes `processed_sources.json`.
+prints per-source information counts, rates each output item with OpenRouter,
+sorts by rating, and writes `processed_sources.json`.
 
 To use a custom source file:
 

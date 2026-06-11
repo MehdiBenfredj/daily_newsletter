@@ -1,19 +1,23 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
+	"github.com/MehdiBenfredj/daily_newsletter/internal/env"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/fetch"
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/output"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/parse"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/rate"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/sources"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
 func main() {
@@ -28,6 +32,9 @@ func run() error {
 	if err != nil {
 		return err
 	}
+	if err := env.Load(filepath.Join(repo, ".env")); err != nil {
+		return err
+	}
 
 	defaultSources := filepath.Join(repo, "site", "sources.json")
 	sourcesPath := flag.String("sources", defaultSources, "path to sources.json")
@@ -38,12 +45,27 @@ func run() error {
 		return err
 	}
 
-	processed := processSources(collection)
+	processed, errored := processSources(collection)
 	for _, source := range processed {
 		fmt.Printf("%s: %d information items\n", source.Name, len(source.Info))
 	}
+	fmt.Printf("couldn't process %d sourcecs", len(errored))
+	outputItems := output.GetOutputItems(processed)
 
-	return output.WriteJSON(filepath.Join(repo, "processed_sources.json"), output.Printable(processed))
+	rater := rate.NewOpenRouterRater()
+	for i := range outputItems {
+		rating, err := rater.Rate(context.Background(), outputItems[i])
+		if err != nil {
+			return fmt.Errorf("rate item %d (%q): %w", outputItems[i].Index, outputItems[i].Title, err)
+		}
+		outputItems[i].Rating = rating
+	}
+
+	sort.Slice(outputItems, func(i, j int) bool {
+		return outputItems[i].Rating > outputItems[j].Rating
+	})
+
+	return output.WriteJSON(filepath.Join(repo, "processed_sources.json"), outputItems)
 }
 
 func repoRoot() (string, error) {
@@ -62,11 +84,12 @@ func repoRoot() (string, error) {
 	}
 }
 
-func processSources(collection newsletter.Collection) []newsletter.ProcessedSource {
-	processed := make([]newsletter.ProcessedSource, 0, len(collection.Sources))
+func processSources(collection types.Collection) ([]types.ProcessedSource, []types.ProcessedSource) {
+	processed := make([]types.ProcessedSource, 0, len(collection.Sources))
+	errored := make([]types.ProcessedSource, 0, len(collection.Sources))
 	now := time.Now().UTC()
 	for _, source := range collection.Sources {
-		item := newsletter.ProcessedSource{
+		item := types.ProcessedSource{
 			Theme:  source.Theme,
 			Name:   source.Name,
 			URL:    source.URL,
@@ -78,7 +101,7 @@ func processSources(collection newsletter.Collection) []newsletter.ProcessedSour
 		if err != nil {
 			item.OK = false
 			item.Error = err.Error()
-			processed = append(processed, item)
+			errored = append(errored, item)
 			continue
 		}
 		item.OK = true
@@ -91,13 +114,13 @@ func processSources(collection newsletter.Collection) []newsletter.ProcessedSour
 		}
 		processed = append(processed, item)
 	}
-	return processed
+	return processed, errored
 }
 
-func processSource(source newsletter.Source) (newsletter.Processed, error) {
+func processSource(source types.Source) (types.Processed, error) {
 	raw, err := fetch.Source(source)
 	if err != nil {
-		return newsletter.Processed{}, err
+		return types.Processed{}, err
 	}
 	sourceType := strings.ToLower(source.Type)
 	if sourceType == "" {
@@ -106,16 +129,16 @@ func processSource(source newsletter.Source) (newsletter.Processed, error) {
 	text := string(raw)
 	switch sourceType {
 	case "rss", "feed", "atom", "xml":
-		return newsletter.Processed{ContentType: "rss", Bytes: len(raw), Data: text}, nil
+		return types.Processed{ContentType: "rss", Bytes: len(raw), Data: text}, nil
 	case "website", "html", "web":
-		return newsletter.Processed{ContentType: "website", Bytes: len(raw), Data: text}, nil
+		return types.Processed{ContentType: "website", Bytes: len(raw), Data: text}, nil
 	case "api":
 		var data any
 		if err := json.Unmarshal(raw, &data); err != nil {
 			data = text
 		}
-		return newsletter.Processed{ContentType: "api", Bytes: len(raw), Data: data}, nil
+		return types.Processed{ContentType: "api", Bytes: len(raw), Data: data}, nil
 	default:
-		return newsletter.Processed{}, fmt.Errorf("unsupported source type %q for %s", sourceType, source.Name)
+		return types.Processed{}, fmt.Errorf("unsupported source type %q for %s", sourceType, source.Name)
 	}
 }

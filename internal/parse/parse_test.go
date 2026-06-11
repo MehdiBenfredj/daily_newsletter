@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/parse"
 )
 
@@ -31,11 +31,11 @@ func TestParsePublishedDatetimeAndRecentWindow(t *testing.T) {
 
 func TestRSSAndAtomParsing(t *testing.T) {
 	now := time.Date(2026, 6, 2, 12, 0, 0, 0, time.UTC)
-	rss := newsletter.Processed{Data: `<rss><channel>
+	rss := types.Processed{Data: `<rss><channel>
 		<item><title>One &amp; Two</title><link>https://example.com/1</link><pubDate>Tue, 02 Jun 2026 10:00:00 GMT</pubDate><description><![CDATA[Hello&nbsp;world]]></description></item>
 		<item><title>Old</title><link>https://example.com/old</link><pubDate>Sun, 31 May 2026 10:00:00 GMT</pubDate></item>
 	</channel></rss>`}
-	got, err := parse.ProcessedSource(newsletter.ProcessedSource{Type: "rss", Processed: &rss}, now)
+	got, err := parse.ProcessedSource(types.ProcessedSource{Type: "rss", Processed: &rss}, now)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -43,10 +43,10 @@ func TestRSSAndAtomParsing(t *testing.T) {
 		t.Fatalf("unexpected rss items: %+v", got)
 	}
 
-	atom := newsletter.Processed{Data: `<feed xmlns="http://www.w3.org/2005/Atom">
+	atom := types.Processed{Data: `<feed xmlns="http://www.w3.org/2005/Atom">
 		<entry><title>Atom</title><link href="https://example.com/a"/><updated>2026-06-02T11:00:00Z</updated><summary>Summary</summary></entry>
 	</feed>`}
-	got, err = parse.ProcessedSource(newsletter.ProcessedSource{Type: "atom", Processed: &atom}, now)
+	got, err = parse.ProcessedSource(types.ProcessedSource{Type: "atom", Processed: &atom}, now)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,15 +56,15 @@ func TestRSSAndAtomParsing(t *testing.T) {
 }
 
 func TestWebsiteParsing(t *testing.T) {
-	source := newsletter.ProcessedSource{
+	source := types.ProcessedSource{
 		URL:  "https://example.com/root/",
 		Type: "website",
-		Config: newsletter.SourceConfig{
+		Config: types.SourceConfig{
 			IncludeURLRegex: "/news/",
 			ExcludeURLRegex: "skip",
 			MaxItems:        2,
 		},
-		Processed: &newsletter.Processed{Data: `<html><body>
+		Processed: &types.Processed{Data: `<html><body>
 			<a href="/news/one#fragment"> First useful article </a>
 			<a href="/news/one"> Duplicate useful article </a>
 			<a href="/news/skip"> Skipped article title </a>
@@ -84,10 +84,10 @@ func TestWebsiteParsing(t *testing.T) {
 }
 
 func TestAPIParsing(t *testing.T) {
-	source := newsletter.ProcessedSource{
+	source := types.ProcessedSource{
 		URL:  "https://api.example.com",
 		Type: "api",
-		Processed: &newsletter.Processed{Data: map[string]any{
+		Processed: &types.Processed{Data: map[string]any{
 			"lines": []any{
 				map[string]any{"id": "line:1", "mode": "metro", "shortName": "1"},
 			},

@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
 const (
@@ -18,7 +18,7 @@ const (
 	retries   = 3
 )
 
-func Source(source newsletter.Source) ([]byte, error) {
+func Source(source types.Source) ([]byte, error) {
 	if source.URL == "" {
 		return nil, fmt.Errorf("%s is missing a URL", source.Name)
 	}
@@ -60,7 +60,7 @@ func Source(source newsletter.Source) ([]byte, error) {
 	return nil, lastErr
 }
 
-func headersFor(source newsletter.Source) (http.Header, error) {
+func headersFor(source types.Source) (http.Header, error) {
 	headers := http.Header{}
 	headers.Set("User-Agent", userAgent)
 	headers.Set("Accept", "application/rss+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.7")
@@ -68,7 +68,7 @@ func headersFor(source newsletter.Source) (http.Header, error) {
 	headers.Set("Connection", "close")
 
 	if source.Config.Auth == "apiKey" {
-		key := os.Getenv("PRIM_API_KEY") || ""
+		key := os.Getenv("PRIM_API_KEY")
 		if key == "" {
 			return nil, fmt.Errorf("%s requires PRIM_API_KEY", source.Name)
 		}

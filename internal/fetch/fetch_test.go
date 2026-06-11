@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/MehdiBenfredj/daily_newsletter/internal/fetch"
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
 func TestFetchSendsHeadersAndAPIKey(t *testing.T) {
@@ -26,7 +26,7 @@ func TestFetchSendsHeadersAndAPIKey(t *testing.T) {
 	}))
 	defer server.Close()
 
-	body, err := fetch.Source(newsletter.Source{URL: server.URL, Config: newsletter.SourceConfig{Auth: "apiKey"}})
+	body, err := fetch.Source(types.Source{URL: server.URL, Config: types.SourceConfig{Auth: "apiKey"}})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -52,9 +52,9 @@ func TestFetchFallsBackOnForbiddenAndRetriesTransientFailures(t *testing.T) {
 	}))
 	defer primary.Close()
 
-	body, err := fetch.Source(newsletter.Source{
+	body, err := fetch.Source(types.Source{
 		URL: primary.URL,
-		Config: newsletter.SourceConfig{
+		Config: types.SourceConfig{
 			FallbackURL: fallback.URL,
 		},
 	})
@@ -67,10 +67,10 @@ func TestFetchFallsBackOnForbiddenAndRetriesTransientFailures(t *testing.T) {
 }
 
 func TestFetchRequiresURLAndAPIKey(t *testing.T) {
-	if _, err := fetch.Source(newsletter.Source{}); err == nil {
+	if _, err := fetch.Source(types.Source{}); err == nil {
 		t.Fatal("expected missing URL error")
 	}
-	if _, err := fetch.Source(newsletter.Source{URL: "http://example.test", Config: newsletter.SourceConfig{Auth: "apiKey"}}); err == nil {
+	if _, err := fetch.Source(types.Source{URL: "http://example.test", Config: types.SourceConfig{Auth: "apiKey"}}); err == nil {
 		t.Fatal("expected missing API key error")
 	}
 }

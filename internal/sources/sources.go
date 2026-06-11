@@ -6,26 +6,26 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
-func Collect(path string) (newsletter.Collection, error) {
+func Collect(path string) (types.Collection, error) {
 	content, err := os.ReadFile(path)
 	if err != nil {
-		return newsletter.Collection{}, err
+		return types.Collection{}, err
 	}
 
 	var root map[string]any
 	if err := json.Unmarshal(content, &root); err != nil {
-		return newsletter.Collection{}, err
+		return types.Collection{}, err
 	}
 
 	themes, ok := root["themes"].([]any)
 	if !ok {
-		return newsletter.Collection{}, fmt.Errorf("expected 'themes' to be a list in %s", path)
+		return types.Collection{}, fmt.Errorf("expected 'themes' to be a list in %s", path)
 	}
 
-	collected := newsletter.Collection{
+	collected := types.Collection{
 		SourcePath: filepath.Clean(path),
 		ThemeCount: len(themes),
 	}
@@ -50,12 +50,12 @@ func Collect(path string) (newsletter.Collection, error) {
 			}
 			source, err := decodeSourceConfig(sourceMap)
 			if err != nil {
-				return newsletter.Collection{}, err
+				return types.Collection{}, err
 			}
 			if source.Type == "" {
 				source.Type = "rss"
 			}
-			collected.Sources = append(collected.Sources, newsletter.Source{
+			collected.Sources = append(collected.Sources, types.Source{
 				Theme:  theme,
 				Name:   source.Name,
 				URL:    source.URL,
@@ -69,14 +69,14 @@ func Collect(path string) (newsletter.Collection, error) {
 	return collected, nil
 }
 
-func decodeSourceConfig(value map[string]any) (newsletter.SourceConfig, error) {
+func decodeSourceConfig(value map[string]any) (types.SourceConfig, error) {
 	raw, err := json.Marshal(value)
 	if err != nil {
-		return newsletter.SourceConfig{}, err
+		return types.SourceConfig{}, err
 	}
-	var source newsletter.SourceConfig
+	var source types.SourceConfig
 	if err := json.Unmarshal(raw, &source); err != nil {
-		return newsletter.SourceConfig{}, err
+		return types.SourceConfig{}, err
 	}
 	source.Raw = value
 	return source, nil

@@ -15,7 +15,7 @@ import (
 
 	"golang.org/x/net/html"
 
-	"github.com/MehdiBenfredj/daily_newsletter/internal/newsletter"
+	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
 var whitespace = regexp.MustCompile(`\s+`)
@@ -59,7 +59,7 @@ func ParsePublishedDatetime(value string) (time.Time, bool) {
 	return time.Time{}, false
 }
 
-func ProcessedSource(source newsletter.ProcessedSource, now time.Time) ([]newsletter.Information, error) {
+func ProcessedSource(source types.ProcessedSource, now time.Time) ([]types.Information, error) {
 	if source.Processed == nil {
 		return nil, nil
 	}
@@ -90,8 +90,8 @@ func defaultType(value string) string {
 	return value
 }
 
-func filterRecent(items []newsletter.Information, now time.Time) []newsletter.Information {
-	recent := make([]newsletter.Information, 0, len(items))
+func filterRecent(items []types.Information, now time.Time) []types.Information {
+	recent := make([]types.Information, 0, len(items))
 	for _, item := range items {
 		if WasPublishedInLast24Hours(item.DatePublished, now) {
 			recent = append(recent, item)
@@ -100,7 +100,7 @@ func filterRecent(items []newsletter.Information, now time.Time) []newsletter.In
 	return recent
 }
 
-func rssInformation(processed *newsletter.Processed) ([]newsletter.Information, error) {
+func rssInformation(processed *types.Processed) ([]types.Information, error) {
 	raw, ok := processed.Data.(string)
 	if !ok {
 		return nil, nil
@@ -118,7 +118,7 @@ func rssInformation(processed *newsletter.Processed) ([]newsletter.Information, 
 		entries = descendants(root, "entry")
 	}
 
-	items := make([]newsletter.Information, 0, len(entries))
+	items := make([]types.Information, 0, len(entries))
 	for _, entry := range entries {
 		link := textOf(entry, "link")
 		if link == "" {
@@ -126,7 +126,7 @@ func rssInformation(processed *newsletter.Processed) ([]newsletter.Information, 
 				link = linkNode.Attrs["href"]
 			}
 		}
-		items = append(items, newsletter.Information{
+		items = append(items, types.Information{
 			URL:           link,
 			Title:         textOf(entry, "title"),
 			DatePublished: textOf(entry, "pubDate", "published", "updated", "date"),
@@ -219,7 +219,7 @@ func wantedNames(names []string) map[string]bool {
 	return wanted
 }
 
-func websiteInformation(source newsletter.ProcessedSource) ([]newsletter.Information, error) {
+func websiteInformation(source types.ProcessedSource) ([]types.Information, error) {
 	raw, ok := source.Processed.Data.(string)
 	if !ok {
 		return nil, nil
@@ -247,7 +247,7 @@ func websiteInformation(source newsletter.ProcessedSource) ([]newsletter.Informa
 	}
 
 	seen := map[string]bool{}
-	var items []newsletter.Information
+	var items []types.Information
 	var walk func(*html.Node)
 	walk = func(node *html.Node) {
 		if node.Type == html.ElementNode && strings.EqualFold(node.Data, "a") {
@@ -282,7 +282,7 @@ func compileOptional(pattern string) (*regexp.Regexp, error) {
 	return regexp.Compile(pattern)
 }
 
-func linkInformation(base *url.URL, node *html.Node) newsletter.Information {
+func linkInformation(base *url.URL, node *html.Node) types.Information {
 	var href string
 	for _, attr := range node.Attr {
 		if strings.EqualFold(attr.Key, "href") {
@@ -292,11 +292,11 @@ func linkInformation(base *url.URL, node *html.Node) newsletter.Information {
 	}
 	parsed, err := url.Parse(href)
 	if err != nil {
-		return newsletter.Information{}
+		return types.Information{}
 	}
 	resolved := base.ResolveReference(parsed)
 	resolved.Fragment = ""
-	return newsletter.Information{
+	return types.Information{
 		URL:   resolved.String(),
 		Title: cleanText(nodeText(node)),
 	}
@@ -318,7 +318,7 @@ func nodeText(node *html.Node) string {
 	return buf.String()
 }
 
-func apiInformation(source newsletter.ProcessedSource) ([]newsletter.Information, error) {
+func apiInformation(source types.ProcessedSource) ([]types.Information, error) {
 	data, ok := source.Processed.Data.(map[string]any)
 	if !ok {
 		return nil, nil
@@ -346,7 +346,7 @@ func apiInformation(source newsletter.ProcessedSource) ([]newsletter.Information
 	if !ok {
 		return nil, nil
 	}
-	items := make([]newsletter.Information, 0, len(disruptions))
+	items := make([]types.Information, 0, len(disruptions))
 	for _, value := range disruptions {
 		disruption, ok := value.(map[string]any)
 		if !ok {
@@ -359,7 +359,7 @@ func apiInformation(source newsletter.ProcessedSource) ([]newsletter.Information
 			stringValue(disruption["cause"]),
 			cleanTextWithoutHTML(firstNonEmpty(disruption["message"], disruption["shortMessage"])),
 		}
-		items = append(items, newsletter.Information{
+		items = append(items, types.Information{
 			URL:           source.URL,
 			Title:         cleanTextWithoutHTML(firstNonEmpty(disruption["title"], disruption["shortMessage"])),
 			DatePublished: stringValue(disruption["lastUpdate"]),
