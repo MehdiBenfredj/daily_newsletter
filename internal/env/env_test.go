@@ -35,12 +35,31 @@ export PRIM_API_KEY='prim-key'
 }
 
 func TestLoadRejectsInvalidLine(t *testing.T) {
-	path := filepath.Join(t.TempDir(), ".env")
-	if err := os.WriteFile(path, []byte("OPENROUTER_API_KEY\n"), 0o600); err != nil {
-		t.Fatal(err)
+	tests := []struct {
+		name    string
+		content string
+	}{
+		{name: "missing equals", content: "OPENROUTER_API_KEY\n"},
+		{name: "empty key", content: "=value\n"},
+		{name: "key with whitespace", content: "BAD KEY=value\n"},
 	}
 
-	if err := Load(path); err == nil {
-		t.Fatal("expected error")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			path := filepath.Join(t.TempDir(), ".env")
+			if err := os.WriteFile(path, []byte(tt.content), 0o600); err != nil {
+				t.Fatal(err)
+			}
+
+			if err := Load(path); err == nil {
+				t.Fatal("expected error")
+			}
+		})
+	}
+}
+
+func TestLoadMissingFile(t *testing.T) {
+	if err := Load(filepath.Join(t.TempDir(), ".env")); err == nil {
+		t.Fatal("expected missing file error")
 	}
 }
