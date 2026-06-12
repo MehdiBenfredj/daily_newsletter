@@ -22,30 +22,30 @@
           "name": "Hugging Face Blog",
           "url": "https://huggingface.co/papers",
           "type": "website",
-          "personal_preference": 5,
+          "personal_preference": 4,
           "include_url_regex": "/papers/|/blog/",
           "exclude_url_regex": "/papers$|/blog$|/spaces/|/models/|/datasets/",
-          "max_items": 20
+          "max_items": 5
         },
         {
           "name": "arXiv cs.AI",
           "url": "https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=20",
-          "personal_preference": 2
+          "personal_preference": 3
         },
         {
           "name": "arXiv cs.CL",
           "url": "https://export.arxiv.org/api/query?search_query=cat:cs.CL&sortBy=submittedDate&sortOrder=descending&max_results=20",
-          "personal_preference": 2
+          "personal_preference": 3
         },
         {
           "name": "Latent Space",
           "url": "https://www.latent.space/feed",
-          "personal_preference": 4
+          "personal_preference": 5
         },
         {
           "name": "Import AI",
           "url": "https://importai.substack.com/feed",
-          "personal_preference": 4
+          "personal_preference": 5
         }
       ]
     },
