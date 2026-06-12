@@ -1,764 +1,904 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Daily Newsletter — 2026-06-02 08:01</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
-<script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'] } } } }</script>
-<style>
-body { font-family: Inter, system-ui, sans-serif; background:#181818; }
-.lovable-logo { background: conic-gradient(from 210deg,#ff6a00,#ff2bb8,#4c8dff,#ff6a00); }
-.tab-active { background:#f4f4f0; color:#1b1b1b; }
-.tab-inactive { background:transparent; color:#aaa; }
-.fallback-gradient::after { content:""; position:absolute; inset:-18%; background:radial-gradient(circle at 50% 76%,#ff6a00 0 24%,#ff2b8a 42%,#4c8dff 68%,transparent 82%); filter:blur(24px); opacity:.9; }
-</style>
-</head><body class="min-h-screen bg-[#181818] text-white antialiased">
-<main class="mx-auto min-h-screen max-w-[720px] bg-[#181818] px-5 pb-12 pt-7">
-  <header class="sticky top-0 z-20 -mx-5 border-b border-white/[0.06] bg-[#181818]/92 px-5 pb-5 pt-3 backdrop-blur-xl">
-    <div class="flex items-center justify-between gap-4">
-      <a href="#home" class="flex items-center gap-2.5" aria-label="Daily Newsletter home">
-        <span class="lovable-logo grid h-9 w-9 place-items-center rounded-[10px] shadow-[0_0_28px_rgba(255,43,184,.28)]"><span class="h-4 w-4 rounded-full bg-white/20 blur-[1px]"></span></span>
-        <span class="text-[40px] font-extrabold leading-none tracking-[-0.07em] text-white">Lovable</span>
-      </a>
-      <div class="flex items-center gap-3">
-        <a href="https://mehdibenfredj.github.io/daily_newsletter/" class="rounded-xl bg-[#f4f4f0] px-4 py-3 text-[16px] font-semibold leading-none text-[#1b1b1b]">Get started</a>
-        <button class="relative h-9 w-9" aria-label="Menu"><span class="absolute left-1 top-2 h-0.5 w-7 bg-[#d9d9d9]"></span><span class="absolute left-1 top-4 h-0.5 w-5 bg-[#d9d9d9]"></span><span class="absolute left-1 top-6 h-0.5 w-7 bg-[#d9d9d9]"></span></button>
-      </div>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personal Paper</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Playfair Display", "Georgia", "serif"]
+          },
+          boxShadow: {
+            paper: "0 28px 90px rgba(17, 24, 39, 0.12)",
+            card: "0 18px 44px rgba(17, 24, 39, 0.10)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #667085;
+      --line: rgba(17, 24, 39, .12);
+      --paper: rgba(255, 255, 255, .88);
+      --wash: #f4f1eb;
+      --accent: #e94f37;
+    }
+
+    body {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .86), rgba(244, 241, 235, .92) 34rem),
+        radial-gradient(circle at 16% 8%, rgba(233, 79, 55, .14), transparent 27rem),
+        radial-gradient(circle at 86% 16%, rgba(28, 100, 242, .12), transparent 25rem),
+        radial-gradient(circle at 70% 86%, rgba(20, 121, 95, .10), transparent 29rem),
+        var(--wash);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(17, 24, 39, .035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 24, 39, .025) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .55), transparent 75%);
+    }
+
+    .paper-grid {
+      grid-template-columns: minmax(0, 1.12fr) minmax(360px, .88fr);
+    }
+
+    .lead-card {
+      grid-template-columns: 1fr;
+    }
+
+    .article-card {
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, .96), rgba(251, 249, 245, .88));
+      position: relative;
+    }
+
+    .article-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .72);
+    }
+
+    .article-card:hover {
+      border-color: rgba(233, 79, 55, .28);
+    }
+
+    .image-link {
+      isolation: isolate;
+      aspect-ratio: 16 / 10;
+      display: block;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .72), rgba(232, 237, 244, .82));
+    }
+
+    .image-link::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      z-index: 0;
+      background-image: var(--article-image);
+      background-position: center;
+      background-size: cover;
+      filter: blur(24px) saturate(1.04);
+      opacity: 0;
+      transform: scale(1.08);
+      transition: opacity .2s ease;
+    }
+
+    .image-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(17, 24, 39, .10)),
+        linear-gradient(135deg, rgba(255, 255, 255, .40), rgba(232, 237, 244, .34));
+    }
+
+    .image-link .article-image,
+    .image-link > div {
+      position: relative;
+      z-index: 1;
+    }
+
+    .image-link.image-weird {
+      display: grid;
+      place-items: center;
+      background: #e8edf4;
+    }
+
+    .image-link.image-weird::before {
+      opacity: .48;
+    }
+
+    .image-link.image-weird .article-image {
+      height: calc(100% - 28px);
+      width: calc(100% - 28px);
+      object-fit: contain;
+      transform: none;
+      border-radius: .5rem;
+      box-shadow: 0 14px 32px rgba(17, 24, 39, .16);
+    }
+
+    .image-link.image-broken .article-image {
+      display: none;
+    }
+
+    .active-tab {
+      background: #111827;
+      color: #ffffff;
+      box-shadow: 0 12px 28px rgba(17, 24, 39, .16);
+    }
+
+    .theme-active {
+      color: #111827;
+    }
+
+    .theme-active::after {
+      opacity: 1;
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .no-scrollbar {
+      scrollbar-width: none;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .small-card {
+      grid-template-columns: minmax(168px, .72fr) minmax(0, 1fr);
+    }
+
+    .small-card .image-link {
+      aspect-ratio: 4 / 3;
+    }
+
+    .lead-card .image-link {
+      aspect-ratio: 16 / 9;
+    }
+
+    #menu-toggle.menu-open .menu-line:nth-child(1) {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    #menu-toggle.menu-open .menu-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle.menu-open .menu-line:nth-child(3) {
+      bottom: 50%;
+      transform: translateY(50%) rotate(-45deg);
+    }
+
+    @media (max-width: 1024px) {
+      .paper-grid,
+      .lead-card,
+      .small-card {
+        grid-template-columns: 1fr;
+      }
+
+      .small-card .image-link {
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .small-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-[#111827] antialiased">
+  <header class="sticky top-0 z-30 border-b border-[#111827]/10 bg-white/78 backdrop-blur-2xl">
+    <div class="mx-auto flex max-w-[1360px] items-center gap-3 px-5 py-4 sm:gap-5 sm:px-8 lg:px-12">
+      <a href="#" class="shrink-0 font-display text-2xl leading-none text-[#111827] sm:mr-4 sm:text-4xl">Personal Paper</a>
+
+      <nav class="hidden items-center gap-4 md:flex" aria-label="Primary">
+        <button class="main-tab active-tab rounded-lg px-5 py-2.5 text-sm font-semibold transition" data-filter="home">Home</button>
+      </nav>
+
+      <div class="hidden h-9 w-px bg-[#111827]/12 md:block"></div>
+
+      <nav id="theme-tabs" class="no-scrollbar -mx-5 hidden min-w-0 flex-1 items-center gap-3 overflow-x-auto px-5 md:mx-0 md:flex md:px-0" aria-label="Themes"></nav>
+
+      <button id="menu-toggle" class="ml-auto grid h-11 w-11 place-items-center rounded-lg border border-[#111827]/12 bg-white/80 text-[#111827] shadow-[0_10px_24px_rgba(17,24,39,.08)] md:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <span class="relative block h-4 w-5">
+          <span class="menu-line absolute left-0 top-0 h-0.5 w-5 rounded-full bg-current transition"></span>
+          <span class="menu-line absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 rounded-full bg-current transition"></span>
+          <span class="menu-line absolute bottom-0 left-0 h-0.5 w-5 rounded-full bg-current transition"></span>
+        </span>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-[#111827]/10 bg-white/95 px-5 pb-5 pt-3 shadow-paper md:hidden">
+      <nav class="grid grid-cols-2 gap-2" aria-label="Mobile navigation">
+        <button class="main-tab active-tab rounded-lg px-4 py-3 text-left text-base font-semibold transition" data-filter="home">Home</button>
+      </nav>
     </div>
   </header>
 
-  <section class="relative -mx-5 overflow-hidden px-5 pb-9 pt-28 text-center">
-    <div class="absolute inset-x-[-12%] bottom-0 h-[420px] bg-[radial-gradient(circle_at_50%_78%,#ff6a00_0_22%,#ff2b8a_42%,#4c8dff_69%,transparent_82%)] blur-2xl opacity-95"></div>
-    <div class="relative mx-auto max-w-[620px]">
-      <h1 class="text-[44px] font-extrabold leading-[1.02] tracking-[-0.065em] text-white sm:text-6xl">Build something Lovable</h1>
-      <p class="mx-auto mt-4 max-w-[420px] text-[22px] font-semibold leading-tight tracking-[-0.035em] text-[#b8b8b8]">Today’s signal, without the feed</p>
-      <div class="mx-auto mt-10 rounded-[2rem] border border-black/70 bg-[#222] p-5 text-left shadow-[0_24px_80px_rgba(0,0,0,.45)] ring-1 ring-white/10">
-        <p class="mb-10 text-[20px] font-medium tracking-[-0.03em] text-[#d7d7d7]">Ask Hermes for the best things worth reading today</p>
-        <div class="flex items-center justify-between text-[#9d9d9d]"><span class="grid h-12 w-12 place-items-center rounded-full bg-white/[0.07] text-3xl font-light">+</span><span class="font-semibold">Build⌄</span><span>⌾</span><span class="grid h-12 w-12 place-items-center rounded-full bg-[#d8d8d8] text-xl text-[#181818]">↑</span></div>
+  <main class="mx-auto max-w-[1360px] px-5 py-10 sm:px-8 lg:px-12 lg:py-12">
+    <section class="mb-8 border-b border-[#111827]/10 pb-7 sm:mb-10 sm:flex sm:items-end sm:justify-between sm:gap-8">
+      <div>
+        <p id="kicker" class="text-xs font-black uppercase tracking-[0.18em] text-[#e94f37]">Home</p>
+        <h1 class="mt-3 max-w-4xl text-4xl font-black leading-[0.98] sm:text-6xl">Five things worth reading now</h1>
       </div>
-    </div>
-  </section>
-
-  <nav class="mb-8 mt-2 grid grid-cols-3 rounded-2xl border border-white/10 bg-white/[0.05] p-1" role="tablist" aria-label="Newsletter sections">
-    <button type="button" data-tab="home" role="tab" aria-selected="true" class="tab-button tab-active rounded-xl px-3 py-3 text-sm font-bold transition">Home</button>
-    <button type="button" data-tab="must" role="tab" aria-selected="false" class="tab-button tab-inactive rounded-xl px-3 py-3 text-sm font-bold transition">Must Read</button>
-    <button type="button" data-tab="themes" role="tab" aria-selected="false" class="tab-button tab-inactive rounded-xl px-3 py-3 text-sm font-bold transition">Themes</button>
-  </nav>
-
-  <div class="grid gap-10">
-    <div data-panel="home" role="tabpanel">
-    <section id="home" class="space-y-5">
-      <div class="space-y-1">
-        <p class="text-sm font-semibold text-[#8c8c8c]">top picks</p>
-        <h2 class="text-[42px] font-bold leading-none tracking-[-0.065em] text-white sm:text-6xl">Home</h2>
-      </div>
-      <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://openai.com/index/our-views-on-ai-policy-and-political-advocacy" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">OpenAI News</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://openai.com/index/our-views-on-ai-policy-and-political-advocacy">Our views on AI policy and political advocacy</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://www.theverge.com/tech/941138/google-gemini-spark-ai-agent-hands-on" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/lcimg-0ebbe911-9fbb-4f68-97b0-b7361d7cb53c.jpeg?quality=90&amp;strip=all&amp;crop=0,0,100,100" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Software Engineering / Architecture</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">The Verge</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.theverge.com/tech/941138/google-gemini-spark-ai-agent-hands-on">Gemini’s new AI agent is about as good as Google’s demo</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://arxiv.org/abs/2604.16922" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">arXiv cs.AI</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://arxiv.org/abs/2604.16922">ClimAgent: LLM as Agents for Autonomous Open-ended Climate Science Analysis</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://arxiv.org/abs/2606.01189" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">arXiv cs.AI</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://arxiv.org/abs/2606.01189">The Case for Model Science: Verify, Explore, Steer, Refine</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://huggingface.co/papers/2605.23657" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://huggingface.co/front/thumbnails/papers.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Hugging Face Blog</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://huggingface.co/papers/2605.23657">OpenSkillEval: Automatically Auditing the Open Skill Ecosystem for LLM Agents</a>
-      </div>
-    </article>
-    </div>
+      <p id="count" class="mt-4 max-w-sm text-sm font-semibold leading-6 text-[#667085] sm:mt-0">A quiet front page for the links you actually want to open.</p>
     </section>
-    </div>
-    <div data-panel="must" role="tabpanel" hidden>
-    <section id="must" class="space-y-5">
-      <div class="space-y-1">
-        <p class="text-sm font-semibold text-[#8c8c8c]">major only</p>
-        <h2 class="text-[42px] font-bold leading-none tracking-[-0.065em] text-white sm:text-6xl">Must Read</h2>
-      </div>
-      <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxNZnVRVlBnMG5xaWJJb2thTTVoT3JMWktUVEVreFNqX1ZLNFVNTjJMSUlQRTRhendQcW02eXBMdy1PTTA4TXlLS0FSOHhWM2s1WVpKb3ZVbU83NXFlblV2V05SMWFKZnhkYnRUU2tIYVVKRGhWYjExdGxRWE5jMjNuQ3gwdmFvYl92X1BFaU1mVl9iX0NlS0Z3RnlEaG1NRS1zM0J0enAyeG5MOU5SVkNFa0FLc3V5ai0wRWRiaWtGZ3Qta2t0TGticG1iZ3MySC1CbzhDSg?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Le Soir d&#x27;Algérie</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMi1AFBVV95cUxNZnVRVlBnMG5xaWJJb2thTTVoT3JMWktUVEVreFNqX1ZLNFVNTjJMSUlQRTRhendQcW02eXBMdy1PTTA4TXlLS0FSOHhWM2s1WVpKb3ZVbU83NXFlblV2V05SMWFKZnhkYnRUU2tIYVVKRGhWYjExdGxRWE5jMjNuQ3gwdmFvYl92X1BFaU1mVl9iX0NlS0Z3RnlEaG1NRS1zM0J0enAyeG5MOU5SVkNFa0FLc3V5ai0wRWRiaWtGZ3Qta2t0TGticG1iZ3MySC1CbzhDSg?oc=5">Iran : Les Gardiens de la Révolution disent avoir visé une base utilisée pour des frappes américaines - Monde - Le soir d&#x27;Algérie</a>
-      </div>
-    </article>
-    
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNRDJDZF9QS2VEVkwyVXVDUG1nYnRFYXRsX0ZDSnAtS1duVjU4d2sxS243M0xOazdOTFJXR1RSZFdDemQ4Rjh0VjRVLVc3QXBXRGJBSGRoYURoUUtwWF9DV1NKdXhWbk5BLWxoQTdheks5Qm9tR29nWjQyeWx1WmQ4UElWaGx3dmRya1ZyM2xydlRlRlBjX3V6alo0RG03emJpbEdxNkg5WEdIWVVrWEJhbE1NRmZwN3JHY2FQdlRtSQ?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Le Soir d&#x27;Algérie</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxNRDJDZF9QS2VEVkwyVXVDUG1nYnRFYXRsX0ZDSnAtS1duVjU4d2sxS243M0xOazdOTFJXR1RSZFdDemQ4Rjh0VjRVLVc3QXBXRGJBSGRoYURoUUtwWF9DV1NKdXhWbk5BLWxoQTdheks5Qm9tR29nWjQyeWx1WmQ4UElWaGx3dmRya1ZyM2xydlRlRlBjX3V6alo0RG03emJpbEdxNkg5WEdIWVVrWEJhbE1NRmZwN3JHY2FQdlRtSQ?oc=5">L&#x27;Iran n&#x27;approuvera aucun accord avec Washington sans garanties sur ses droits - Le soir d&#x27;Algérie</a>
-      </div>
-    </article>
-    
+    <section id="articles" class="grid paper-grid gap-4 lg:gap-5" aria-live="polite"></section>
+  </main>
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMixAFBVV95cUxOaWZqQXcxcjdTM3RlT1J5VTV1RWQwazJtOTdPbmtuZVBMc0ZHZTI4cXF0Y0tweW9FMjJIS2xUWlBxNzVUeXdBSHE1Vy1NTDlhQ010Vm9iVWtOaDRrMXMtX1U1Ujl6MnJSVEVNTWJ3YWFLcHdrRHdaWXRMMFk5RnVNNVV5WjJSaEV5UnBzQVdhZVNtcFZrZGVuMi14SEE2bmU0UzNvR2RWeF9RX1djR20xaWVjR1U2akVoUnNzQlliVXo0YzBD?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Le Soir d&#x27;Algérie</span>
+  <template id="lead-template">
+    <article class="article-card lead-card group grid overflow-hidden rounded-lg border border-[#111827]/12 shadow-paper transition duration-300 hover:-translate-y-1 hover:shadow-card">
+      <a class="image-link relative overflow-hidden bg-[#e8edf4]" href="#" target="_blank" rel="noreferrer">
+        <img class="article-image h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" src="" alt="" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/15 to-transparent"></div>
+      </a>
+      <div class="flex min-w-0 flex-col p-6 sm:p-8 lg:p-9">
+        <a class="source mb-5 truncate text-sm font-bold uppercase tracking-[0.14em] text-[#667085] hover:text-[#111827]" href="#" target="_blank" rel="noreferrer"></a>
+        <a class="headline text-3xl font-black leading-[1.05] text-[#111827] transition hover:text-[#e94f37] sm:text-4xl xl:text-5xl" href="#" target="_blank" rel="noreferrer"></a>
+        <p class="summary mt-5 text-base font-medium leading-7 text-[#667085] sm:text-lg sm:leading-8"></p>
+        <div class="mt-7 flex flex-wrap items-center gap-3 text-sm font-semibold text-[#667085]">
+          <span class="tag rounded-md px-3 py-2 font-bold"></span>
+          <span class="date"></span>
         </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMixAFBVV95cUxOaWZqQXcxcjdTM3RlT1J5VTV1RWQwazJtOTdPbmtuZVBMc0ZHZTI4cXF0Y0tweW9FMjJIS2xUWlBxNzVUeXdBSHE1Vy1NTDlhQ010Vm9iVWtOaDRrMXMtX1U1Ujl6MnJSVEVNTWJ3YWFLcHdrRHdaWXRMMFk5RnVNNVV5WjJSaEV5UnBzQVdhZVNtcFZrZGVuMi14SEE2bmU0UzNvR2RWeF9RX1djR20xaWVjR1U2akVoUnNzQlliVXo0YzBD?oc=5">Iran : Le gouvernement dément formellement la rumeur de démission du président Pezeshkian - Monde - Le soir d&#x27;Algérie</a>
       </div>
     </article>
-    
+  </template>
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxQTVNXeXR1eDI5ZWQzRS1uRFExdWNkbjdSTmdPUFMtTFdvNlpuU0x0c01namprUkY0aEh4aEJpLVhRUWUyLXUwQkoxNlVsaVduOEFjVFVtY3NLY2tsRF9WaVkxSWRlSHhuWmtVMGhoY2sxc09PV1h1Z2Z2REd6NWpSZGtWdWxLV0R0RW04MGxJR2piaFJkdnQxN19kckJ1T3BURzl0UnMyeHVrd1RjVFlZVExDaFNGbVNobmVmVTZ4emtldmFVNTBGSG9DUlNzZw?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Le Soir d&#x27;Algérie</span>
+  <template id="small-template">
+    <article class="article-card small-card group grid gap-5 overflow-hidden rounded-lg border border-[#111827]/12 p-5 shadow-card transition duration-300 hover:-translate-y-1">
+      <a class="image-link relative overflow-hidden rounded-md bg-[#e8edf4]" href="#" target="_blank" rel="noreferrer">
+        <img class="article-image h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" src="" alt="" loading="lazy">
+      </a>
+      <div class="flex min-w-0 flex-col justify-center py-0.5 pr-1">
+        <a class="source mb-3 truncate text-xs font-bold uppercase tracking-[0.12em] text-[#667085] hover:text-[#111827]" href="#" target="_blank" rel="noreferrer"></a>
+        <a class="headline text-xl font-black leading-[1.14] text-[#111827] transition hover:text-[#e94f37] lg:text-[1.35rem]" href="#" target="_blank" rel="noreferrer"></a>
+        <div class="mt-4 flex flex-wrap items-center gap-3 text-xs font-semibold text-[#667085] sm:text-sm">
+          <span class="tag rounded-md px-3 py-2 font-bold"></span>
+          <span class="date"></span>
         </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMizgFBVV95cUxQTVNXeXR1eDI5ZWQzRS1uRFExdWNkbjdSTmdPUFMtTFdvNlpuU0x0c01namprUkY0aEh4aEJpLVhRUWUyLXUwQkoxNlVsaVduOEFjVFVtY3NLY2tsRF9WaVkxSWRlSHhuWmtVMGhoY2sxc09PV1h1Z2Z2REd6NWpSZGtWdWxLV0R0RW04MGxJR2piaFJkdnQxN19kckJ1T3BURzl0UnMyeHVrd1RjVFlZVExDaFNGbVNobmVmVTZ4emtldmFVNTBGSG9DUlNzZw?oc=5">L&#x27;armée américaine annonce avoir frappé des radars et sites de contrôle de drones en Iran - Le soir d&#x27;Algérie</a>
       </div>
     </article>
-    
+  </template>
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxQdzJpWFQ4UGVVSjFXNWtsSjBGRG1DdTVNRFg3bnVGTC1qSlRIazIwR19QdFVHRk5ySW1JaTd4bDF5X282cTdFaWhwdXh2Z2hER0hyN2Y2TE9vR1dwVk0zaC1sdUQweXlVelFBa3BrSkFzcXNoM0h1NUR3VFZWaXRPTkFUSk14c1BFVlNSUnEwcG1hVFF5Vndyd3FyTVRfN1NBQXU1T20xT0ljMmpJUnBtNVBJaGgwdnB3WjlXMTdSTQ?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Reuters World</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxQdzJpWFQ4UGVVSjFXNWtsSjBGRG1DdTVNRFg3bnVGTC1qSlRIazIwR19QdFVHRk5ySW1JaTd4bDF5X282cTdFaWhwdXh2Z2hER0hyN2Y2TE9vR1dwVk0zaC1sdUQweXlVelFBa3BrSkFzcXNoM0h1NUR3VFZWaXRPTkFUSk14c1BFVlNSUnEwcG1hVFF5Vndyd3FyTVRfN1NBQXU1T20xT0ljMmpJUnBtNVBJaGgwdnB3WjlXMTdSTQ?oc=5">Russian drones, missiles strike Ukraine in major attack; 11 dead, scores wounded - Reuters</a>
-      </div>
-    </article>
-    </div>
-    </section>
-    </div>
-    <div data-panel="themes" role="tabpanel" hidden>
-      <section id="themes" class="space-y-7">
-        <div class="space-y-1"><p class="text-sm font-semibold text-[#8c8c8c]">max 3 each</p><h2 class="text-[42px] font-bold leading-none tracking-[-0.065em] text-white sm:text-6xl">Themes</h2></div>
-        <div class="space-y-10">
-        <section id="theme-ai-agentic" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">AI / Agentic</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://huggingface.co/papers/2605.24202" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://huggingface.co/front/thumbnails/papers.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Hugging Face Blog</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://huggingface.co/papers/2605.24202">When Does Multi-Agent RL Improve LLM Workflows? Workflow, Scale, and Policy-Sharing Tradeoffs</a>
-      </div>
-    </article>
-    
+  <script>
+    const newsletterData = {
+      "generatedAt": "2026-06-12T21:28:02.512Z",
+      "home": [
+            {
+                  "title": "Scaling Security Insights: how we achieved a 10x increase in global scanning capacity",
+                  "summary": "Cloudflare Security Insights system now processes over 120 scans per second, providing frequent insights for all customers. By optimizing Kafka consumers, Postgres queries, and our API, we scaled our throughput 10x wi...",
+                  "url": "https://blog.cloudflare.com/scaling-security-scans/",
+                  "source": "Cloudflare Blog",
+                  "category": "Software Engineering / Architecture",
+                  "date": "Jun 12, 2026",
+                  "time": "Rating 8.1",
+                  "color": "bg-[#ffe4d9] text-[#f05f3e]",
+                  "image": "https://cf-assets.www.cloudflare.com/zkvhlag99gkb/2RqXjRJ4riFkCewNcsJ0T3/41f324b3debcc2956cd2d3bfc9aa6248/Scaling_Security_Insights-_how_we_achieved_a_10x_increase_in_global_scanning_capacity-OG.png"
+            },
+            {
+                  "title": "EvoArena: Tracking Memory Evolution for Robust LLM Agents in Dynamic Environments",
+                  "summary": "A rated pick from Hugging Face Blog.",
+                  "url": "https://huggingface.co/papers/2606.13681",
+                  "source": "Hugging Face Blog",
+                  "category": "AI / Agentic",
+                  "date": "Today",
+                  "time": "Rating 7.9",
+                  "color": "bg-[#dceeff] text-[#1871d6]",
+                  "image": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2606.13681/gradient.png"
+            },
+            {
+                  "title": "InterleaveThinker: Reinforcing Agentic Interleaved Generation",
+                  "summary": "A rated pick from Hugging Face Blog.",
+                  "url": "https://huggingface.co/papers/2606.13679",
+                  "source": "Hugging Face Blog",
+                  "category": "AI / Agentic",
+                  "date": "Today",
+                  "time": "Rating 7.9",
+                  "color": "bg-[#e5f2d9] text-[#4d8b45]",
+                  "image": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2606.13679/gradient.png"
+            },
+            {
+                  "title": "Le métro et le RER jouent les prolongations pour la Fête de la musique - Ville de Paris",
+                  "summary": "Le métro et le RER jouent les prolongations pour la Fête de la musique Ville de Paris",
+                  "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQYlNIclpHd3JCZDJ4S1dYNTZRRVFxU2gzdVpLS3FueWNnTGtkNHFhb2tNV1VKdlJibjU2cWpZeTVzTFVSeHdvZFlIMURjWTRrR1NQODdjaEtENXpZRE9Jc3hRUTZZb1ZKUFpuTFFyNHo2enFzQU83dnJ2bF8wc05nSW1TR2dsbk94ZmpqMFlsZlJVUmY3a3hkUmVQY3o0TDZz?oc=5",
+                  "source": "Paris.fr",
+                  "category": "France / Paris Local",
+                  "date": "Jun 12, 2026",
+                  "time": "Rating 7.8",
+                  "color": "bg-[#eadcff] text-[#7d38e8]",
+                  "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+            },
+            {
+                  "title": "Info Metro RER trains, fermetures, travaux et manifestations à Paris ce Vendredi 12 juin 2026",
+                  "summary": "En un clin d'œil, accédez à l'intégralité des informations concernant le trafic et la circulation à Paris mises à jour en temps réel. Metro RER et Transilien de la RATP, travaux, circulation, grands évènements et mani...",
+                  "url": "https://www.sortiraparis.com/actualites/a-paris/articles/229644-transports-paris-metro-rer-trains",
+                  "source": "Sortir à Paris",
+                  "category": "France / Paris Local",
+                  "date": "Jun 12, 2026",
+                  "time": "Rating 7.7",
+                  "color": "bg-[#ffe0df] text-[#e94f4f]",
+                  "image": "https://cdn.sortiraparis.com/images/80/74061/587448-en-direct-le-trafic-et-la-circulation-a-paris-ce-mardi-22-septembre-2020-en-temps-reel.jpg"
+            }
+      ],
+      "themes": [
+            {
+                  "id": "ai-agentic",
+                  "label": "AI / Agentic",
+                  "articles": [
+                        {
+                              "title": "[AINews] Loopcraft: The Art of Stacking Loops",
+                              "summary": "a quiet day lets us highlight a great concept from Peter Steinberger, Boris Cherny, and Andrej Karpathy",
+                              "url": "https://www.latent.space/p/ainews-loopcraft-the-art-of-stacking",
+                              "source": "Latent Space",
+                              "category": "AI / Agentic",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.7",
+                              "color": "bg-[#ffe4d9] text-[#f05f3e]",
+                              "image": "https://substackcdn.com/image/fetch/$s_!6Y74!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F517bbc58-4f26-46b5-a12e-f4a5f84b0a30_1986x1118.png"
+                        },
+                        {
+                              "title": "SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning",
+                              "summary": "A rated pick from Hugging Face Blog.",
+                              "url": "https://huggingface.co/papers/2606.13673",
+                              "source": "Hugging Face Blog",
+                              "category": "AI / Agentic",
+                              "date": "Today",
+                              "time": "Rating 7.7",
+                              "color": "bg-[#ffe4d9] text-[#f05f3e]",
+                              "image": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2606.13673/gradient.png"
+                        },
+                        {
+                              "title": "MiniMax Sparse Attention",
+                              "summary": "A rated pick from Hugging Face Blog.",
+                              "url": "https://huggingface.co/papers/2606.13392",
+                              "source": "Hugging Face Blog",
+                              "category": "AI / Agentic",
+                              "date": "Today",
+                              "time": "Rating 7.7",
+                              "color": "bg-[#ffe4d9] text-[#f05f3e]",
+                              "image": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2606.13392/gradient.png"
+                        },
+                        {
+                              "title": "New OpenAI Academy courses for the next era of work",
+                              "summary": "OpenAI introduces three Academy courses that help people build practical AI skills, create repeatable workflows, and apply agents in everyday work.",
+                              "url": "https://openai.com/index/academy-courses-applying-ai-at-work",
+                              "source": "OpenAI News",
+                              "category": "AI / Agentic",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.5",
+                              "color": "bg-[#ffe4d9] text-[#f05f3e]",
+                              "image": "https://images.ctfassets.net/kftzwdyauwt9/3uhZVST93Uain15J19fqjF/544b8b12c44fb2035c96b419c5196013/Frame.png?w=1600&h=900&fit=fill"
+                        },
+                        {
+                              "title": "How Preply combines AI and human tutors to personalize learning",
+                              "summary": "Preply uses OpenAI to launch AI-generated lesson summaries, providing personalised feedback and language learning exercises.",
+                              "url": "https://openai.com/index/preply",
+                              "source": "OpenAI News",
+                              "category": "AI / Agentic",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 4.3",
+                              "color": "bg-[#ffe4d9] text-[#f05f3e]",
+                              "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80"
+                        }
+                  ]
+            },
+            {
+                  "id": "software-engineering-architecture",
+                  "label": "Software Engineering / Architecture",
+                  "articles": [
+                        {
+                              "title": "SpaceX is now public",
+                              "summary": "SpaceX is now a publicly traded company. In one of the most highly anticipated and controversial public offerings of all time, the rocket venture helmed by Elon Musk started trading on Nasdaq on June 12th at the take-...",
+                              "url": "https://www.theverge.com/science/947926/spacex-ipo-stock-shares-trading-elon-musk",
+                              "source": "The Verge",
+                              "category": "Software Engineering / Architecture",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 5.4",
+                              "color": "bg-[#dceeff] text-[#1871d6]",
+                              "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/STKE012_SPACEX_IPO_2026_F.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200"
+                        },
+                        {
+                              "title": "Jeff Bezos’ AI startup aims to build an ‘artificial general engineer’",
+                              "summary": "Amazon founder Jeff Bezos says his new AI startup will work toward developing an \"artificial general engineer,\" according to reports from The New York Times and CNBC. The startup, called Prometheus, aims to develop AI...",
+                              "url": "https://www.theverge.com/ai-artificial-intelligence/949005/jeff-bezos-prometheus-artificial-general-engineer",
+                              "source": "The Verge",
+                              "category": "Software Engineering / Architecture",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 4.7",
+                              "color": "bg-[#dceeff] text-[#1871d6]",
+                              "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/23951505/VRG_Illo_STK173_L_Normand_JeffBezos_Positive.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200"
+                        }
+                  ]
+            },
+            {
+                  "id": "fc-barcelona",
+                  "label": "FC Barcelona",
+                  "articles": [
+                        {
+                              "title": "Barcelona appoint new CFO as club prepares for key financial challenges - Barca Universal",
+                              "summary": "Barcelona appoint new CFO as club prepares for key financial challenges Barca Universal",
+                              "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNWFdadDF4SXpSVnhVWUdOZWtmUFhWZ3U2dGxaNjhtRGEtWmptWlExWTV1U3Z6UTBIcWUyRkpFRGtlS0VOelZZUVJMTFhvR1lYTTRwV3Fmdk1reEZXZ0pvd2FmMG9kODcxdks3OGE3ZHJ1dDZqMG43SW8tbXdLSzZ4RkpXb0g0dmVQb043aWxsdldwQVJUTDBzcnhza3l3a3hN?oc=5",
+                              "source": "Barça Universal",
+                              "category": "FC Barcelona",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.5",
+                              "color": "bg-[#e5f2d9] text-[#4d8b45]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "The 12 La Masia talents Hansi Flick will call for pre-season preparations – report - Barca Universal",
+                              "summary": "The 12 La Masia talents Hansi Flick will call for pre-season preparations – report Barca Universal",
+                              "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQSy1mam1qenJXTlh3UlZlc2JFOWtzZlE5SDFoRGtDUmdLS1pmZ0pESmZRSU1qci1senF1RzV2ZHJVQ2p1TmFkQXMzOGI4cE5DbXNvUW1WdFkwRjVaWDMyY3E5VkxUWnVaR3F5YUhpdkFVeW4zM3BFSkpLM1ZjRm83MERQNEtYc190ZWZJcDFqR2FKcEtlaExFTkNQclFjNWwzY3FjcWNPcDc5aVhC?oc=5",
+                              "source": "Barça Universal",
+                              "category": "FC Barcelona",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 5.8",
+                              "color": "bg-[#e5f2d9] text-[#4d8b45]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        }
+                  ]
+            },
+            {
+                  "id": "football",
+                  "label": "Football",
+                  "articles": [
+                        {
+                              "title": "Brazil vs Morocco Prediction: World Cup 2026 Match Preview",
+                              "summary": "Carlo Ancelotti will become the first foreign coach to lead Brazil at a FIFA World Cup in Saturday's Group C meeting with Morocco. We look ahead to the match with our preview. The post Brazil vs Morocco Prediction: Wo...",
+                              "url": "https://theanalyst.com/articles/brazil-vs-morocco-prediction-world-cup-2026-match-preview",
+                              "source": "Opta Analyst Football",
+                              "category": "Football",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.1",
+                              "color": "bg-[#eadcff] text-[#7d38e8]",
+                              "image": "https://theanalyst.com/wp-content/uploads/2026/06/brazil-vs-morocco-prediction-opta-supercomputer.jpg"
+                        },
+                        {
+                              "title": "Quinones scores opening goal of 2026 World Cup",
+                              "summary": "Mexico's Julian Quinones scores the opening goal of the 2026 World Cup against South Africa at Mexico City Stadium.",
+                              "url": "https://www.bbc.com/sport/football/videos/cqx184lqywwo?at_medium=RSS&at_campaign=rss",
+                              "source": "BBC Football",
+                              "category": "Football",
+                              "date": "Jun 11, 2026",
+                              "time": "Rating 5.6",
+                              "color": "bg-[#eadcff] text-[#7d38e8]",
+                              "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/25cc/live/7cbe9eb0-65d6-11f1-8546-8f19e4fe30f4.jpg"
+                        },
+                        {
+                              "title": "Three red cards shown in opening game of World Cup",
+                              "summary": "Referee Wilton Pereira Sampaio shows red cards to South Africa's Yaya Sithole and Themba Zwane as well as Mexico's Cesar Montes during the opening match of the 2026 World Cup at the Mexico City Stadium.",
+                              "url": "https://www.bbc.com/sport/football/videos/cpv3nk20e9xo?at_medium=RSS&at_campaign=rss",
+                              "source": "BBC Football",
+                              "category": "Football",
+                              "date": "Jun 11, 2026",
+                              "time": "Rating 5.5",
+                              "color": "bg-[#eadcff] text-[#7d38e8]",
+                              "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/8de0/live/af48e7f0-65db-11f1-8546-8f19e4fe30f4.jpg"
+                        },
+                        {
+                              "title": "‘More pressure than the president’: Ancelotti sets out to end Brazil’s World Cup drought",
+                              "summary": "Last triumph was in 2002 but Italian head coach, without Neymar against Morocco, brings ‘joy and enthusiasm’ It is Marcio Santos who best sums up the predicament Brazil’s players found themselves in before the 1994 Wo...",
+                              "url": "https://www.theguardian.com/football/2026/jun/12/more-pressure-than-the-president-ancelotti-sets-out-to-end-brazils-world-cup-drought",
+                              "source": "The Guardian Football",
+                              "category": "Football",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 5.2",
+                              "color": "bg-[#eadcff] text-[#7d38e8]",
+                              "image": "https://i.guim.co.uk/img/media/f187bdcde9ff86b741aa5de913f9fad3afd00e95/505_137_2390_1912/master/2390.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=abbabd06ed1f0e8860baf94b21db2355"
+                        },
+                        {
+                              "title": "France followed to World Cup by home politics after Mbappé’s swipe at far right",
+                              "summary": "Platini among former players to accuse captain of creating distraction as Deschamps defends captain’s right to speak “If there’s one wish I have, it’s for you to ask my players about the opponents, about football,” Di...",
+                              "url": "https://www.theguardian.com/football/2026/jun/12/france-followed-to-world-cup-by-home-politics-after-mbappes-swipe-at-far-right",
+                              "source": "The Guardian Football",
+                              "category": "Football",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 5.1",
+                              "color": "bg-[#eadcff] text-[#7d38e8]",
+                              "image": "https://i.guim.co.uk/img/media/90241b58c190ecf6893dfc816430913904b3d399/519_0_5145_4116/master/5145.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&precrop=40:21,offset-x50,offset-y0&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=a6034b5e2730bce063784a6c997798ce"
+                        }
+                  ]
+            },
+            {
+                  "id": "algeria",
+                  "label": "Algeria",
+                  "articles": [
+                        {
+                              "title": "Argentine-Algérie (J-4) / Mondial 2026 : L’Albiceleste arrive diminuée",
+                              "summary": "À quatre jours de l’affiche entre l’Algérie et l’Argentine, qui lancera les débats dans le groupe J de la Coupe du Monde 2026, la sélection championne du monde en titre aborde ce rendez-vous avec plusieurs incertitude...",
+                              "url": "https://lagazettedufennec.com/argentine-algerie-j-4-mondial-2026-lalbiceleste-arrive-diminuee/",
+                              "source": "La Gazette du Fennec",
+                              "category": "Algeria",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.8",
+                              "color": "bg-[#ffe0df] text-[#e94f4f]",
+                              "image": "https://lagazettedufennec.com/wp-content/uploads/2026/06/Algerie-Argentine-1.jpg"
+                        },
+                        {
+                              "title": "Sifi Ghrieb préside une réunion du conseil interministériel pour mettre en place le système national de contrôle des marchandises aux frontières jeudi 11 juin 2026",
+                              "summary": "A rated pick from APS Algérie.",
+                              "url": "https://www.aps.dz/fr/economie/commerce-et-service/mq9c43na-sifi-ghrieb-preside-une-reunion-du-conseil-interministeriel-pour-mettre-en-place-le-systeme-national-de-controle-des-marchandises-aux-frontieres",
+                              "source": "APS Algérie",
+                              "category": "Algeria",
+                              "date": "Today",
+                              "time": "Rating 6.8",
+                              "color": "bg-[#ffe0df] text-[#e94f4f]",
+                              "image": "https://www.aps.dz/fr/assets/article/c5e1ee0a47637cb6683a08c008f409b0.webp"
+                        },
+                        {
+                              "title": "Principales déclarations des animateurs de la campagne électorale à son 3ème jour jeudi 11 juin 2026",
+                              "summary": "A rated pick from APS Algérie.",
+                              "url": "https://www.aps.dz/fr/elections-legislatives-2026/mq9ur7qq-principales-declarations-des-animateurs-de-la-campagne-electorale-a-son-3eme-jour",
+                              "source": "APS Algérie",
+                              "category": "Algeria",
+                              "date": "Today",
+                              "time": "Rating 6.7",
+                              "color": "bg-[#ffe0df] text-[#e94f4f]",
+                              "image": "https://www.aps.dz/fr/assets/article/34b1a6e741d2ef619f6fe5f3cb12569d.webp"
+                        },
+                        {
+                              "title": "Détention des généraux Sagara et Dembélé au Mali : comment Goïta verrouille la procédure",
+                              "summary": "Alors que l’agent des services de renseignements français Yann V. a été condamné à vingt ans de prison pour « atteinte à la sûreté de l’État, les généraux maliens accusés des mêmes faits attendent toujours d’être jugé...",
+                              "url": "https://www.jeuneafrique.com/1803507/politique/au-mali-comment-goita-verrouille-laffaire-des-generaux-dembele-et-sagara/",
+                              "source": "Jeune Afrique Algérie",
+                              "category": "Algeria",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.5",
+                              "color": "bg-[#ffe0df] text-[#e94f4f]",
+                              "image": "https://prod.cdn-medias.jeuneafrique.com/cdn-cgi/image/q=auto,f=auto,metadata=none,width=1280,height=720,fit=cover/https://prod.cdn-medias.jeuneafrique.com/medias/2025/10/14/jad20251014-ass-mali-generaux-limoges.jpg"
+                        },
+                        {
+                              "title": "Pourquoi S&P et Fitch divergent sur la notation d’Afreximbank",
+                              "summary": "Quelques mois après avoir rompu avec Fitch Ratings, qui avait dégradé sa note en catégorie spéculative, Afreximbank en obtient une bien plus favorable de S&P Global Ratings. Ce qui relance le débat sur l’évaluation du...",
+                              "url": "https://www.jeuneafrique.com/1803700/economie-entreprises/pourquoi-sp-et-fitch-divergent-sur-la-notation-dafreximbank/",
+                              "source": "Jeune Afrique Algérie",
+                              "category": "Algeria",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.5",
+                              "color": "bg-[#ffe0df] text-[#e94f4f]",
+                              "image": "https://prod.cdn-medias.jeuneafrique.com/cdn-cgi/image/q=auto,f=auto,metadata=none,width=1280,height=720,fit=cover,gravity=0.5000x0.5000/https://prod.cdn-medias.jeuneafrique.com/medias/2026/06/12/jad20260612-eco-afreximbank-s-p-fitch.jpg"
+                        }
+                  ]
+            },
+            {
+                  "id": "politics-geopolitics",
+                  "label": "Politics / Geopolitics",
+                  "articles": [
+                        {
+                              "title": "Iran deal very close, signing possible in coming days, US official says - Reuters",
+                              "summary": "Iran deal very close, signing possible in coming days, US official says Reuters",
+                              "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPMDVIZzBMbmZUMXYzbWJfQWJfN1IyNFVjT0s1LTdDbVZwNzlZVkF2RHZqTVFvRl9laUV4NXRpX3FjMEtfc3cyU1NyQjBkSHRTaFhwYm5iSmM2OHVWMGNsWFVyOU91ejhnVFpuWmtRb2V6Rm56TU1QazB4b21XSU11M1RXbTlzR2FCQ3JVNDlKN0c0ZFN2cVNKNEtDWjhnVGlzcUZOdlNLWlppNlNsNU10dUN1bEVCdjhqTElRRWdn?oc=5",
+                              "source": "Reuters World",
+                              "category": "Politics / Geopolitics",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.4",
+                              "color": "bg-[#fff0c7] text-[#9a6500]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "Exclusive: Nvidia begins Vera CPU sales pitch to Chinese clients, sources say - Reuters",
+                              "summary": "Exclusive: Nvidia begins Vera CPU sales pitch to Chinese clients, sources say Reuters",
+                              "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPR2Z6dFV3WHhOamNSbFQ1VmxlNk5iNHR4bjJDdWE1d28tM3VEX01aOVVWMkNRYlZ3aUlQWXgxNi1VbGdtQ3FoNkY2MEZLSzZKZHBLcHFfNlhSTlhlYm5CbFNoaHdyOFM4UUVjQzIyU0o4VmNuaHo1cTg0cFgwSGdMdFctdGZCQnVwamdHZEdRQkJ5Umw0U1ZPTldxZ2ZRWE9Yc05xM2EtNFlwb1l5alBV?oc=5",
+                              "source": "Reuters World",
+                              "category": "Politics / Geopolitics",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.3",
+                              "color": "bg-[#fff0c7] text-[#9a6500]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "Le pacte de l'Union européenne sur la migration et l'asile en sept questions - Vie publique",
+                              "summary": "Le pacte de l'Union européenne sur la migration et l'asile en sept questions Vie publique",
+                              "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNQWNBV2hrM1l1Qzl5VllIeEIzYnBLakNjczNBS2hzUnAzaXU2R2VnNEFGcTliblRYT0txZkdaWVNJRjdLbnJSYzA2Z04zZjB1bVdOb1dGR2JTam9PbTVROTlJLTVSdGVRdzR0dE1vYVpJQ1dmQnBqZVZPaW96UmRscXV6U05VMlZpOVBaOU14Y1R2Nm9sRlRkMHF6UVFuekxRODFzajdYZ2JkbUtXRmpLc1pQeW5xUGp0R0ZjdHM1VQ?oc=5",
+                              "source": "Vie Publique",
+                              "category": "Politics / Geopolitics",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.1",
+                              "color": "bg-[#fff0c7] text-[#9a6500]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "Retraites : les projections financières du COR intègrent les évolutions démographiques - Vie publique",
+                              "summary": "Retraites : les projections financières du COR intègrent les évolutions démographiques Vie publique",
+                              "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOWmROR0t1Z0JYYTAxUWhvNjZVOTNCWFZyMlF0amhCdUthdGNtM0ota3czRF9wamY5LWZxS3VieEJEdk9tRVFOc1BTbVVFcGxVSHFFei1PUkZnRi0xS1ZoOHJfMjdEVFpoNlFuaVNoUHBjXzlzMVRaaGFvSTRhM3BUOXFfT2x3SGYwXzNhX19HVHowOGtQWDdF?oc=5",
+                              "source": "Vie Publique",
+                              "category": "Politics / Geopolitics",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.1",
+                              "color": "bg-[#fff0c7] text-[#9a6500]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "The Strange Defeat of Nuclear Deterrence",
+                              "summary": "And the coming crisis in strategic stability.",
+                              "url": "https://www.foreignaffairs.com/ukraine/strange-defeat-nuclear-deterrence-rose-gottemoeller",
+                              "source": "Foreign Affairs",
+                              "category": "Politics / Geopolitics",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.0",
+                              "color": "bg-[#fff0c7] text-[#9a6500]",
+                              "image": "https://cdn-live.foreignaffairs.com/sites/default/files/styles/social_share/public/images/2026/06/09/1_nuclear%20scarecrow%20print%20final.jpg?itok=JkFkhoF_"
+                        }
+                  ]
+            },
+            {
+                  "id": "general-news",
+                  "label": "General News",
+                  "articles": [
+                        {
+                              "title": "La France compte \"20 000 dons [de sang] de retard\", alerte l'Établissement français du sang avant la journée mondiale des donneurs",
+                              "summary": "Entre les fortes chaleurs et les nombreux ponts du mois de mai, les annulations et désertion des centres de collecte se sont accumulées.",
+                              "url": "https://www.franceinfo.fr/sante/20-000-dons-du-sang-de-retard-en-france-alerte-l-etablissement-francais-du-sang-avant-la-journee-mondiale-des-donneurs_8057807.html#xtor=RSS-3-[lestitres]",
+                              "source": "Franceinfo",
+                              "category": "General News",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.3",
+                              "color": "bg-[#dff5ef] text-[#14795f]",
+                              "image": "https://www.franceinfo.fr/pictures/Gj_oJ9M53OVkL91vs5cvVybVIM8/0x107:1024x682/1500x843/2025/07/19/000-36nd736-687b6e66335b9529189225.jpg"
+                        },
+                        {
+                              "title": "Mort de Nahel : pourquoi la Cour de cassation a annulé la décision de ne pas retenir « l’intention homicide » du policier",
+                              "summary": "Dans un arrêt attendu, la plus haute juridiction française a pris le contre-pied de la décision de la chambre de l’instruction de la cour d’appel de Versailles, qui va devoir à nouveau se pencher sur l’intention de tu...",
+                              "url": "https://www.lemonde.fr/societe/article/2026/06/12/mort-de-nahel-pourquoi-la-cour-de-cassation-a-annule-la-decision-de-ne-pas-retenir-l-intention-homicide-du-policier_6701157_3224.html",
+                              "source": "Le Monde",
+                              "category": "General News",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.2",
+                              "color": "bg-[#dff5ef] text-[#14795f]",
+                              "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80"
+                        },
+                        {
+                              "title": "Un premier traité mondial protégeant les travailleurs des plateformes numériques adopté par l’Organisation internationale du travail",
+                              "summary": "Un texte sur le «travail décent dans l’économie des plateformes» a été finalisé le vendredi 12 juin par l’OIT. Près de 435 millions de personnes pourraient être concernées, mais certains pays expriment déjà des réserves.",
+                              "url": "https://www.liberation.fr/economie/economie-numerique/un-premier-traite-mondial-protegeant-les-travailleurs-des-plateformes-numeriques-en-voie-dadoption-20260611_MWC6D563TVFGNLSNW3ARWYXS5U/",
+                              "source": "Liberation",
+                              "category": "General News",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.2",
+                              "color": "bg-[#dff5ef] text-[#14795f]",
+                              "image": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80"
+                        },
+                        {
+                              "title": "Exclusive: UAE to unlock billions of dollars for Iran, sources say - Reuters",
+                              "summary": "Exclusive: UAE to unlock billions of dollars for Iran, sources say Reuters",
+                              "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNdU8xSkdDSVRGOXhzQTVoemlTUi1GaFEyMzFNSUFXdGdQd21pbUNENTdfX01KaGFXdGQ5RklfMVNiSDlBRzRvb0xZVkU1dVd6Q0NTakI1WmxVaXZMMlVtUHVEZ2I1d3NkbExTQXU4RlRSQVhueHE0RU9sbTg5VjJWU0VwUjRMeGJtRmhXbzBQM013T3p4Y05JU2JnZkt1d0k?oc=5",
+                              "source": "Reuters World",
+                              "category": "General News",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 7.2",
+                              "color": "bg-[#dff5ef] text-[#14795f]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "EU overhaul to toughen migration rules takes effect, though doubts remain about impact - Reuters",
+                              "summary": "EU overhaul to toughen migration rules takes effect, though doubts remain about impact Reuters",
+                              "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZjdfMkhtOHRCWEZBNVRrSWdZeWF2cW55RFVqbWJHZXQtd25udWd5VzlDeXAwMHY3X3JQUUtTU3ZtMXZvMHhxNF9wVnU4dmJTdGUyRTNiZHZaUTNHU1g5YUlCcVZQdTUtcGwtakV0aVRCdUV4QV9kXzM3UVJSZVRXenc0aER4V0Y1TTBQN3M5N21GU3lDaTlKMkR5cHRrRk80Z1BQWURjZ2U0ZGNaZTNhWDBNMVpKMERo?oc=5",
+                              "source": "Reuters World",
+                              "category": "General News",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.9",
+                              "color": "bg-[#dff5ef] text-[#14795f]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        }
+                  ]
+            },
+            {
+                  "id": "france-paris-local",
+                  "label": "France / Paris Local",
+                  "articles": [
+                        {
+                              "title": "Bons plans de la semaine du 15 au 21 juin 2026 à Paris et en Île-de-France",
+                              "summary": "Quels bons plans prévoir à Paris et en Île-de-France du 15 au 21 juin 2026 ? Fête de la Musique, concerts gratuits, Twingo Live Show, fan-zones Coupe du monde, baignades gratuites, Jour de Fête à Créteil, Morsang en F...",
+                              "url": "https://www.sortiraparis.com/actualites/a-paris/guides/121534-bons-plans-de-la-semaine-du-15-au-21-juin-2026-a-paris-et-en-ile-de-france",
+                              "source": "Sortir à Paris",
+                              "category": "France / Paris Local",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.9",
+                              "color": "bg-[#e6e8ff] text-[#4250c9]",
+                              "image": "https://cdn.sortiraparis.com/images/80/113742/1276116-la-guinguette-de-la-pointe-sauvage-en-bord-de-marne-a-vaires-sur-marne-en-seine-et-marne.jpg"
+                        },
+                        {
+                              "title": "Coupe du monde de football : écran géant et activités gratuites à La Villette, la fan zone familiale",
+                              "summary": "Du 13 juin au 19 juillet 2026, le Parc de la Villette s'anime au rythme de la Coupe du Monde de football en accueillant une immense fan zone gratuite au pied de la Géode. Retransmissions sur écrans géants, terrain de...",
+                              "url": "https://www.sortiraparis.com/loisirs/sport/articles/345816-coupe-du-monde-de-football-ecran-geant-et-activites-gratuites-a-la-villette-la-fan-zone-familiale",
+                              "source": "Sortir à Paris",
+                              "category": "France / Paris Local",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.6",
+                              "color": "bg-[#e6e8ff] text-[#4250c9]",
+                              "image": "https://cdn.sortiraparis.com/images/80/114113/1289074-fan-zone-parc-de-la-villette.jpg"
+                        },
+                        {
+                              "title": "Inauguration de la Petite Ceinture - Mairie du 19ᵉ arrondissement de Paris",
+                              "summary": "Inauguration de la Petite Ceinture Mairie du 19ᵉ arrondissement de Paris",
+                              "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFAzNEJtZURhcjZTQ2RFLXBkcnpCMzlRM282X19kNVVhdlpvQ0I4cndEOXhXSllBRGhxcmRTM21KTU84Wm9hMTRaUEhWT2NJY1AzY3o5OVQ0V1VDLVctb3UtT3RrZ05kdWdEYi1fUjhBOTl0bmgtckUxV3o1MWk?oc=5",
+                              "source": "Paris.fr",
+                              "category": "France / Paris Local",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.4",
+                              "color": "bg-[#e6e8ff] text-[#4250c9]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "Fête de la musique - Un vent Neuf souffle sur les Quatre Saisons ! - Mairie du 9ᵉ arrondissement de Paris",
+                              "summary": "Fête de la musique - Un vent Neuf souffle sur les Quatre Saisons ! Mairie du 9ᵉ arrondissement de Paris",
+                              "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQNGpZejVNZzdQNmlCdi1SN3QtRXAyUnZPeEVLSk0yb1BkNTVDc3VoZGtkV0Vab2NrczBsYTRKUWtJMWpCVlV0VVh3djlOalZLbDZxMUtrdUpfZmlkd3lPLXRFWXVjRWMzOVFSZFpJQVRvc3V5bmQzVWNGUEUtMnZZT2IzYm5tWWRqbUhOZEZOeUJxZThzSml6WE93Q2xqYVR1b3c?oc=5",
+                              "source": "Paris.fr",
+                              "category": "France / Paris Local",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 6.4",
+                              "color": "bg-[#e6e8ff] text-[#4250c9]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        },
+                        {
+                              "title": "Après les révélations de plagiat, le célèbre physicien Étienne Klein perd son doctorat de l'université Paris Cité - Actu.fr",
+                              "summary": "Après les révélations de plagiat, le célèbre physicien Étienne Klein perd son doctorat de l'université Paris Cité Actu.fr",
+                              "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxNVE1uZlBnVmJMa0RsM3hlZGJiano0UjRZN19pY2ZicWpjeDBBRWt6MEhjZkt1bDVSUVF2MjQ4MzhRZGdVX0VsNkJZRE5tVzJ5YzZIcmN6UWdMTjd2X3VrNnJKMGpPdnNxeThJN3pIbHd4cEVNcWxWd3lOTlFfUlB3LUd6ZVZFLV9Sd3NmWk5jdmRMV09FYlEtZDBVSVI0VUh0b24xd0x5Z3ZKUS1CTU1YaV95MUhaQW9qTWdUTTRYVUpPQUFFS3BSakdFYWwzM3dwb2pndnlkTDdNRWxVanFwNWZEQXRKeExCQk5IWHdWUjNGeDkxekRZU3NsbEo?oc=5",
+                              "source": "Actu Paris",
+                              "category": "France / Paris Local",
+                              "date": "Jun 12, 2026",
+                              "time": "Rating 4.3",
+                              "color": "bg-[#e6e8ff] text-[#4250c9]",
+                              "image": "https://lh3.googleusercontent.com/J6_coFbogxhRI9iM864NL_liGXvsQp2AupsKei7z0cNNfDvGUmWUy20nuUhkREQyrpY4bEeIBuc=s0-w300"
+                        }
+                  ]
+            }
+      ]
+};
 
-    <article class="group space-y-3">
-      
-        <a href="https://huggingface.co/papers/2605.26844" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://huggingface.co/front/thumbnails/papers.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Hugging Face Blog</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://huggingface.co/papers/2605.26844">Not All Disagreement Is Learnable: Token Teachability in On-Policy Distillation</a>
-      </div>
-    </article>
-    
+    const articlesEl = document.querySelector("#articles");
+    const leadTemplate = document.querySelector("#lead-template");
+    const smallTemplate = document.querySelector("#small-template");
+    const kicker = document.querySelector("#kicker");
+    const count = document.querySelector("#count");
+    const menuToggle = document.querySelector("#menu-toggle");
+    const mobileMenu = document.querySelector("#mobile-menu");
+    const themeTabs = document.querySelector("#theme-tabs");
+    const mobileNav = document.querySelector("#mobile-menu nav");
+    let tabs = [];
 
-    <article class="group space-y-3">
-      
-        <a href="https://huggingface.co/papers/2605.28556" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://huggingface.co/front/thumbnails/papers.png" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">AI / Agentic</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Hugging Face Blog</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://huggingface.co/papers/2605.28556">A Matter of TASTE: Improving Coverage and Difficulty of Agent Benchmarks</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
+    function createThemeButton(theme, mobile = false) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.filter = theme.id;
+      button.textContent = theme.label;
+      button.className = mobile
+        ? "theme-tab relative rounded-lg px-4 py-3 text-left text-base font-semibold text-[#111827]/90 transition hover:bg-[#111827]/5"
+        : "theme-tab relative px-4 py-3 text-sm font-semibold text-[#475467] transition hover:text-[#111827] after:absolute after:bottom-1 after:left-1/2 after:h-0.5 after:w-10 after:-translate-x-1/2 after:scale-x-0 after:rounded-full after:bg-[#e94f37] after:opacity-0 after:transition";
+      return button;
+    }
 
-        <section id="theme-software-engineering-architecture" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Software Engineering / Architecture</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://blog.cloudflare.com/optimizing-core-unit-boot-time/" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Software Engineering / Architecture</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Cloudflare Blog</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://blog.cloudflare.com/optimizing-core-unit-boot-time/">How we reduced core unit boot time from hours to minutes</a>
-      </div>
-    </article>
-    
+    function setupTabs() {
+      newsletterData.themes.forEach((theme) => {
+        themeTabs?.appendChild(createThemeButton(theme));
+        mobileNav?.appendChild(createThemeButton(theme, true));
+      });
 
-    <article class="group space-y-3">
-      
-        <a href="https://www.theverge.com/ai-artificial-intelligence/941016/anthropic-has-officially-filed-to-go-public" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25469941/STK202_DARIO_AMODEI_CVIRGINIA_D.jpg?quality=90&amp;strip=all&amp;crop=0,0,100,100" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Software Engineering / Architecture</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">The Verge</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.theverge.com/ai-artificial-intelligence/941016/anthropic-has-officially-filed-to-go-public">Anthropic has officially filed to go public</a>
-      </div>
-    </article>
-    
+      tabs = [...document.querySelectorAll("[data-filter]")];
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const filter = tab.dataset.filter;
+          setActive(filter);
+          render(filter);
+          setMenuOpen(false);
+        });
+      });
+    }
 
-    <article class="group space-y-3">
-      
-        <a href="https://www.theverge.com/gadgets/940830/find-my-bluetooth-tracker-bose-qc-ultra-google-pixel-buds-deal-sale" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/finetrack2.png?quality=90&amp;strip=all&amp;crop=0,0,100,100" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Software Engineering / Architecture</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">The Verge</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.theverge.com/gadgets/940830/find-my-bluetooth-tracker-bose-qc-ultra-google-pixel-buds-deal-sale">An affordable, long-lasting AirTag alternative is $15 right now</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
+    function applyArticle(node, article) {
+      const links = node.querySelectorAll("a");
+      links.forEach((link) => link.href = article.url);
+      const imageLink = node.querySelector(".image-link");
+      const image = node.querySelector(".article-image");
+      imageLink?.style.setProperty("--article-image", `url("${article.image.replace(/"/g, "%22")}")`);
+      image.src = article.image;
+      image.alt = article.title;
+      image.onload = () => {
+        const ratio = image.naturalWidth / Math.max(image.naturalHeight, 1);
+        const tiny = image.naturalWidth < 420 || image.naturalHeight < 220;
+        const extreme = ratio > 2.35 || ratio < 0.62;
+        imageLink?.classList.toggle("image-weird", tiny || extreme);
+        imageLink?.classList.remove("image-broken");
+      };
+      image.onerror = () => {
+        imageLink?.classList.add("image-broken", "image-weird");
+      };
+      node.querySelector(".source").textContent = article.source;
+      node.querySelector(".headline").textContent = article.title;
+      node.querySelector(".tag").textContent = article.category;
+      node.querySelector(".tag").className = `tag rounded-md px-3 py-2 font-bold ${article.color}`;
+      node.querySelector(".date").textContent = `${article.date}  •  ${article.time}`;
+      const summary = node.querySelector(".summary");
+      if (summary) summary.textContent = article.summary;
+    }
 
-        <section id="theme-general-news" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">General News</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://www.bbc.com/news/articles/c5y8nq8ljqwo?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/1555/live/457bb460-5e47-11f1-b682-cf91850925ea.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC News</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/news/articles/c5y8nq8ljqwo?at_medium=RSS&amp;at_campaign=rss">Massive Russian attack on cities across Ukraine kills at least 13 people</a>
-      </div>
-    </article>
-    
+    function render(filter = "home") {
+      const isHome = filter === "home";
+      const theme = newsletterData.themes.find((item) => item.id === filter);
+      const selected = isHome ? newsletterData.home : theme?.articles ?? [];
 
-    <article class="group space-y-3">
-      
-        <a href="https://www.liberation.fr/international/europe/petrolier-russe-arraisonne-par-la-france-nouvelles-frappes-entre-etats-unis-et-liran-disparition-de-lyhanna-lactu-de-ce-lundi-1er-juin-au-matin-20260601_N4SU2ON7GRAGRENXAUYXD2K4RQ/" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff3b6b] via-[#ff2bb8] to-[#ff6a00]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Liberation</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.liberation.fr/international/europe/petrolier-russe-arraisonne-par-la-france-nouvelles-frappes-entre-etats-unis-et-liran-disparition-de-lyhanna-lactu-de-ce-lundi-1er-juin-au-matin-20260601_N4SU2ON7GRAGRENXAUYXD2K4RQ/">Pétrolier russe arraisonné par la France, nouvelles frappes entre Etats-Unis et l’Iran, disparition de Lyhanna… L’actu de ce lundi 1er juin au matin</a>
-      </div>
-    </article>
-    
+      const visible = isHome ? selected.slice(0, 5) : selected;
+      articlesEl.innerHTML = "";
+      articlesEl.className = isHome
+        ? "grid paper-grid gap-4 lg:gap-5"
+        : "grid gap-4 md:grid-cols-2";
 
-    <article class="group space-y-3">
-      
-        <a href="https://www.bbc.com/news/articles/c202rxp1z15o?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/afe1/live/20d6ceb0-5e4c-11f1-89a3-d1f559421220.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">General News</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC News</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/news/articles/c202rxp1z15o?at_medium=RSS&amp;at_campaign=rss">Clashes continue in Lebanon despite Israel and Hezbollah accepting US partial ceasefire plan</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
+      if (!visible.length) {
+        articlesEl.innerHTML = '<div class="article-card rounded-lg border border-[#111827]/12 p-8 text-lg font-semibold text-[#667085]">No articles in this section yet.</div>';
+        return;
+      }
 
-        <section id="theme-france-paris-local" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">France / Paris Local</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://www.sortiraparis.com/arts-culture/exposition/guides/322755-derniere-chance-pour-voir-ces-expositions-courez-les-decouvrir-avant-leur-fermeture-en-mai-2027" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://cdn.sortiraparis.com/images/800/111919/1221099-momies-une-exposition-insolite-et-troublante-a-decouvrir-au-musee-de-l-homme.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">France / Paris Local</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#ff3b6b]">Critical</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Sortir à Paris</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.sortiraparis.com/arts-culture/exposition/guides/322755-derniere-chance-pour-voir-ces-expositions-courez-les-decouvrir-avant-leur-fermeture-en-mai-2027">Dernière chance pour voir ces expositions : courez les découvrir avant leur fermeture en mai 2027</a>
-      </div>
-    </article>
-    
+      visible.forEach((article, index) => {
+        const template = isHome && index === 0 ? leadTemplate : smallTemplate;
+        const node = template.content.cloneNode(true).firstElementChild;
+        applyArticle(node, article);
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxNemZkZ2hod0hlcm9VZm1IbHE1eTNMSmhERy14RFdZTllOVzJOeE5aRkNheHhINXloVUNUdkdzTk4wd3BRNFlWVVFvN21MZm5vMkV1STk4RGw1dHdkUV9FcVUyX2d2ZjQ5WHY2TzVOcTFTUlItN3JhSktmUjFGLXZmZUpVTURiSlZwanRhZTNLbk9EUDZPMWlnY2NUSmlXdHRVRjBiOXU2ajlFMGZiSUtvMnVNZFNXeWlFdmh6UzZFR045ZU5YZ1RPbTNYOFZ6cWtfbDRySXZB?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">France / Paris Local</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Paris.fr</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxNemZkZ2hod0hlcm9VZm1IbHE1eTNMSmhERy14RFdZTllOVzJOeE5aRkNheHhINXloVUNUdkdzTk4wd3BRNFlWVVFvN21MZm5vMkV1STk4RGw1dHdkUV9FcVUyX2d2ZjQ5WHY2TzVOcTFTUlItN3JhSktmUjFGLXZmZUpVTURiSlZwanRhZTNLbk9EUDZPMWlnY2NUSmlXdHRVRjBiOXU2ajlFMGZiSUtvMnVNZFNXeWlFdmh6UzZFR045ZU5YZ1RPbTNYOFZ6cWtfbDRySXZB?oc=5">Cahiers du Témoignage chrétien XVIII - XIX - Où allons-nous? Message de Bernanos - Paris Musées Collections</a>
-      </div>
-    </article>
-    
+        if (isHome && index === 0) node.classList.add("lg:row-span-2");
+        articlesEl.appendChild(node);
+      });
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMi3wFBVV95cUxON3NTLV8tUVg4WG5ZVGRsN1hoYzNQcFpDTVJGTjNLUmh3T19EMDUxc2VabThlR1pjNUZ1UnFFRFVXNDRmZ05CSHEtb3VrRDNnRnlJa00waDZfZTd3X3ItVXVfSkppbGNvQmJFTTBqdW9GdjlMQ2Z5eGpOR1ZSdVZXcW1mQ05hR1JFUW9vUVBiYzV1cUhYcmM3elFpVzRUdkwtcHhEWmRVeUlzOHBpYjNHQTlEVHFyUlllVFJBbGdtU01BR0JNSnlPTk9WV1RDb3B6Y2gxZGpYZm1WMlNrb1U0?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">France / Paris Local</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Paris.fr</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMi3wFBVV95cUxON3NTLV8tUVg4WG5ZVGRsN1hoYzNQcFpDTVJGTjNLUmh3T19EMDUxc2VabThlR1pjNUZ1UnFFRFVXNDRmZ05CSHEtb3VrRDNnRnlJa00waDZfZTd3X3ItVXVfSkppbGNvQmJFTTBqdW9GdjlMQ2Z5eGpOR1ZSdVZXcW1mQ05hR1JFUW9vUVBiYzV1cUhYcmM3elFpVzRUdkwtcHhEWmRVeUlzOHBpYjNHQTlEVHFyUlllVFJBbGdtU01BR0JNSnlPTk9WV1RDb3B6Y2gxZGpYZm1WMlNrb1U0?oc=5">La Ville de Paris salue la mobilisation exceptionnelle de ses agents après la finale de la Ligue des Champions - Paris Presse</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
+      kicker.textContent = isHome ? "Home" : theme?.label ?? filter;
+      count.textContent = isHome
+        ? "A quiet front page for the links you actually want to open."
+        : `${visible.length} article${visible.length === 1 ? "" : "s"} in this section.`;
+    }
 
-        <section id="theme-politics-geopolitics" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Politics / Geopolitics</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQVGJxTzhpY1JocUh1UkdzZmpuTUFXUVMtZnVVRmJGV1JuSHRGdWtENUNCeTlSRmdXd3BwNHlhSmcxd2I3b0tVWGJ1MEhXcGlSOHg4aFVjV2ZRYmppUVRCcXR5bHFSalA2Q2VYdjR1QmtnQm16ajVrQkZJTE9SSnVXQnRON2ZMTHFlUXZnWjJlNnFCRlUyNERrSGg4aUd3VkJUSVdlV05KWVRZQQ?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Reuters World</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQVGJxTzhpY1JocUh1UkdzZmpuTUFXUVMtZnVVRmJGV1JuSHRGdWtENUNCeTlSRmdXd3BwNHlhSmcxd2I3b0tVWGJ1MEhXcGlSOHg4aFVjV2ZRYmppUVRCcXR5bHFSalA2Q2VYdjR1QmtnQm16ajVrQkZJTE9SSnVXQnRON2ZMTHFlUXZnWjJlNnFCRlUyNERrSGg4aUd3VkJUSVdlV05KWVRZQQ?oc=5">Ukraine attacks Russian energy sites - what has been hit? - Reuters</a>
-      </div>
-    </article>
-    
+    function setActive(filter) {
+      tabs.forEach((tab) => {
+        const active = tab.dataset.filter === filter;
+        if (tab.classList.contains("main-tab")) {
+          tab.classList.toggle("active-tab", active);
+          tab.classList.toggle("hover:bg-white/60", !active);
+        } else {
+          tab.classList.toggle("theme-active", active);
+          tab.classList.toggle("active-tab", active && tab.closest("#mobile-menu"));
+          tab.classList.toggle("hover:bg-white/60", !(active && tab.closest("#mobile-menu")));
+        }
+      });
+    }
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxQcUNQekF0VTVYU1pWSkxuYnE4cklIRTliQzVsN2NLUlItQ0Jvd1Q5My1lQlZJTUZMQmZpaWxDN1YtY3RGY1h0R1BIeHlrbm1qcFhpU1dxZjhfTmFwVERDd0VsOUFxTHRBZzNfNFdCYkFqVDE1ODVXVGNxaEpTdTd3SjlGZGMwRDdtUFBWQ3RtOVZoOGtGZmZWRGtnOUotbmxYejNobloxaGFqV1dSUWJRek5VYw?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Reuters World</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMiswFBVV95cUxQcUNQekF0VTVYU1pWSkxuYnE4cklIRTliQzVsN2NLUlItQ0Jvd1Q5My1lQlZJTUZMQmZpaWxDN1YtY3RGY1h0R1BIeHlrbm1qcFhpU1dxZjhfTmFwVERDd0VsOUFxTHRBZzNfNFdCYkFqVDE1ODVXVGNxaEpTdTd3SjlGZGMwRDdtUFBWQ3RtOVZoOGtGZmZWRGtnOUotbmxYejNobloxaGFqV1dSUWJRek5VYw?oc=5">Wall St ends higher, boosted by tech gains, US-Iran peace hopes - Reuters</a>
-      </div>
-    </article>
-    
+    function setMenuOpen(open) {
+      if (!menuToggle || !mobileMenu) return;
+      mobileMenu.classList.toggle("hidden", !open);
+      menuToggle.classList.toggle("menu-open", open);
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    }
 
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxPMkZaWGJPbHBSQnUxdWZ6U3l6a3otSGFQSVNoTmpQNWJORWEtZ1dXeE42NGp2c2s4anV6UVFYenhsNHcycHh5UnhYUTJLRFlIbS1ONElzNzBCT2RsX0ROZVh4RXk3SmhKQmc0UXlFa1l4Sm5admU2LUNkdWxaZENkSmN3ZHJnbU1UYTJDbHZUdUJiNFFJZ3lfOTJmTnFKV21LQXZxcE1sWUF3TGZ5N3A4ZFROTTU?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Politics / Geopolitics</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Reuters World</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMitAFBVV95cUxPMkZaWGJPbHBSQnUxdWZ6U3l6a3otSGFQSVNoTmpQNWJORWEtZ1dXeE42NGp2c2s4anV6UVFYenhsNHcycHh5UnhYUTJLRFlIbS1ONElzNzBCT2RsX0ROZVh4RXk3SmhKQmc0UXlFa1l4Sm5admU2LUNkdWxaZENkSmN3ZHJnbU1UYTJDbHZUdUJiNFFJZ3lfOTJmTnFKV21LQXZxcE1sWUF3TGZ5N3A4ZFROTTU?oc=5">Oil slips after Trump says talks with Iran are ongoing - Reuters</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
+    menuToggle?.addEventListener("click", () => {
+      setMenuOpen(menuToggle.getAttribute("aria-expanded") !== "true");
+    });
 
-        <section id="theme-football" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Football</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://www.bbc.com/sport/football/articles/cyv2l60q188o?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/c09b/live/2aaabd60-5b50-11f1-a62b-2f41c7c3a318.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Football</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC Football</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/sport/football/articles/cyv2l60q188o?at_medium=RSS&amp;at_campaign=rss">Wars, sanctions and punishments: Iraq&#x27;s 40-year World Cup wait</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://www.bbc.co.uk/sounds/play/p0npl10l?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://ichef.bbci.co.uk/images/ic/240x135/p0npl12b.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Football</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC Football</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.co.uk/sounds/play/p0npl10l?at_medium=RSS&amp;at_campaign=rss">Listen: Who is Scotland number one? Plus transfer latest</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://www.bbc.com/sport/football/articles/cwy9lnn19neo?at_medium=RSS&amp;at_campaign=rss" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://ichef.bbci.co.uk/ace/standard/240/cpsprodpb/be62/live/eb79ac10-5da6-11f1-baa9-1f66f2ed2a5f.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Football</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">BBC Football</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://www.bbc.com/sport/football/articles/cwy9lnn19neo?at_medium=RSS&amp;at_campaign=rss">Wolves rejection to double Champions League winner: Vitinha&#x27;s rise to top</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
-
-        <section id="theme-algeria" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">Algeria</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://lagazettedufennec.com/algerie-ecarte-par-petkovic-bounedjah-peut-compter-sur-un-nouveau-soutien/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://lagazettedufennec.com/wp-content/uploads/2026/04/Vladimir-Petkovic-Baghdad-Bounedjah-1024x576.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">La Gazette du Fennec</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://lagazettedufennec.com/algerie-ecarte-par-petkovic-bounedjah-peut-compter-sur-un-nouveau-soutien/">Algérie : Écarté par Petkovic, Bounedjah peut compter sur un nouveau soutien</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMi-wFBVV95cUxQbW9SN0ZIS1FjcHQ0ZUpWS2FyVk5kbVpjdTlZbVozeFJuNlNNN3REZk9BRGRlY3lwb21yY29WZ0VoSlJlRERhVDVlcVBMN1VZTUNBS2dIWVNVQk44YXpTTG1PT1prTGdHaGd3cTVyZUg1MVNNTFczdGZ0SFI3ZHdLbmFmbXY0YUxPUUl3ZmQyT3pMMFVSNndGZmJibUY5M1pWQ3pWbExUTlVuZkxnQ2hqOTk2c2tBQUZWSlRpeHJiS3d5S2FVdVNYbDY2aUxETnRlNXktclFXMVp2eHNhM1F3TjhEaFpKY2dhVlQ5R2hfVkwtNVVCenhGRF9jbw?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Le Soir d&#x27;Algérie</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMi-wFBVV95cUxQbW9SN0ZIS1FjcHQ0ZUpWS2FyVk5kbVpjdTlZbVozeFJuNlNNN3REZk9BRGRlY3lwb21yY29WZ0VoSlJlRERhVDVlcVBMN1VZTUNBS2dIWVNVQk44YXpTTG1PT1prTGdHaGd3cTVyZUg1MVNNTFczdGZ0SFI3ZHdLbmFmbXY0YUxPUUl3ZmQyT3pMMFVSNndGZmJibUY5M1pWQ3pWbExUTlVuZkxnQ2hqOTk2c2tBQUZWSlRpeHJiS3d5S2FVdVNYbDY2aUxETnRlNXktclFXMVp2eHNhM1F3TjhEaFpKY2dhVlQ5R2hfVkwtNVVCenhGRF9jbw?oc=5">Attaf réaffirme l&#x27;engagement constant de l&#x27;Algérie à promouvoir le partenariat stratégique avec la République de Corée - Le soir d&#x27;Algérie</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxPeHBwTGlmMmgwRUhBeWhPeHZDVDVMZlR2VnZlbnlLM3BhVjVENjFJd01xbVBJWGU2MVdzLWpSTzlvTTBJZDcxVTJjVGl0TndKTDFtVHNNeElQWXp5VVBJc01PNjJOeldDM3d4QjdpSTlDRWJ2bFVHVzlkcGNIUGlWSmRLd3NLb05zSjBCLVNkVzktTi1IVkh2Q1dsODBiOUVGSThfZEdaLVVaT3NKclNlVTkxWW9FZnBic1JUY3FYUDNCS2lLRlYwUW84MktZQ2lvUW5Ib2Z3?oc=5" class="fallback-gradient relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]">
-          <div class="absolute inset-0 blur-2xl opacity-80 bg-gradient-to-br from-[#ff8a00] via-[#ff3b6b] to-[#9b5cff]"></div>
-          <div class="absolute inset-0 bg-black/10"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">Algeria</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-black bg-[#ffd166]">Important</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Le Soir d&#x27;Algérie</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://news.google.com/rss/articles/CBMi1gFBVV95cUxPeHBwTGlmMmgwRUhBeWhPeHZDVDVMZlR2VnZlbnlLM3BhVjVENjFJd01xbVBJWGU2MVdzLWpSTzlvTTBJZDcxVTJjVGl0TndKTDFtVHNNeElQWXp5VVBJc01PNjJOeldDM3d4QjdpSTlDRWJ2bFVHVzlkcGNIUGlWSmRLd3NLb05zSjBCLVNkVzktTi1IVkh2Q1dsODBiOUVGSThfZEdaLVVaT3NKclNlVTkxWW9FZnBic1JUY3FYUDNCS2lLRlYwUW84MktZQ2lvUW5Ib2Z3?oc=5">Les inquiétudes cryogéniques du monde et les vertus magiques de mon naânaâ calorifique ! - Le soir d&#x27;Algérie</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        
-
-        <section id="theme-fc-barcelona" class="space-y-4">
-          <div class="flex items-end justify-between gap-4">
-            <h3 class="text-[30px] font-bold leading-none tracking-[-0.055em] text-white">FC Barcelona</h3>
-            <span class="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-[#9c9c9c]">3 picks</span>
-          </div>
-          <div class="grid gap-7">
-    <article class="group space-y-3">
-      
-        <a href="https://barcauniversal.com/analysis-how-will-raphinhas-role-at-barcelona-be-impacted-after-new-e80m-signing/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://barcauniversal.com/wp-content/uploads/2026/05/fc-barcelona-v-real-madrid-spanish-super-cup-1024x683.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">FC Barcelona</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Barça Universal</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://barcauniversal.com/analysis-how-will-raphinhas-role-at-barcelona-be-impacted-after-new-e80m-signing/">Analysis: How will Raphinha’s role at Barcelona be impacted after new €80m signing?</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://barcauniversal.com/barcelona-accelerate-exit-plan-for-highly-rated-winger-ajax-appear-as-most-likely-destination/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://barcauniversal.com/wp-content/uploads/2026/04/atletico-de-madrid-v-fc-barcelona-uefa-champions-league-2025-26-quarter-final-second-leg-5-1024x732.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">FC Barcelona</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Barça Universal</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://barcauniversal.com/barcelona-accelerate-exit-plan-for-highly-rated-winger-ajax-appear-as-most-likely-destination/">Barcelona accelerate exit plan for highly-rated winger; Ajax appear as most likely destination</a>
-      </div>
-    </article>
-    
-
-    <article class="group space-y-3">
-      
-        <a href="https://barcauniversal.com/barcelona-already-have-e100m-bid-on-the-table-for-superstar-forward/" class="relative block aspect-[16/9] overflow-hidden rounded-[1.45rem] border border-white/10 bg-[#242424]">
-          <img src="https://barcauniversal.com/wp-content/uploads/2026/02/real-madrid-v-atletico-madrid-spanish-super-cup-1024x683.jpg" alt="" loading="lazy" referrerpolicy="no-referrer" class="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.035] group-hover:opacity-100" onerror="this.style.display='none';this.parentElement.classList.add('fallback-gradient')">
-          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
-        </a>
-        
-      <div class="space-y-2 px-0.5">
-        <div class="flex flex-wrap gap-1.5 text-[11px] leading-none">
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#bdbdbd]">FC Barcelona</span>
-          <span class="rounded-full px-2.5 py-1.5 font-semibold text-white bg-[#4c8dff]">Watch</span>
-          <span class="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1.5 font-medium text-[#9c9c9c]">Barça Universal</span>
-        </div>
-        <a class="block text-[21px] font-semibold leading-tight tracking-[-0.035em] text-white transition group-hover:text-[#ff5ab3]" href="https://barcauniversal.com/barcelona-already-have-e100m-bid-on-the-table-for-superstar-forward/">Barcelona already have €100m bid on the table for superstar forward</a>
-      </div>
-    </article>
-    </div>
-        </section>
-        </div>
-      </section>
-    </div>
-  </div>
-  <footer class="py-10 text-center text-sm font-medium text-[#8c8c8c]">2026-06-02 08:01 · plain links only · no generated summaries</footer>
-</main>
-<script>
-function setTab(name) {
-  document.querySelectorAll('[data-panel]').forEach(panel => { panel.hidden = panel.dataset.panel !== name; });
-  document.querySelectorAll('[data-tab]').forEach(button => {
-    const active = button.dataset.tab === name;
-    button.setAttribute('aria-selected', active ? 'true' : 'false');
-    button.classList.toggle('tab-active', active);
-    button.classList.toggle('tab-inactive', !active);
-  });
-  history.replaceState(null, '', '#' + name);
-}
-document.querySelectorAll('[data-tab]').forEach(button => button.addEventListener('click', () => setTab(button.dataset.tab)));
-const initial = location.hash.replace('#','');
-if (['home','must','themes'].includes(initial)) setTab(initial);
-</script>
-</body></html>
+    setupTabs();
+    setActive("home");
+    render("home");
+  </script>
+</body>
+</html>

@@ -96,7 +96,7 @@
         {
           "name": "Barça Universal",
           "url": "https://news.google.com/rss/search?q=site%3Abarcauniversal.com%20when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
-          "personal_preference": 7
+          "personal_preference": 5
         }
       ]
     },
@@ -116,7 +116,7 @@
         {
           "name": "Opta Analyst Football",
           "url": "https://theanalyst.com/feed",
-          "personal_preference": 7
+          "personal_preference": 6
         }
       ]
     },
@@ -140,7 +140,7 @@
         {
           "name": "El Watan",
           "url": "https://news.google.com/rss/search?q=site%3Aelwatan.dz%20when%3A30d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "personal_preference": 5
+          "personal_preference": 6
         },
         {
           "name": "Le Soir d'Algérie",
@@ -176,7 +176,7 @@
         {
           "name": "Reuters World",
           "url": "https://news.google.com/rss/search?q=site%3Areuters.com%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen",
-          "personal_preference": 7
+          "personal_preference": 6
         },
         {
           "name": "Courrier International",
@@ -186,7 +186,7 @@
         {
           "name": "Politico Europe",
           "url": "https://www.politico.eu/feed/",
-          "personal_preference": 4
+          "personal_preference": 5
         },
         {
           "name": "Euractiv",
