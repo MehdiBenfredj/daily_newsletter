@@ -10,3 +10,4 @@ processed_sources.json
 testfilter.csv
 testtmp2.txt
 cmd/publish-newsletter/__debug_bin*
+.env.test

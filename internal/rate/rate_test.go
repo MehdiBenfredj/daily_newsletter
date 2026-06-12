@@ -3,11 +3,14 @@ package rate
 import (
 	"context"
 	"encoding/json"
+	"math"
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
 	"strings"
 	"testing"
 
+	"github.com/MehdiBenfredj/daily_newsletter/internal/env"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
@@ -33,27 +36,22 @@ func TestOpenRouterRaterRate(t *testing.T) {
 			t.Fatal(err)
 		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"choices":[{"message":{"role":"assistant","content":"{\"score\":4.75}"}}]}`))
+		w.Write([]byte(`{"choices":[{"message":{"role":"assistant","content":"{\"personal_relevance\":8,\"impact\":7,\"source_trust\":9,\"novelty\":6,\"actionability\":5,\"depth_insight\":6,\"signal_to_noise\":7}"}}]}`))
 	}))
 	defer server.Close()
 
-	rater := OpenRouterRater{
-		apiKey: "test-key",
-		model:  "openai/gpt-4o-mini",
-		client: server.Client(),
-		url:    server.URL,
-	}
-	got, err := rater.Rate(context.Background(), item)
+	rater := newTestOpenRouterRater(t, server)
+	got, err := Rate(context.Background(), item, rater)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got != 4.75 {
-		t.Fatalf("rating = %f, want 4.75", got)
+	if math.Abs(got-6.04) > 0.000000001 {
+		t.Fatalf("rating = %f, want 6.04", got)
 	}
 	if gotReq.Model != "openai/gpt-4o-mini" {
 		t.Fatalf("model = %q", gotReq.Model)
 	}
-	if gotReq.Temperature != 0 || gotReq.MaxTokens != 20 {
+	if gotReq.Temperature != 0 || gotReq.MaxTokens != 120 {
 		t.Fatalf("unexpected generation settings: %+v", gotReq)
 	}
 	if len(gotReq.Messages) != 2 {
@@ -76,10 +74,21 @@ func TestParseRating(t *testing.T) {
 	tests := []struct {
 		name    string
 		content string
-		want    float64
+		want    types.Rating
 	}{
-		{name: "json", content: `{"score":4.25}`, want: 4.25},
-		{name: "fallback number", content: "rating: 42", want: 42},
+		{
+			name:    "json",
+			content: `{"personal_relevance":8,"impact":7,"source_trust":9,"novelty":6,"actionability":5,"depth_insight":6,"signal_to_noise":7}`,
+			want: types.Rating{
+				PersonalRelevance: 8,
+				Impact:            7,
+				SourceTrust:       9,
+				Novelty:           6,
+				Actionability:     5,
+				DepthInsight:      6,
+				SignalToNoise:     7,
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -89,7 +98,7 @@ func TestParseRating(t *testing.T) {
 				t.Fatal(err)
 			}
 			if got != tt.want {
-				t.Fatalf("rating = %f, want %f", got, tt.want)
+				t.Fatalf("rating = %+v, want %+v", got, tt.want)
 			}
 		})
 	}
@@ -98,21 +107,30 @@ func TestParseRating(t *testing.T) {
 func TestRateRejectsOutOfRangeRating(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"choices":[{"message":{"role":"assistant","content":"{\"score\":6}"}}]}`))
+		w.Write([]byte(`{"choices":[{"message":{"role":"assistant","content":"{\"personal_relevance\":11,\"impact\":7,\"source_trust\":9,\"novelty\":6,\"actionability\":5,\"depth_insight\":6,\"signal_to_noise\":7}"}}]}`))
 	}))
 	defer server.Close()
 
-	rater := OpenRouterRater{
-		apiKey: "test-key",
-		model:  "openai/gpt-4o-mini",
-		client: server.Client(),
-		url:    server.URL,
-	}
-	_, err := rater.Rate(context.Background(), types.OutputItem{Title: "Item"})
+	rater := newTestOpenRouterRater(t, server)
+	_, err := Rate(context.Background(), types.OutputItem{Title: "Item"}, rater)
 	if err == nil {
 		t.Fatal("expected error")
 	}
-	if !strings.Contains(err.Error(), "outside 0..5") {
+	if !strings.Contains(err.Error(), "outside 0..10") {
 		t.Fatalf("error = %q", err)
 	}
+}
+
+func newTestOpenRouterRater(t *testing.T, server *httptest.Server) types.OpenRouterRater {
+	t.Helper()
+	t.Setenv("OPENROUTER_API_KEY", "")
+	t.Setenv("OPENROUTER_MODEL", "")
+	if err := env.Load(filepath.Join("..", "..", ".env.test")); err != nil {
+		t.Fatal(err)
+	}
+
+	rater := NewOpenRouterRater()
+	rater.Client = server.Client()
+	rater.Url = server.URL
+	return rater
 }

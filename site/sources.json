@@ -6,23 +6,23 @@
         {
           "name": "OpenAI News",
           "url": "https://openai.com/news/rss.xml",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Anthropic News",
           "url": "https://raw.githubusercontent.com/taobojlen/anthropic-rss-feed/main/anthropic_news_rss.xml",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Google DeepMind Blog",
           "url": "https://deepmind.google/blog/rss.xml",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Hugging Face Blog",
           "url": "https://huggingface.co/papers",
           "type": "website",
-          "tier": 4,
+          "personal_preference": 4,
           "include_url_regex": "/papers/|/blog/",
           "exclude_url_regex": "/papers$|/blog$|/spaces/|/models/|/datasets/",
           "max_items": 20
@@ -30,22 +30,22 @@
         {
           "name": "arXiv cs.AI",
           "url": "https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=20",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "arXiv cs.CL",
           "url": "https://export.arxiv.org/api/query?search_query=cat:cs.CL&sortBy=submittedDate&sortOrder=descending&max_results=20",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Latent Space",
           "url": "https://www.latent.space/feed",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Import AI",
           "url": "https://importai.substack.com/feed",
-          "tier": 4
+          "personal_preference": 4
         }
       ]
     },
@@ -55,38 +55,38 @@
         {
           "name": "The Verge",
           "url": "https://www.theverge.com/rss/index.xml",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Martin Fowler",
           "url": "https://martinfowler.com/feed.atom",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Netflix Tech Blog",
           "url": "https://netflixtechblog.com/feed",
-          "tier": 5,
+          "personal_preference": 5,
           "insecure_ssl": true
         },
         {
           "name": "Cloudflare Blog",
           "url": "https://blog.cloudflare.com/rss/",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "GitHub Engineering",
           "url": "https://github.blog/engineering/feed/",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Stripe Engineering",
           "url": "https://stripe.com/blog/feed.rss",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "ACM Queue",
           "url": "https://queue.acm.org/rss/feeds/queuecontent.xml",
-          "tier": 5
+          "personal_preference": 5
         }
       ]
     },
@@ -96,7 +96,7 @@
         {
           "name": "Barça Universal",
           "url": "https://news.google.com/rss/search?q=site%3Abarcauniversal.com%20when%3A7d&hl=en-US&gl=US&ceid=US%3Aen",
-          "tier": 3
+          "personal_preference": 3
         }
       ]
     },
@@ -106,17 +106,17 @@
         {
           "name": "BBC Football",
           "url": "https://feeds.bbci.co.uk/sport/football/rss.xml",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "The Guardian Football",
           "url": "https://www.theguardian.com/football/rss",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Opta Analyst Football",
           "url": "https://theanalyst.com/feed",
-          "tier": 4
+          "personal_preference": 4
         }
       ]
     },
@@ -130,43 +130,43 @@
           "include_url_regex": "/fr/",
           "exclude_url_regex": "/fr$|/archive|/dossier|/video|/infographie|/flagdzz|/_next/",
           "max_items": 20,
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "TSA Algérie",
           "url": "https://www.tsa-algerie.com/feed/",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "El Watan",
           "url": "https://news.google.com/rss/search?q=site%3Aelwatan.dz%20when%3A30d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Le Soir d'Algérie",
           "url": "https://news.google.com/rss/search?q=site%3Awww.lesoirdalgerie.com%20when%3A1d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Jeune Afrique Algérie",
           "url": "https://www.jeuneafrique.com/pays/algerie/feed/",
           "fallback_url": "https://news.google.com/rss/search?q=site%3Ajeuneafrique.com%20Alg%C3%A9rie%20when%3A30d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "DZfoot",
           "url": "https://www.dzfoot.com/feed",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "La Gazette du Fennec",
           "url": "https://lagazettedufennec.com/feed/",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Visa Algérie",
           "url": "https://www.visa-algerie.com/feed/",
-          "tier": 3
+          "personal_preference": 3
         }
       ]
     },
@@ -176,32 +176,32 @@
         {
           "name": "Reuters World",
           "url": "https://news.google.com/rss/search?q=site%3Areuters.com%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Courrier International",
           "url": "https://www.courrierinternational.com/feed/rubrique/geopolitique/rss.xml",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Politico Europe",
           "url": "https://www.politico.eu/feed/",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Euractiv",
           "url": "https://www.euractiv.com/feed/",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Foreign Affairs",
           "url": "https://www.foreignaffairs.com/rss.xml",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Vie Publique",
           "url": "https://news.google.com/rss/search?q=site%3Avie-publique.fr%20when%3A7d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 5
+          "personal_preference": 5
         }
       ]
     },
@@ -211,37 +211,37 @@
         {
           "name": "Reuters World",
           "url": "https://news.google.com/rss/search?q=site%3Areuters.com%20when%3A1d&hl=en-US&gl=US&ceid=US%3Aen",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Science et Vie",
           "url": "https://news.google.com/rss/search?q=site%3Awww.science-et-vie.com%20when%3A1d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "BBC News",
           "url": "https://feeds.bbci.co.uk/news/rss.xml",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Franceinfo",
           "url": "https://www.francetvinfo.fr/titres.rss",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Le Monde",
           "url": "https://www.lemonde.fr/rss/une.xml",
-          "tier": 4
+          "personal_preference": 4
         },
         {
           "name": "Mediapart",
           "url": "http://www.mediapart.fr/articles/feed",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Liberation",
           "url": "https://www.liberation.fr/arc/outboundfeeds/rss-all/?outputType=xml",
-          "tier": 4
+          "personal_preference": 4
         }
       ]
     },
@@ -251,12 +251,12 @@
         {
           "name": "Paris.fr",
           "url": "https://news.google.com/rss/search?q=site%3Aparis.fr%20when%3A1d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 5
+          "personal_preference": 5
         },
         {
           "name": "Île-de-France Mobilités",
           "url": "https://data.iledefrance-mobilites.fr/explore/dataset/actualites/rss/?",
-          "tier": 5,
+          "personal_preference": 5,
           "type": "rss",
           "max_items": 10
         },
@@ -265,19 +265,19 @@
           "type": "API",
           "url": "https://prim.iledefrance-mobilites.fr/marketplace/disruptions_bulk/disruptions/v2",
           "auth": "apiKey",
-          "tier": 5,
+          "personal_preference": 5,
           "homepage": "https://www.iledefrance-mobilites.fr/"
         },
         {
           "name": "Actu Paris",
           "url": "https://actu.fr/paris/rss.xml",
           "fallback_url": "https://news.google.com/rss/search?q=site%3Aactu.fr%2File-de-france%2Fparis_75056%20when%3A1d&hl=fr&gl=FR&ceid=FR%3Afr",
-          "tier": 3
+          "personal_preference": 3
         },
         {
           "name": "Sortir à Paris",
           "url": "https://www.sortiraparis.com/rss/sortir",
-          "tier": 4
+          "personal_preference": 4
         }
       ]
     }

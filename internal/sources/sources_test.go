@@ -14,7 +14,7 @@ func TestCollectFlattensThemesAndDefaultsType(t *testing.T) {
 	err := os.WriteFile(path, []byte(`{
 		"themes": [
 			{"theme":"AI","sources":[
-				{"name":"OpenAI","url":"https://example.com/rss","tier":5},
+				{"name":"OpenAI","url":"https://example.com/rss","personal_preference":5},
 				{"name":"Site","url":"https://example.com","type":"website","max_items":7}
 			]},
 			{"theme":"Bad","sources":["ignored"]},

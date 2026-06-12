@@ -56,12 +56,12 @@ func Collect(path string) (types.Collection, error) {
 				source.Type = "rss"
 			}
 			collected.Sources = append(collected.Sources, types.Source{
-				Theme:  theme,
-				Name:   source.Name,
-				URL:    source.URL,
-				Type:   source.Type,
-				Tier:   source.Tier,
-				Config: source,
+				Theme:              theme,
+				Name:               source.Name,
+				URL:                source.URL,
+				Type:               source.Type,
+				PersonalPreference: source.PersonalPreference,
+				Config:             source,
 			})
 		}
 	}

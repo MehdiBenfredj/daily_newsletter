@@ -49,12 +49,12 @@ func run() error {
 	for _, source := range processed {
 		fmt.Printf("%s: %d information items\n", source.Name, len(source.Info))
 	}
-	fmt.Printf("couldn't process %d sourcecs", len(errored))
+	fmt.Printf("couldn't process %d sources\n", len(errored))
 	outputItems := output.GetOutputItems(processed)
 
 	rater := rate.NewOpenRouterRater()
 	for i := range outputItems {
-		rating, err := rater.Rate(context.Background(), outputItems[i])
+		rating, err := rate.Rate(context.Background(), outputItems[i], rater)
 		if err != nil {
 			return fmt.Errorf("rate item %d (%q): %w", outputItems[i].Index, outputItems[i].Title, err)
 		}
@@ -90,12 +90,12 @@ func processSources(collection types.Collection) ([]types.ProcessedSource, []typ
 	now := time.Now().UTC()
 	for _, source := range collection.Sources {
 		item := types.ProcessedSource{
-			Theme:  source.Theme,
-			Name:   source.Name,
-			URL:    source.URL,
-			Type:   source.Type,
-			Config: source.Config,
-			Tier:   source.Tier,
+			Theme:              source.Theme,
+			Name:               source.Name,
+			URL:                source.URL,
+			Type:               source.Type,
+			Config:             source.Config,
+			PersonalPreference: source.PersonalPreference,
 		}
 		result, err := processSource(source)
 		if err != nil {

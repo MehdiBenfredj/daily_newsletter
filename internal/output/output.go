@@ -22,8 +22,8 @@ func GetOutputItems(sources []types.ProcessedSource) []types.OutputItem {
 			if information.Description != "" {
 				item.Description = information.Description
 			}
-			if source.Tier != 0 {
-				item.Tier = source.Tier
+			if source.PersonalPreference != 0 {
+				item.PersonalPreference = source.PersonalPreference
 			}
 			if source.Theme != "" {
 				item.Theme = source.Theme
