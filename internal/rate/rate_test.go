@@ -15,7 +15,7 @@ import (
 )
 
 func TestOpenRouterRaterRate(t *testing.T) {
-	item := types.OutputItem{
+	item := types.Information{
 		Source:      "OpenAI News",
 		Title:       "Major model release",
 		Description: "Official announcement from OpenAI.",
@@ -143,7 +143,7 @@ func TestRateRejectsOutOfRangeRating(t *testing.T) {
 	defer server.Close()
 
 	rater := newTestOpenRouterRater(t, server)
-	_, err := Rate(context.Background(), types.OutputItem{Title: "Item"}, rater)
+	_, err := Rate(context.Background(), types.Information{Title: "Item"}, rater)
 	if err == nil {
 		t.Fatal("expected error")
 	}
@@ -194,7 +194,7 @@ func TestRateHandlesOpenRouterErrors(t *testing.T) {
 		defer server.Close()
 
 		rater := newTestOpenRouterRater(t, server)
-		_, err := Rate(context.Background(), types.OutputItem{Title: "Item"}, rater)
+		_, err := Rate(context.Background(), types.Information{Title: "Item"}, rater)
 		if err == nil || !strings.Contains(err.Error(), "openrouter returned 502 Bad Gateway") {
 			t.Fatalf("error = %v", err)
 		}
@@ -208,7 +208,7 @@ func TestRateHandlesOpenRouterErrors(t *testing.T) {
 		defer server.Close()
 
 		rater := newTestOpenRouterRater(t, server)
-		_, err := Rate(context.Background(), types.OutputItem{Title: "Item"}, rater)
+		_, err := Rate(context.Background(), types.Information{Title: "Item"}, rater)
 		if err == nil || !strings.Contains(err.Error(), "openrouter returned no choices") {
 			t.Fatalf("error = %v", err)
 		}

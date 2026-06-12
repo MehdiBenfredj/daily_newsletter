@@ -65,23 +65,23 @@ func run() error {
 		slog.Info("source processed", "source_name", source.Name, "items", len(source.Info), "theme", source.Theme, "type", source.Type)
 	}
 	slog.Info("source processing completed", "processed", len(processed), "errored", len(errored))
-	outputItems := output.GetOutputItems(processed)
-	slog.Info("output items prepared", "items", len(outputItems))
+	informationItems := output.EnrichInformationItems(processed)
+	slog.Info("output items prepared", "items", len(informationItems))
 
 	rater := rate.NewOpenRouterRater()
-	outputItems = rateOutputItems(context.Background(), outputItems, rater)
-	slog.Info("rating completed", "rated_items", len(outputItems))
+	informationItems = rateInformationItems(context.Background(), informationItems, rater)
+	slog.Info("rating completed", "rated_items", len(informationItems))
 
-	sort.Slice(outputItems, func(i, j int) bool {
-		return outputItems[i].Rating > outputItems[j].Rating
+	sort.Slice(informationItems, func(i, j int) bool {
+		return informationItems[i].Rating > informationItems[j].Rating
 	})
-	slog.Info("items sorted", "items", len(outputItems))
+	slog.Info("items sorted", "items", len(informationItems))
 
-	outputPath := filepath.Join(repo, "processed_sources.json")
-	if err := output.WriteJSON(outputPath, outputItems); err != nil {
+	outputPath := filepath.Join(repo, "processed_informations.json")
+	if err := output.WriteJSON(outputPath, informationItems); err != nil {
 		return err
 	}
-	slog.Info("newsletter publishing completed", "output", outputPath, "items", len(outputItems))
+	slog.Info("newsletter publishing completed", "output", outputPath, "items", len(informationItems))
 	return nil
 }
 
@@ -91,7 +91,7 @@ type ratingResult struct {
 	err    error
 }
 
-func rateOutputItems(ctx context.Context, outputItems []types.OutputItem, rater types.OpenRouterRater) []types.OutputItem {
+func rateInformationItems(ctx context.Context, outputItems []types.Information, rater types.OpenRouterRater) []types.Information {
 	results := make(chan ratingResult, len(outputItems))
 	var wg sync.WaitGroup
 	slog.Info("rating items in parallel", "items", len(outputItems))
@@ -126,7 +126,7 @@ func rateOutputItems(ctx context.Context, outputItems []types.OutputItem, rater 
 		slog.Info("item rated", "index", item.Index, "source_name", item.Source, "rating", result.rating)
 	}
 
-	rated := make([]types.OutputItem, 0, len(outputItems))
+	rated := make([]types.Information, 0, len(outputItems))
 	for i, item := range outputItems {
 		if !failed[i] {
 			rated = append(rated, item)

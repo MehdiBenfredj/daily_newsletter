@@ -8,22 +8,17 @@ import (
 	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
-func GetOutputItems(sources []types.ProcessedSource) []types.OutputItem {
+func EnrichInformationItems(sources []types.ProcessedSource) []types.Information {
 	slog.Info("building output items", "sources", len(sources))
-	var items []types.OutputItem
+	var items []types.Information
 	index := 1
 	for _, source := range sources {
 		slog.Info("building output items for source", "source_name", source.Name, "information_items", len(source.Info))
 		for _, information := range source.Info {
-			item := types.OutputItem{
-				Index:  index,
-				Source: source.Name,
-			}
-			if information.Title != "" {
-				item.Title = information.Title
-			}
-			if information.Description != "" {
-				item.Description = information.Description
+			item := information
+			item.Index = index
+			if source.Name != "" {
+				item.Source = source.Name
 			}
 			if source.PersonalPreference != 0 {
 				item.PersonalPreference = source.PersonalPreference

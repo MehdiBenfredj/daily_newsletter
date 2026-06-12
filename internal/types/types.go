@@ -62,20 +62,15 @@ type ProcessedSource struct {
 }
 
 type Information struct {
-	URL           string `json:"url"`
-	Title         string `json:"title"`
-	DatePublished string `json:"date_published"`
-	Description   string `json:"description"`
-}
-
-type OutputItem struct {
-	Index              int     `json:"index"`
-	Source             string  `json:"source"`
+	Index              int     `json:"index,omitempty"`
+	URL                string  `json:"url"`
+	Source             string  `json:"source,omitempty"`
 	Title              string  `json:"title"`
+	DatePublished      string  `json:"date_published"`
 	Description        string  `json:"description"`
 	PersonalPreference int     `json:"personal_preference,omitempty"`
 	Theme              string  `json:"theme,omitempty"`
-	Rating             float64 `json:"rating"`
+	Rating             float64 `json:"rating,omitempty"`
 }
 
 type OpenRouterChatRequest struct {

@@ -34,8 +34,13 @@ go run ./cmd/publish-newsletter
 ```
 
 The command reads `site/sources.json`, fetches configured RSS/website/API sources,
-prints per-source information counts, rates each output item with OpenRouter,
-sorts by rating, and writes `processed_sources.json`.
+parses each source into information items, enriches them with source metadata,
+rates them with OpenRouter, sorts them by rating, and writes
+`processed_informations.json`.
+
+Each output information item keeps the parsed article fields (`url`, `title`,
+`date_published`, `description`) and adds publishing metadata such as `index`,
+`source`, `theme`, `personal_preference`, and `rating`.
 
 To use a custom source file:
 

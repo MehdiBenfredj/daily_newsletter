@@ -117,7 +117,7 @@ func LoadRatingCoefficients() (types.RatingCoefficients, error) {
 	return coefficients, nil
 }
 
-func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (float64, error) {
+func Rate(ctx context.Context, item types.Information, r types.OpenRouterRater) (float64, error) {
 	slog.Info("rate item started", "index", item.Index, "source_name", item.Source, "title", item.Title, "theme", item.Theme)
 	if r.ApiKey == "" {
 		return 0, fmt.Errorf("OPENROUTER_API_KEY is required")
@@ -194,7 +194,7 @@ func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (
 	return score, nil
 }
 
-func promptFor(item types.OutputItem) string {
+func promptFor(item types.Information) string {
 	return fmt.Sprintf(prompt, item.Source, item.Title, item.Description, item.Theme)
 }
 

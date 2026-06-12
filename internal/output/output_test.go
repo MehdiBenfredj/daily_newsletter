@@ -11,11 +11,11 @@ import (
 )
 
 func TestPrintableProcessedSources(t *testing.T) {
-	got := output.GetOutputItems([]types.ProcessedSource{
+	got := output.EnrichInformationItems([]types.ProcessedSource{
 		{
 			Name: "OpenAI",
 			Info: []types.Information{
-				{Title: "First", Description: "Desc"},
+				{URL: "https://example.com/first", Title: "First", DatePublished: "2026-06-02", Description: "Desc"},
 				{Title: "Second"},
 			},
 		},
@@ -27,13 +27,16 @@ func TestPrintableProcessedSources(t *testing.T) {
 	if got[0].Index != 1 || got[0].Source != "OpenAI" || got[0].Title != "First" || got[0].Description != "Desc" {
 		t.Fatalf("unexpected first item: %+v", got[0])
 	}
+	if got[0].URL != "https://example.com/first" || got[0].DatePublished != "2026-06-02" {
+		t.Fatalf("parsed fields were not preserved: %+v", got[0])
+	}
 	if got[1].Index != 2 || got[1].Title != "Second" || got[1].Description != "" {
 		t.Fatalf("unexpected second item: %+v", got[1])
 	}
 }
 
-func TestGetOutputItemsCarriesThemeAndPersonalPreference(t *testing.T) {
-	got := output.GetOutputItems([]types.ProcessedSource{
+func TestEnrichInformationItemsCarriesThemeAndPersonalPreference(t *testing.T) {
+	got := output.EnrichInformationItems([]types.ProcessedSource{
 		{
 			Name:               "Paris",
 			Theme:              "France / Paris Local",
@@ -54,7 +57,7 @@ func TestGetOutputItemsCarriesThemeAndPersonalPreference(t *testing.T) {
 
 func TestWriteJSONWritesValidJSON(t *testing.T) {
 	path := filepath.Join(t.TempDir(), "output.json")
-	value := []types.OutputItem{
+	value := []types.Information{
 		{Index: 1, Source: "OpenAI", Title: "Release", Rating: 8.5},
 	}
 
@@ -66,7 +69,7 @@ func TestWriteJSONWritesValidJSON(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	var got []types.OutputItem
+	var got []types.Information
 	if err := json.Unmarshal(content, &got); err != nil {
 		t.Fatal(err)
 	}

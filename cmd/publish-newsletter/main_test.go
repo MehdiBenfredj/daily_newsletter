@@ -44,7 +44,7 @@ func TestRateOutputItemsRunsInParallelAndPreservesIndexes(t *testing.T) {
 	}))
 	defer server.Close()
 
-	items := []types.OutputItem{
+	items := []types.Information{
 		{Index: 1, Source: "Source A", Title: "First"},
 		{Index: 2, Source: "Source B", Title: "Second"},
 		{Index: 3, Source: "Source C", Title: "Third"},
@@ -56,7 +56,7 @@ func TestRateOutputItemsRunsInParallelAndPreservesIndexes(t *testing.T) {
 		Url:    server.URL,
 	}
 
-	rated := rateOutputItems(context.Background(), items, rater)
+	rated := rateInformationItems(context.Background(), items, rater)
 	if got := requests.Load(); got != int32(len(items)) {
 		t.Fatalf("requests = %d, want %d", got, len(items))
 	}
@@ -92,7 +92,7 @@ func TestRateOutputItemsSkipsAndLogsFailures(t *testing.T) {
 	}))
 	defer server.Close()
 
-	items := []types.OutputItem{
+	items := []types.Information{
 		{Index: 1, Source: "Source A", Title: "Good item"},
 		{Index: 2, Source: "Source B", Title: "Bad item"},
 	}
@@ -103,7 +103,7 @@ func TestRateOutputItemsSkipsAndLogsFailures(t *testing.T) {
 		Url:    server.URL,
 	}
 
-	rated := rateOutputItems(context.Background(), items, rater)
+	rated := rateInformationItems(context.Background(), items, rater)
 	if len(rated) != 1 {
 		t.Fatalf("rated items = %d, want 1", len(rated))
 	}
