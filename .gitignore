@@ -11,3 +11,4 @@ testfilter.csv
 testtmp2.txt
 cmd/publish-newsletter/__debug_bin*
 .env.test
+cmd/publish-newsletter/logs/26-06-12_18:52:07_daily_newsletter.log

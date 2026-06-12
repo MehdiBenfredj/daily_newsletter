@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/MehdiBenfredj/daily_newsletter/internal/env"
@@ -68,15 +69,8 @@ func run() error {
 	slog.Info("output items prepared", "items", len(outputItems))
 
 	rater := rate.NewOpenRouterRater()
-	for i := range outputItems {
-		slog.Info("rating item", "index", outputItems[i].Index, "source_name", outputItems[i].Source, "title", outputItems[i].Title)
-		rating, err := rate.Rate(context.Background(), outputItems[i], rater)
-		if err != nil {
-			return fmt.Errorf("rate item %d (%q): %w", outputItems[i].Index, outputItems[i].Title, err)
-		}
-		outputItems[i].Rating = rating
-		slog.Info("item rated", "index", outputItems[i].Index, "source_name", outputItems[i].Source, "rating", rating)
-	}
+	outputItems = rateOutputItems(context.Background(), outputItems, rater)
+	slog.Info("rating completed", "rated_items", len(outputItems))
 
 	sort.Slice(outputItems, func(i, j int) bool {
 		return outputItems[i].Rating > outputItems[j].Rating
@@ -89,6 +83,57 @@ func run() error {
 	}
 	slog.Info("newsletter publishing completed", "output", outputPath, "items", len(outputItems))
 	return nil
+}
+
+type ratingResult struct {
+	index  int
+	rating float64
+	err    error
+}
+
+func rateOutputItems(ctx context.Context, outputItems []types.OutputItem, rater types.OpenRouterRater) []types.OutputItem {
+	results := make(chan ratingResult, len(outputItems))
+	var wg sync.WaitGroup
+	slog.Info("rating items in parallel", "items", len(outputItems))
+	for i := range outputItems {
+		// Capture the current index so this goroutine writes back to the right item.
+		i := i
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			item := outputItems[i]
+			slog.Info("rating item", "index", item.Index, "source_name", item.Source, "title", item.Title)
+			rating, err := rate.Rate(ctx, item, rater)
+			if err != nil {
+				results <- ratingResult{index: i, err: fmt.Errorf("rate item %d (%q): %w", item.Index, item.Title, err)}
+				return
+			}
+			results <- ratingResult{index: i, rating: rating}
+		}()
+	}
+	wg.Wait()
+	close(results)
+
+	failed := make([]bool, len(outputItems))
+	for result := range results {
+		item := outputItems[result.index]
+		if result.err != nil {
+			failed[result.index] = true
+			slog.Error("item rating failed; skipping item", "index", item.Index, "source_name", item.Source, "title", item.Title, "error", result.err)
+			continue
+		}
+		outputItems[result.index].Rating = result.rating
+		slog.Info("item rated", "index", item.Index, "source_name", item.Source, "rating", result.rating)
+	}
+
+	rated := make([]types.OutputItem, 0, len(outputItems))
+	for i, item := range outputItems {
+		if !failed[i] {
+			rated = append(rated, item)
+		}
+	}
+	slog.Info("rating items finished", "items", len(outputItems), "rated_items", len(rated), "skipped_items", len(outputItems)-len(rated))
+	return rated
 }
 
 func repoRoot() (string, error) {

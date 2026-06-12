@@ -56,6 +56,58 @@ func TestConfigureCreatesTimestampedLogFileInConfiguredDirectory(t *testing.T) {
 	}
 }
 
+func TestConfigureExpandsHomeDirectoryInLogDir(t *testing.T) {
+	original := slog.Default()
+	t.Cleanup(func() {
+		slog.SetDefault(original)
+	})
+
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+
+	closeLog, err := Configure("~/logs")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := closeLog(); err != nil {
+		t.Fatal(err)
+	}
+
+	matches, err := filepath.Glob(filepath.Join(home, "logs", "*_daily_newsletter.log"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(matches) != 1 {
+		t.Fatalf("log files = %v, want exactly one in expanded home directory", matches)
+	}
+}
+
+func TestConfigureExpandsBareHomeDirectory(t *testing.T) {
+	original := slog.Default()
+	t.Cleanup(func() {
+		slog.SetDefault(original)
+	})
+
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+
+	closeLog, err := Configure("~")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := closeLog(); err != nil {
+		t.Fatal(err)
+	}
+
+	matches, err := filepath.Glob(filepath.Join(home, "*_daily_newsletter.log"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(matches) != 1 {
+		t.Fatalf("log files = %v, want exactly one in home directory", matches)
+	}
+}
+
 func TestConfigureWithoutFileLogsToDefaultHandler(t *testing.T) {
 	original := slog.Default()
 	t.Cleanup(func() {

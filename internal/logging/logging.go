@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -20,6 +21,11 @@ func Configure(logDir string) (func() error, error) {
 	var logFile string
 
 	if logDir != "" {
+		var err error
+		logDir, err = expandHomeDir(logDir)
+		if err != nil {
+			return nil, err
+		}
 		if err := os.MkdirAll(logDir, 0o755); err != nil {
 			return nil, err
 		}
@@ -50,4 +56,19 @@ func Configure(logDir string) (func() error, error) {
 		}
 		return file.Close()
 	}, nil
+}
+
+func expandHomeDir(path string) (string, error) {
+	if path != "~" && !strings.HasPrefix(path, "~/") {
+		return path, nil
+	}
+
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	if path == "~" {
+		return home, nil
+	}
+	return filepath.Join(home, strings.TrimPrefix(path, "~/")), nil
 }
