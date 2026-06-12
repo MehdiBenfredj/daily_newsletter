@@ -3,6 +3,7 @@ package sources
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 
@@ -10,10 +11,12 @@ import (
 )
 
 func Collect(path string) (types.Collection, error) {
+	slog.Info("collect sources started", "path", path)
 	content, err := os.ReadFile(path)
 	if err != nil {
 		return types.Collection{}, err
 	}
+	slog.Info("sources file read", "path", path, "bytes", len(content))
 
 	var root map[string]any
 	if err := json.Unmarshal(content, &root); err != nil {
@@ -33,19 +36,24 @@ func Collect(path string) (types.Collection, error) {
 	for _, themeValue := range themes {
 		themeEntry, ok := themeValue.(map[string]any)
 		if !ok {
+			slog.Warn("skipping malformed theme entry", "path", path)
 			continue
 		}
 		theme, ok := themeEntry["theme"].(string)
 		if !ok {
+			slog.Warn("skipping theme entry with missing theme name", "path", path)
 			continue
 		}
 		sourceValues, ok := themeEntry["sources"].([]any)
 		if !ok {
+			slog.Warn("skipping theme with malformed sources", "path", path, "theme", theme)
 			continue
 		}
+		slog.Info("collecting theme sources", "path", path, "theme", theme, "sources", len(sourceValues))
 		for _, sourceValue := range sourceValues {
 			sourceMap, ok := sourceValue.(map[string]any)
 			if !ok {
+				slog.Warn("skipping malformed source entry", "path", path, "theme", theme)
 				continue
 			}
 			source, err := decodeSourceConfig(sourceMap)
@@ -63,9 +71,11 @@ func Collect(path string) (types.Collection, error) {
 				PersonalPreference: source.PersonalPreference,
 				Config:             source,
 			})
+			slog.Info("source collected", "path", path, "theme", theme, "source_name", source.Name, "url", source.URL, "type", source.Type)
 		}
 	}
 	collected.SourceCount = len(collected.Sources)
+	slog.Info("collect sources completed", "path", collected.SourcePath, "themes", collected.ThemeCount, "sources", collected.SourceCount)
 	return collected, nil
 }
 

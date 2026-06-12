@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"strconv"
@@ -27,6 +28,7 @@ func NewOpenRouterRater() types.OpenRouterRater {
 	if model == "" {
 		model = defaultModel
 	}
+	slog.Info("openrouter rater created", "model", model, "url", openRouterURL, "has_api_key", os.Getenv("OPENROUTER_API_KEY") != "")
 	return types.OpenRouterRater{
 		ApiKey: os.Getenv("OPENROUTER_API_KEY"),
 		Model:  model,
@@ -36,6 +38,7 @@ func NewOpenRouterRater() types.OpenRouterRater {
 }
 
 func Score(r types.Rating) (float64, error) {
+	slog.Info("scoring rating", "personal_relevance", r.PersonalRelevance, "impact", r.Impact, "source_trust", r.SourceTrust, "novelty", r.Novelty, "actionability", r.Actionability, "depth_insight", r.DepthInsight, "signal_to_noise", r.SignalToNoise, "personal_preference", r.PersonalPreference)
 	coefficients, err := LoadRatingCoefficients()
 	if err != nil {
 		return 0, err
@@ -49,10 +52,12 @@ func Score(r types.Rating) (float64, error) {
 		r.DepthInsight*coefficients.DepthInsight +
 		r.SignalToNoise*coefficients.SignalToNoise +
 		r.PersonalPreference*coefficients.PersonalPreference)
+	slog.Info("rating scored", "score", score)
 	return score, nil
 }
 
 func LoadRatingCoefficients() (types.RatingCoefficients, error) {
+	slog.Info("loading rating coefficients")
 	personalRelevanceCoef, err := strconv.ParseFloat(os.Getenv("PERSONAL_RELEVANCE_COEF"), 64)
 	if err != nil {
 		return types.RatingCoefficients{}, fmt.Errorf("PERSONAL_RELEVANCE_COEF is required")
@@ -108,10 +113,12 @@ func LoadRatingCoefficients() (types.RatingCoefficients, error) {
 		return types.RatingCoefficients{}, fmt.Errorf("rating coefficients must sum to 1.0, got %f", total)
 	}
 
+	slog.Info("rating coefficients loaded", "personal_relevance", coefficients.PersonalRelevance, "impact", coefficients.Impact, "source_trust", coefficients.SourceTrust, "novelty", coefficients.Novelty, "actionability", coefficients.Actionability, "depth_insight", coefficients.DepthInsight, "signal_to_noise", coefficients.SignalToNoise, "personal_preference", coefficients.PersonalPreference, "total", total)
 	return coefficients, nil
 }
 
 func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (float64, error) {
+	slog.Info("rate item started", "index", item.Index, "source_name", item.Source, "title", item.Title, "theme", item.Theme)
 	if r.ApiKey == "" {
 		return 0, fmt.Errorf("OPENROUTER_API_KEY is required")
 	}
@@ -135,6 +142,7 @@ func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (
 	if err != nil {
 		return 0, err
 	}
+	slog.Info("openrouter request prepared", "index", item.Index, "model", r.Model, "url", r.Url, "bytes", len(body))
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, r.Url, bytes.NewReader(body))
 	if err != nil {
@@ -150,12 +158,14 @@ func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (
 		return 0, err
 	}
 	defer resp.Body.Close()
+	slog.Info("openrouter response received", "index", item.Index, "status", resp.Status)
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return 0, err
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		slog.Error("openrouter returned non-success status", "index", item.Index, "status", resp.Status, "body", strings.TrimSpace(string(respBody)))
 		return 0, fmt.Errorf("openrouter returned %s: %s", resp.Status, strings.TrimSpace(string(respBody)))
 	}
 
@@ -166,6 +176,7 @@ func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (
 	if len(chatResp.Choices) == 0 {
 		return 0, fmt.Errorf("openrouter returned no choices")
 	}
+	slog.Info("openrouter choices parsed", "index", item.Index, "choices", len(chatResp.Choices))
 
 	rating, err := parseRating(chatResp.Choices[0].Message.Content)
 	if err != nil {
@@ -175,7 +186,12 @@ func Rate(ctx context.Context, item types.OutputItem, r types.OpenRouterRater) (
 		return 0, err
 	}
 	rating.PersonalPreference = float64(item.PersonalPreference)
-	return Score(rating)
+	score, err := Score(rating)
+	if err != nil {
+		return 0, err
+	}
+	slog.Info("rate item completed", "index", item.Index, "source_name", item.Source, "rating", score)
+	return score, nil
 }
 
 func promptFor(item types.OutputItem) string {
@@ -183,6 +199,7 @@ func promptFor(item types.OutputItem) string {
 }
 
 func parseRating(content string) (types.Rating, error) {
+	slog.Info("parsing rating response", "bytes", len(content))
 	var rating types.Rating
 	if err := json.Unmarshal([]byte(strings.TrimSpace(content)), &rating); err != nil {
 		return types.Rating{}, fmt.Errorf("invalid rating JSON: %w", err)
@@ -207,10 +224,12 @@ func parseRating(content string) (types.Rating, error) {
 		}
 	}
 
+	slog.Info("rating response parsed", "personal_relevance", rating.PersonalRelevance, "impact", rating.Impact, "source_trust", rating.SourceTrust, "novelty", rating.Novelty, "actionability", rating.Actionability, "depth_insight", rating.DepthInsight, "signal_to_noise", rating.SignalToNoise)
 	return rating, nil
 }
 
 func validateRating(rating types.Rating) error {
+	slog.Info("validating rating")
 	for name, value := range map[string]float64{
 		"personal_relevance": rating.PersonalRelevance,
 		"impact":             rating.Impact,
@@ -224,5 +243,6 @@ func validateRating(rating types.Rating) error {
 			return fmt.Errorf("rating %s=%f outside 0..10", name, value)
 		}
 	}
+	slog.Info("rating validated")
 	return nil
 }

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	stdhtml "html"
 	"io"
+	"log/slog"
 	"net/url"
 	"regexp"
 	"sort"
@@ -61,23 +62,34 @@ func ParsePublishedDatetime(value string) (time.Time, bool) {
 
 func ProcessedSource(source types.ProcessedSource, now time.Time) ([]types.Information, error) {
 	if source.Processed == nil {
+		slog.Warn("parse skipped source without processed content", "source_name", source.Name)
 		return nil, nil
 	}
+	slog.Info("parse source started", "source_name", source.Name, "type", source.Type, "content_type", source.Processed.ContentType, "bytes", source.Processed.Bytes)
 	switch strings.ToLower(defaultType(source.Type)) {
 	case "rss", "feed", "atom", "xml":
 		items, err := rssInformation(source.Processed)
 		if err != nil {
 			return nil, err
 		}
-		return filterRecent(items, now), nil
+		recent := filterRecent(items, now)
+		slog.Info("parse rss completed", "source_name", source.Name, "items", len(items), "recent_items", len(recent))
+		return recent, nil
 	case "website", "html", "web":
-		return websiteInformation(source)
+		items, err := websiteInformation(source)
+		if err != nil {
+			return nil, err
+		}
+		slog.Info("parse website completed", "source_name", source.Name, "items", len(items))
+		return items, nil
 	case "api":
 		items, err := apiInformation(source)
 		if err != nil {
 			return nil, err
 		}
-		return filterRecent(items, now), nil
+		recent := filterRecent(items, now)
+		slog.Info("parse api completed", "source_name", source.Name, "items", len(items), "recent_items", len(recent))
+		return recent, nil
 	default:
 		return nil, fmt.Errorf("unsupported source type %q for %s", source.Type, source.Name)
 	}
@@ -103,6 +115,7 @@ func filterRecent(items []types.Information, now time.Time) []types.Information 
 func rssInformation(processed *types.Processed) ([]types.Information, error) {
 	raw, ok := processed.Data.(string)
 	if !ok {
+		slog.Warn("rss parse skipped non-string data", "content_type", processed.ContentType)
 		return nil, nil
 	}
 	root, err := parseXML(raw)
@@ -133,6 +146,7 @@ func rssInformation(processed *types.Processed) ([]types.Information, error) {
 			Description:   textOf(entry, "description", "summary"),
 		})
 	}
+	slog.Info("rss information extracted", "entries", len(entries), "items", len(items))
 	return items, nil
 }
 
@@ -222,6 +236,7 @@ func wantedNames(names []string) map[string]bool {
 func websiteInformation(source types.ProcessedSource) ([]types.Information, error) {
 	raw, ok := source.Processed.Data.(string)
 	if !ok {
+		slog.Warn("website parse skipped non-string data", "source_name", source.Name)
 		return nil, nil
 	}
 	base, err := url.Parse(source.URL)
@@ -272,6 +287,7 @@ func websiteInformation(source types.ProcessedSource) ([]types.Information, erro
 		}
 	}
 	walk(root)
+	slog.Info("website information extracted", "source_name", source.Name, "items", len(items), "max_items", maxItems)
 	return items, nil
 }
 
@@ -321,6 +337,7 @@ func nodeText(node *html.Node) string {
 func apiInformation(source types.ProcessedSource) ([]types.Information, error) {
 	data, ok := source.Processed.Data.(map[string]any)
 	if !ok {
+		slog.Warn("api parse skipped non-object data", "source_name", source.Name)
 		return nil, nil
 	}
 	linesByID := map[string]string{}
@@ -366,6 +383,7 @@ func apiInformation(source types.ProcessedSource) ([]types.Information, error) {
 			Description:   joinNonEmpty(details, " | "),
 		})
 	}
+	slog.Info("api information extracted", "source_name", source.Name, "lines", len(linesByID), "items", len(items))
 	return items, nil
 }
 

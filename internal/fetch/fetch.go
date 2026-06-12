@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"time"
@@ -22,6 +23,7 @@ func Source(source types.Source) ([]byte, error) {
 	if source.URL == "" {
 		return nil, fmt.Errorf("%s is missing a URL", source.Name)
 	}
+	slog.Info("fetch source started", "source_name", source.Name, "url", source.URL, "type", source.Type)
 
 	headers, err := headersFor(source)
 	if err != nil {
@@ -36,11 +38,14 @@ func Source(source types.Source) ([]byte, error) {
 	url := source.URL
 	var lastErr error
 	for attempt := 0; attempt < retries; attempt++ {
+		slog.Info("fetch attempt started", "source_name", source.Name, "url", url, "attempt", attempt+1, "max_attempts", retries)
 		body, status, err := fetchOnce(client, url, headers)
 		if err == nil && status < 400 {
+			slog.Info("fetch attempt succeeded", "source_name", source.Name, "url", url, "status", status, "bytes", len(body))
 			return body, nil
 		}
 		if status == http.StatusForbidden && source.Config.FallbackURL != "" && url != source.Config.FallbackURL {
+			slog.Warn("fetch forbidden; switching to fallback url", "source_name", source.Name, "url", url, "fallback_url", source.Config.FallbackURL, "status", status)
 			url = source.Config.FallbackURL
 			attempt = -1
 			continue
@@ -51,12 +56,16 @@ func Source(source types.Source) ([]byte, error) {
 			lastErr = fmt.Errorf("http %d fetching %s", status, url)
 		}
 		if !isRetriable(status, err) {
+			slog.Error("fetch attempt failed without retry", "source_name", source.Name, "url", url, "status", status, "error", lastErr)
 			return nil, lastErr
 		}
 		if attempt < retries-1 {
-			time.Sleep(time.Duration(1<<attempt) * time.Second)
+			sleep := time.Duration(1<<attempt) * time.Second
+			slog.Warn("fetch attempt failed; retrying", "source_name", source.Name, "url", url, "status", status, "error", lastErr, "sleep", sleep)
+			time.Sleep(sleep)
 		}
 	}
+	slog.Error("fetch source failed", "source_name", source.Name, "url", url, "error", lastErr)
 	return nil, lastErr
 }
 
@@ -72,6 +81,7 @@ func headersFor(source types.Source) (http.Header, error) {
 		if key == "" {
 			return nil, fmt.Errorf("%s requires PRIM_API_KEY", source.Name)
 		}
+		slog.Info("fetch source using api key auth", "source_name", source.Name)
 		headers.Set("apikey", key)
 	}
 	return headers, nil
