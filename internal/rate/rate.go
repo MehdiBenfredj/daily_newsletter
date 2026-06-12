@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"math/rand/v2"
 	"net/http"
 	"os"
 	"strconv"
@@ -17,10 +18,11 @@ import (
 )
 
 const (
-	defaultModel  = "openrouter/auto"
-	openRouterURL = "https://openrouter.ai/api/v1/chat/completions"
-	referer       = "https://mehdibenfredj.github.io/daily_newsletter/"
-	appTitle      = "Daily Newsletter"
+	defaultModel        = "openrouter/auto"
+	openRouterURL       = "https://openrouter.ai/api/v1/chat/completions"
+	referer             = "https://mehdibenfredj.github.io/daily_newsletter/"
+	appTitle            = "Daily Newsletter"
+	randomnessFactorEnv = "RANDOMNESS_FACTOR"
 )
 
 func NewOpenRouterRater() types.OpenRouterRater {
@@ -52,8 +54,52 @@ func Score(r types.Rating) (float64, error) {
 		r.DepthInsight*coefficients.DepthInsight +
 		r.SignalToNoise*coefficients.SignalToNoise +
 		r.PersonalPreference*coefficients.PersonalPreference)
+
+	score, err = applyRandomness(score)
+	if err != nil {
+		return 0, err
+	}
 	slog.Info("rating scored", "score", score)
 	return score, nil
+}
+
+func applyRandomness(score float64) (float64, error) {
+	factor, err := loadRandomnessFactor()
+	if err != nil {
+		return 0, err
+	}
+	if factor == 0 {
+		return score, nil
+	}
+
+	multiplier := 1 - factor + rand.Float64()*(2*factor)
+	randomized := score * multiplier
+	slog.Info("rating randomness applied", "randomness_factor", factor, "multiplier", multiplier, "base_score", score, "score", randomized)
+	return randomized, nil
+}
+
+func loadRandomnessFactor() (float64, error) {
+	raw := strings.TrimSpace(os.Getenv(randomnessFactorEnv))
+	if raw == "" {
+		return 0, nil
+	}
+
+	hasPercent := strings.HasSuffix(raw, "%")
+	raw = strings.TrimSpace(strings.TrimSuffix(raw, "%"))
+	value, err := strconv.ParseFloat(raw, 64)
+	if err != nil {
+		return 0, fmt.Errorf("%s must be a percentage like 15%%", randomnessFactorEnv)
+	}
+	if value < 0 {
+		return 0, fmt.Errorf("%s must be greater than or equal to 0", randomnessFactorEnv)
+	}
+	if hasPercent || value > 1 {
+		value = value / 100
+	}
+	if value > 1 {
+		return 0, fmt.Errorf("%s must be less than or equal to 100%%", randomnessFactorEnv)
+	}
+	return value, nil
 }
 
 func LoadRatingCoefficients() (types.RatingCoefficients, error) {

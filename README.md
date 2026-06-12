@@ -29,6 +29,11 @@ Set `OPENROUTER_API_KEY` so the publisher can rate each collected item. The
 optional `OPENROUTER_MODEL` value defaults to `openrouter/auto`. Set
 `PRIM_API_KEY` when using sources that require Prim API authentication.
 
+Rating weights are configured with the `*_COEF` values in `.env`; they must sum
+to `1.0`. `RANDOMNESS_FACTOR` adds a small random multiplier after scoring. For
+example, `RANDOMNESS_FACTOR=15%` changes each score by a random factor from
+`0.85` to `1.15`. Use `0%` for deterministic scores.
+
 ```sh
 go run ./cmd/publish-newsletter
 ```

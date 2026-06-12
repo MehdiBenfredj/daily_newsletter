@@ -14,6 +14,7 @@ func TestLoadSetsValuesFromDotEnv(t *testing.T) {
 OPENROUTER_API_KEY=test-key
 OPENROUTER_MODEL="openrouter/auto"
 export PRIM_API_KEY='prim-key'
+RANDOMNESS_FACTOR=15%
 `)
 	if err := os.WriteFile(path, content, 0o600); err != nil {
 		t.Fatal(err)
@@ -31,6 +32,9 @@ export PRIM_API_KEY='prim-key'
 	}
 	if got := os.Getenv("PRIM_API_KEY"); got != "prim-key" {
 		t.Fatalf("PRIM_API_KEY = %q", got)
+	}
+	if got := os.Getenv("RANDOMNESS_FACTOR"); got != "15%" {
+		t.Fatalf("RANDOMNESS_FACTOR = %q", got)
 	}
 }
 

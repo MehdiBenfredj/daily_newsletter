@@ -186,6 +186,118 @@ func TestLoadRatingCoefficientsRejectsMissingAndInvalidSum(t *testing.T) {
 	})
 }
 
+func TestScoreAppliesRandomnessFactor(t *testing.T) {
+	setTestCoefficients(t)
+	t.Setenv(randomnessFactorEnv, "15%")
+
+	rating := types.Rating{
+		PersonalRelevance:  8,
+		Impact:             7,
+		SourceTrust:        9,
+		Novelty:            6,
+		Actionability:      5,
+		DepthInsight:       6,
+		SignalToNoise:      7,
+		PersonalPreference: 4,
+	}
+	base := 6.60
+
+	for range 100 {
+		got, err := Score(rating)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got < base*0.85 || got > base*1.15 {
+			t.Fatalf("randomized score = %f, want within [%f, %f]", got, base*0.85, base*1.15)
+		}
+	}
+}
+
+func TestScoreWithoutRandomnessIsDeterministic(t *testing.T) {
+	setTestCoefficients(t)
+
+	rating := types.Rating{
+		PersonalRelevance:  8,
+		Impact:             7,
+		SourceTrust:        9,
+		Novelty:            6,
+		Actionability:      5,
+		DepthInsight:       6,
+		SignalToNoise:      7,
+		PersonalPreference: 4,
+	}
+
+	for range 10 {
+		got, err := Score(rating)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(got-6.60) > 0.000000001 {
+			t.Fatalf("score = %f, want deterministic 6.60", got)
+		}
+	}
+}
+
+func TestScoreReturnsRandomnessConfigError(t *testing.T) {
+	setTestCoefficients(t)
+	t.Setenv(randomnessFactorEnv, "nope")
+
+	_, err := Score(types.Rating{})
+	if err == nil {
+		t.Fatal("expected error")
+	}
+	if !strings.Contains(err.Error(), randomnessFactorEnv) {
+		t.Fatalf("error = %q, want %s", err, randomnessFactorEnv)
+	}
+}
+
+func TestLoadRandomnessFactor(t *testing.T) {
+	tests := []struct {
+		name  string
+		value string
+		want  float64
+	}{
+		{name: "missing", value: "", want: 0},
+		{name: "zero percent", value: "0%", want: 0},
+		{name: "percent", value: "15%", want: 0.15},
+		{name: "percent with spaces", value: " 15 % ", want: 0.15},
+		{name: "whole number", value: "15", want: 0.15},
+		{name: "fraction", value: "0.15", want: 0.15},
+		{name: "one percent as whole", value: "1%", want: 0.01},
+		{name: "one as fraction max", value: "1", want: 1},
+		{name: "hundred percent", value: "100%", want: 1},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Setenv(randomnessFactorEnv, tt.value)
+
+			got, err := loadRandomnessFactor()
+			if err != nil {
+				t.Fatal(err)
+			}
+			if math.Abs(got-tt.want) > 0.000000001 {
+				t.Fatalf("randomness factor = %f, want %f", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestLoadRandomnessFactorRejectsInvalidValues(t *testing.T) {
+	tests := []string{"nope", "-1%", "101%"}
+
+	for _, value := range tests {
+		t.Run(value, func(t *testing.T) {
+			t.Setenv(randomnessFactorEnv, value)
+
+			_, err := loadRandomnessFactor()
+			if err == nil {
+				t.Fatal("expected error")
+			}
+		})
+	}
+}
+
 func TestRateHandlesOpenRouterErrors(t *testing.T) {
 	t.Run("non success status", func(t *testing.T) {
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -239,4 +351,5 @@ func setTestCoefficients(t *testing.T) {
 	t.Setenv("DEPTH_INSIGHT_COEF", "0.10")
 	t.Setenv("SIGNAL_TO_NOISE_COEF", "0.06")
 	t.Setenv("PERSONAL_PREFERENCE_COEF", "0.14")
+	t.Setenv(randomnessFactorEnv, "")
 }
