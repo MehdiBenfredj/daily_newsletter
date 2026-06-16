@@ -1,27 +1,33 @@
 [
   {
+    "date": "2026-06-16",
+    "path": "archives/ui/2026-06-16.html",
+    "processed_path": "archives/processed/2026-06-16.json",
+    "title": "Personal Briefing — 2026-06-16"
+  },
+  {
     "date": "2026-06-02",
     "path": "archive/2026-06-02.html",
-    "title": "Personal Briefing \u2014 2026-06-02"
+    "title": "Personal Briefing — 2026-06-02"
   },
   {
     "date": "2026-06-01",
     "path": "archive/2026-06-01.html",
-    "title": "Personal Briefing \u2014 2026-06-01"
+    "title": "Personal Briefing — 2026-06-01"
   },
   {
     "date": "2026-05-31",
     "path": "archive/2026-05-31.html",
-    "title": "Personal Briefing \u2014 2026-05-31"
+    "title": "Personal Briefing — 2026-05-31"
   },
   {
     "date": "2026-05-30",
     "path": "archive/2026-05-30.html",
-    "title": "Personal Briefing \u2014 2026-05-30"
+    "title": "Personal Briefing — 2026-05-30"
   },
   {
     "date": "2026-05-29",
     "path": "archive/2026-05-29.html",
-    "title": "Personal Briefing \u2014 2026-05-29"
+    "title": "Personal Briefing — 2026-05-29"
   }
 ]
