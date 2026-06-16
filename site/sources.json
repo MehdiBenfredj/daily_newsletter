@@ -30,12 +30,12 @@
         {
           "name": "arXiv cs.AI",
           "url": "https://export.arxiv.org/api/query?search_query=cat:cs.AI&sortBy=submittedDate&sortOrder=descending&max_results=20",
-          "personal_preference": 3
+          "personal_preference": 2
         },
         {
           "name": "arXiv cs.CL",
           "url": "https://export.arxiv.org/api/query?search_query=cat:cs.CL&sortBy=submittedDate&sortOrder=descending&max_results=20",
-          "personal_preference": 3
+          "personal_preference": 2
         },
         {
           "name": "Latent Space",
