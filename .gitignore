@@ -13,3 +13,14 @@ cmd/publish-newsletter/__debug_bin*
 .env.test
 logs/*
 processed_informations.json
+logs/26-06-12_22:03:55_daily_newsletter.log
+logs/26-06-12_22:29:36_daily_newsletter.log
+logs/26-06-12_23:39:08_daily_newsletter.log
+logs/26-06-12_23:42:56_daily_newsletter.log
+logs/26-06-12_23:50:54_daily_newsletter.log
+logs/26-06-12_23:55:51_daily_newsletter.log
+logs/26-06-13_22:00:54_daily_newsletter.log
+logs/26-06-16_15:24:01_daily_newsletter.log
+logs/populate/26-06-16_14:27:24_daily_newsletter_site.log
+logs/populate/26-06-16_14:29:39_daily_newsletter_site.log
+.env.test
