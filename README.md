@@ -35,13 +35,18 @@ example, `RANDOMNESS_FACTOR=15%` changes each score by a random factor from
 `0.85` to `1.15`. Use `0%` for deterministic scores.
 
 ```sh
-go run ./cmd/publish-newsletter
+scripts/publish_newsletter.sh
 ```
 
-The command reads `site/sources.json`, fetches configured RSS/website/API sources,
-parses each source into information items, enriches them with source metadata,
-rates them with OpenRouter, sorts them by rating, and writes
-`processed_informations.json`.
+Publishing starts with `scripts/publish_newsletter.sh`. That script first calls
+`scripts/run_go_publisher.sh "$@"`, then calls `scripts/populate_site.sh`.
+
+`scripts/run_go_publisher.sh` runs the Go publisher, which reads
+`site/sources.json`, fetches configured RSS/website/API sources, parses each
+source into information items, enriches them with source metadata, rates them
+with OpenRouter, sorts them by rating, and writes `processed_informations.json`.
+`scripts/populate_site.sh` then populates the static site from the processed
+newsletter output.
 
 Each output information item keeps the parsed article fields (`url`, `title`,
 `date_published`, `description`) and adds publishing metadata such as `index`,
@@ -50,7 +55,7 @@ Each output information item keeps the parsed article fields (`url`, `title`,
 To use a custom source file:
 
 ```sh
-go run ./cmd/publish-newsletter --sources path/to/sources.json
+scripts/publish_newsletter.sh --sources path/to/sources.json
 ```
 
 ## Tests
