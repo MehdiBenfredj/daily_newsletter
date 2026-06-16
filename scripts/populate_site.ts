@@ -70,7 +70,7 @@ function formatAttrs(attrs: LogAttrs = {}): string {
 }
 
 function log(level: "INFO" | "WARN" | "ERROR", message: string, attrs: LogAttrs = {}): void {
-  const line = `time=${new Date().toISOString()} level=${level} msg=${JSON.stringify(message)} source=populate_site.ts ${formatAttrs(attrs)}\n`;
+  const line = `time=${new Date().toISOString()} level=${level}  source=populate_site.ts msg=${JSON.stringify(message)} ${formatAttrs(attrs)}\n`;
   process.stdout.write(line);
   if (logFile) logFile.write(line);
 }
@@ -92,9 +92,10 @@ function errorMessage(error: unknown): string {
 }
 
 function configureLogging(): void {
-  const rawLogDir = process.env.LOG_DIR || "";
+  const logDirEnv = "LOG_DIR_POPULATE";
+  const rawLogDir = process.env[logDirEnv] || "";
   if (!rawLogDir) {
-    warn("log directory env var is not set; logging to stdout only", { env_var: "LOG_DIR" });
+    warn("log directory env var is not set; logging to stdout only", { env_var: logDirEnv });
     return;
   }
 

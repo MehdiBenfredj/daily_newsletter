@@ -28,6 +28,8 @@ cp .env.template .env
 Set `OPENROUTER_API_KEY` so the publisher can rate each collected item. The
 optional `OPENROUTER_MODEL` value defaults to `openrouter/auto`. Set
 `PRIM_API_KEY` when using sources that require Prim API authentication.
+`LOG_DIR` controls Go publisher logs, and `LOG_DIR_POPULATE` controls the
+TypeScript site-population logs.
 
 Rating weights are configured with the `*_COEF` values in `.env`; they must sum
 to `1.0`. `RANDOMNESS_FACTOR` adds a small random multiplier after scoring. For
@@ -46,7 +48,8 @@ Publishing starts with `scripts/publish_newsletter.sh`. That script first calls
 source into information items, enriches them with source metadata, rates them
 with OpenRouter, sorts them by rating, and writes `processed_informations.json`.
 `scripts/populate_site.sh` then populates the static site from the processed
-newsletter output.
+newsletter output. The populate script loads `.env` before running Node so
+`LOG_DIR_POPULATE` is available when publishing through the shell scripts.
 
 Each output information item keeps the parsed article fields (`url`, `title`,
 `date_published`, `description`) and adds publishing metadata such as `index`,
