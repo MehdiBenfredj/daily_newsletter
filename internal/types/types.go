@@ -68,6 +68,7 @@ type Information struct {
 	Title              string  `json:"title"`
 	DatePublished      string  `json:"date_published"`
 	Description        string  `json:"description"`
+	ImageURL           string  `json:"image_url,omitempty"`
 	PersonalPreference int     `json:"personal_preference,omitempty"`
 	Theme              string  `json:"theme,omitempty"`
 	Rating             float64 `json:"rating,omitempty"`

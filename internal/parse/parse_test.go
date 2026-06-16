@@ -32,26 +32,26 @@ func TestParsePublishedDatetimeAndRecentWindow(t *testing.T) {
 
 func TestRSSAndAtomParsing(t *testing.T) {
 	now := time.Date(2026, 6, 2, 12, 0, 0, 0, time.UTC)
-	rss := types.Processed{Data: `<rss><channel>
-		<item><title>One &amp; Two</title><link>https://example.com/1</link><pubDate>Tue, 02 Jun 2026 10:00:00 GMT</pubDate><description><![CDATA[Hello&nbsp;world]]></description></item>
+	rss := types.Processed{Data: `<rss xmlns:media="http://search.yahoo.com/mrss/"><channel>
+		<item><title>One &amp; Two</title><link>https://example.com/1</link><pubDate>Tue, 02 Jun 2026 10:00:00 GMT</pubDate><description><![CDATA[Hello&nbsp;world]]></description><media:thumbnail url="https://example.com/one.jpg"/></item>
 		<item><title>Old</title><link>https://example.com/old</link><pubDate>Sun, 31 May 2026 10:00:00 GMT</pubDate></item>
 	</channel></rss>`}
 	got, err := parse.ProcessedSource(types.ProcessedSource{Type: "rss", Processed: &rss}, now)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(got) != 1 || got[0].Title != "One & Two" || got[0].Description != "Hello world" {
+	if len(got) != 1 || got[0].Title != "One & Two" || got[0].Description != "Hello world" || got[0].ImageURL != "https://example.com/one.jpg" {
 		t.Fatalf("unexpected rss items: %+v", got)
 	}
 
 	atom := types.Processed{Data: `<feed xmlns="http://www.w3.org/2005/Atom">
-		<entry><title>Atom</title><link href="https://example.com/a"/><updated>2026-06-02T11:00:00Z</updated><summary>Summary</summary></entry>
+		<entry><title>Atom</title><link href="https://example.com/a"/><updated>2026-06-02T11:00:00Z</updated><summary>Summary</summary><content url="https://example.com/atom.webp" type="image/webp"/></entry>
 	</feed>`}
 	got, err = parse.ProcessedSource(types.ProcessedSource{Type: "atom", Processed: &atom}, now)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(got) != 1 || got[0].URL != "https://example.com/a" {
+	if len(got) != 1 || got[0].URL != "https://example.com/a" || got[0].ImageURL != "https://example.com/atom.webp" {
 		t.Fatalf("unexpected atom items: %+v", got)
 	}
 }

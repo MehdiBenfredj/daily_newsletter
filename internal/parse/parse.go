@@ -144,6 +144,7 @@ func rssInformation(processed *types.Processed) ([]types.Information, error) {
 			Title:         textOf(entry, "title"),
 			DatePublished: textOf(entry, "pubDate", "published", "updated", "date"),
 			Description:   textOf(entry, "description", "summary"),
+			ImageURL:      imageURLOf(entry),
 		})
 	}
 	slog.Info("rss information extracted", "entries", len(entries), "items", len(items))
@@ -223,6 +224,57 @@ func textOf(node *xmlNode, names ...string) string {
 		return ""
 	}
 	return cleanText(child.Text.String())
+}
+
+func imageURLOf(entry *xmlNode) string {
+	for _, node := range descendants(entry, "thumbnail") {
+		if value := attrText(node, "url"); value != "" {
+			return value
+		}
+	}
+	for _, node := range descendants(entry, "content") {
+		if value := imageAttrURL(node); value != "" {
+			return value
+		}
+	}
+	for _, node := range descendants(entry, "enclosure") {
+		if value := imageAttrURL(node); value != "" {
+			return value
+		}
+	}
+	for _, node := range descendants(entry, "image") {
+		if value := attrText(node, "href", "url"); value != "" {
+			return value
+		}
+		if value := textOf(node, "url"); value != "" {
+			return value
+		}
+		if value := cleanText(node.Text.String()); value != "" && strings.HasPrefix(strings.ToLower(value), "http") {
+			return value
+		}
+	}
+	return ""
+}
+
+func imageAttrURL(node *xmlNode) string {
+	value := attrText(node, "url", "href")
+	if value == "" {
+		return ""
+	}
+	mediaType := strings.ToLower(attrText(node, "type", "medium"))
+	if mediaType == "" || strings.HasPrefix(mediaType, "image/") || mediaType == "image" {
+		return value
+	}
+	return ""
+}
+
+func attrText(node *xmlNode, names ...string) string {
+	for _, name := range names {
+		if value := cleanText(node.Attrs[strings.ToLower(name)]); value != "" {
+			return value
+		}
+	}
+	return ""
 }
 
 func wantedNames(names []string) map[string]bool {

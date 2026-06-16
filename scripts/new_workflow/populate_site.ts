@@ -20,6 +20,7 @@ type ProcessedInformation = {
   title: string;
   date_published?: string;
   description?: string;
+  image_url?: string;
   theme?: string;
   rating?: number;
 };
@@ -33,7 +34,7 @@ type SiteArticle = {
   date: string;
   time: string;
   color: string;
-  image: string;
+  image?: string;
 };
 
 type SiteTheme = {
@@ -127,17 +128,6 @@ const colors = [
   "bg-[#e6e8ff] text-[#4250c9]",
 ];
 
-const themeImages: Record<string, string> = {
-  "AI / Agentic": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80",
-  "Software Engineering / Architecture": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1200&q=80",
-  "FC Barcelona": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80",
-  Football: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1200&q=80",
-  Algeria: "https://images.unsplash.com/photo-1566837497312-7be4fb1d5483?auto=format&fit=crop&w=1200&q=80",
-  "Politics / Geopolitics": "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=80",
-  "General News": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80",
-  "France / Paris Local": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80",
-};
-
 function readJson<T>(filePath: string): T {
   info("reading json file", { path: filePath });
   const raw = fs.readFileSync(filePath, "utf8");
@@ -222,8 +212,14 @@ function sourceLabel(item: ProcessedInformation): string {
   }
 }
 
-function imageForTheme(theme: string): string {
-  return themeImages[theme] || "https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1200&q=80";
+function shouldSkipImagesForItem(item: ProcessedInformation): boolean {
+  if ((item.source || "").toLowerCase() === "sortir à paris") return true;
+
+  try {
+    return new URL(item.url).hostname.replace(/^www\./, "").toLowerCase() === "sortiraparis.com";
+  } catch {
+    return false;
+  }
 }
 
 function absoluteUrl(value: string, baseUrl: string): string | undefined {
@@ -231,6 +227,18 @@ function absoluteUrl(value: string, baseUrl: string): string | undefined {
     return new URL(decodeHtml(value), baseUrl).toString();
   } catch {
     return undefined;
+  }
+}
+
+function isWeakImageCandidate(value: string | undefined): boolean {
+  if (!value) return true;
+
+  try {
+    const url = new URL(value);
+    const host = url.hostname.toLowerCase();
+    return host === "lh3.googleusercontent.com" && /(?:^|[?&=/])s0-w300(?:$|[?&=-])/.test(url.search + url.pathname);
+  } catch {
+    return true;
   }
 }
 
@@ -249,6 +257,10 @@ function bestSrcsetCandidate(srcset: string, baseUrl: string): string | undefine
 
   candidates.sort((a, b) => b.width - a.width);
   return candidates[0]?.url;
+}
+
+function strongImageCandidate(value: string | undefined): string | undefined {
+  return value && !isWeakImageCandidate(value) ? value : undefined;
 }
 
 function imageFromDescription(item: ProcessedInformation): string | undefined {
@@ -275,8 +287,9 @@ async function fetchPageImage(pageUrl: string): Promise<string | undefined> {
     info("fetching article page image metadata", { url: pageUrl });
     const response = await fetch(pageUrl, {
       signal: controller.signal,
+      redirect: "follow",
       headers: {
-        "user-agent": "daily-newsletter-image-resolver/1.0",
+        "user-agent": "Mozilla/5.0 (compatible; daily-newsletter-image-resolver/1.0; +https://github.com/MehdiBenfredj/daily_newsletter)",
         accept: "text/html,application/xhtml+xml",
       },
     });
@@ -286,7 +299,8 @@ async function fetchPageImage(pageUrl: string): Promise<string | undefined> {
     }
 
     const html = await response.text();
-    info("article page image metadata fetched", { url: pageUrl, bytes: html.length });
+    const finalUrl = response.url || pageUrl;
+    info("article page image metadata fetched", { url: pageUrl, final_url: finalUrl, bytes: html.length });
     const metaPatterns = [
       /<meta\b(?=[^>]*(?:property|name)=["']og:image(?::secure_url)?["'])(?=[^>]*content=["']([^"']+)["'])[^>]*>/i,
       /<meta\b(?=[^>]*(?:property|name)=["']twitter:image(?::src)?["'])(?=[^>]*content=["']([^"']+)["'])[^>]*>/i,
@@ -296,7 +310,7 @@ async function fetchPageImage(pageUrl: string): Promise<string | undefined> {
     for (const pattern of metaPatterns) {
       const image = html.match(pattern)?.[1];
       if (image) {
-        const resolved = absoluteUrl(image, pageUrl);
+        const resolved = absoluteUrl(image, finalUrl);
         if (resolved) return resolved;
         warn("article page image metadata had invalid image url", { url: pageUrl, image });
       }
@@ -311,22 +325,32 @@ async function fetchPageImage(pageUrl: string): Promise<string | undefined> {
   return undefined;
 }
 
-async function imageForItem(item: ProcessedInformation): Promise<string> {
-  const descriptionImage = imageFromDescription(item);
-  if (descriptionImage) {
-    info("article image resolved from description", { url: item.url, source_name: sourceLabel(item), image: descriptionImage });
-    return descriptionImage;
+async function imageForItem(item: ProcessedInformation): Promise<string | undefined> {
+  if (shouldSkipImagesForItem(item)) {
+    info("article image skipped by source exception", { url: item.url, source_name: sourceLabel(item) });
+    return undefined;
   }
 
-  const pageImage = await fetchPageImage(item.url);
+  const pageImage = strongImageCandidate(await fetchPageImage(item.url));
   if (pageImage) {
     info("article image resolved from page metadata", { url: item.url, source_name: sourceLabel(item), image: pageImage });
     return pageImage;
   }
 
-  const fallback = imageForTheme(item.theme || "");
-  info("article image resolved from theme fallback", { url: item.url, source_name: sourceLabel(item), theme: item.theme || "", image: fallback });
-  return fallback;
+  const feedImage = item.image_url ? strongImageCandidate(absoluteUrl(item.image_url, item.url)) : undefined;
+  if (feedImage) {
+    info("article image resolved from feed media metadata", { url: item.url, source_name: sourceLabel(item), image: feedImage });
+    return feedImage;
+  }
+
+  const descriptionImage = strongImageCandidate(imageFromDescription(item));
+  if (descriptionImage) {
+    info("article image resolved from description", { url: item.url, source_name: sourceLabel(item), image: descriptionImage });
+    return descriptionImage;
+  }
+
+  info("article image not found; rendering article without image", { url: item.url, source_name: sourceLabel(item), theme: item.theme || "" });
+  return undefined;
 }
 
 async function toArticle(item: ProcessedInformation, color: string, section: string): Promise<SiteArticle> {
@@ -419,7 +443,6 @@ async function toArticles(items: ProcessedInformation[], colorForIndex: (index: 
         date: displayDate(item.date_published),
         time: typeof item.rating === "number" ? `Rating ${item.rating.toFixed(1)}` : "Rated pick",
         color: colorForIndex(index),
-        image: imageForTheme(item.theme || ""),
       };
     }
   }));
