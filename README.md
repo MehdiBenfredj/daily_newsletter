@@ -31,6 +31,24 @@ optional `OPENROUTER_MODEL` value defaults to `openrouter/auto`. Set
 `LOG_DIR` controls Go publisher logs, and `LOG_DIR_POPULATE` controls the
 TypeScript site-population logs.
 
+## Observability
+
+The Go publisher exports OpenTelemetry traces, metrics, and logs over OTLP when
+`OTEL_SDK_DISABLED` is not `true`. Local text logs still go to stdout and
+`LOG_DIR`; OpenTelemetry logs are an additional exported copy that can be
+correlated with traces by trace/span IDs.
+
+publish:
+
+```sh
+scripts/publish_newsletter.sh
+```
+
+By default `.env.template` points the publisher at `http://localhost:4317`.
+To send telemetry to a hosted backend later, keep the application settings the
+same and replace or extend the collector exporters in
+`otel-collector-config.yaml`.
+
 Rating weights are configured with the `*_COEF` values in `.env`; they must sum
 to `1.0`. `RANDOMNESS_FACTOR` adds a small random multiplier after scoring. For
 example, `RANDOMNESS_FACTOR=15%` changes each score by a random factor from

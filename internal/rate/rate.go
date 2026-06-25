@@ -14,7 +14,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/MehdiBenfredj/daily_newsletter/internal/telemetry"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 )
 
 const (
@@ -34,7 +38,7 @@ func NewOpenRouterRater() types.OpenRouterRater {
 	return types.OpenRouterRater{
 		ApiKey: os.Getenv("OPENROUTER_API_KEY"),
 		Model:  model,
-		Client: &http.Client{Timeout: 45 * time.Second},
+		Client: &http.Client{Timeout: 45 * time.Second, Transport: otelhttp.NewTransport(http.DefaultTransport)},
 		Url:    openRouterURL,
 	}
 }
@@ -164,12 +168,16 @@ func LoadRatingCoefficients() (types.RatingCoefficients, error) {
 }
 
 func Rate(ctx context.Context, item types.Information, r types.OpenRouterRater) (float64, error) {
-	slog.Info("rate item started", "index", item.Index, "source_name", item.Source, "title", item.Title, "theme", item.Theme)
+	ctx, span := telemetry.Tracer().Start(ctx, "openrouter.rate_item", traceAttrs("item.index", item.Index, "source.name", item.Source, "item.title", item.Title, "item.theme", item.Theme)...)
+	defer span.End()
+	slog.InfoContext(ctx, "rate item started", "index", item.Index, "source_name", item.Source, "title", item.Title, "theme", item.Theme)
 	if r.ApiKey == "" {
-		return 0, fmt.Errorf("OPENROUTER_API_KEY is required")
+		err := fmt.Errorf("OPENROUTER_API_KEY is required")
+		telemetry.RecordSpanError(span, err)
+		return 0, err
 	}
 	if r.Client == nil {
-		r.Client = &http.Client{Timeout: 45 * time.Second}
+		r.Client = &http.Client{Timeout: 45 * time.Second, Transport: otelhttp.NewTransport(http.DefaultTransport)}
 	}
 	if r.Url == "" {
 		r.Url = openRouterURL
@@ -186,12 +194,15 @@ func Rate(ctx context.Context, item types.Information, r types.OpenRouterRater) 
 	}
 	body, err := json.Marshal(reqBody)
 	if err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
-	slog.Info("openrouter request prepared", "index", item.Index, "model", r.Model, "url", r.Url, "bytes", len(body))
+	span.SetAttributes(attribute.String("openrouter.model", r.Model), attribute.Int("request.bytes", len(body)))
+	slog.InfoContext(ctx, "openrouter request prepared", "index", item.Index, "model", r.Model, "url", r.Url, "bytes", len(body))
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, r.Url, bytes.NewReader(body))
 	if err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
 	req.Header.Set("Authorization", "Bearer "+r.ApiKey)
@@ -199,45 +210,81 @@ func Rate(ctx context.Context, item types.Information, r types.OpenRouterRater) 
 	req.Header.Set("HTTP-Referer", referer)
 	req.Header.Set("X-Title", appTitle)
 
+	start := time.Now()
+	telemetry.OpenRouterRequests.Add(ctx, 1)
 	resp, err := r.Client.Do(req)
+	telemetry.OpenRouterLatencyMS.Record(ctx, telemetry.DurationMillis(start))
 	if err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
 	defer resp.Body.Close()
-	slog.Info("openrouter response received", "index", item.Index, "status", resp.Status)
+	span.SetAttributes(attribute.Int("http.response.status_code", resp.StatusCode))
+	slog.InfoContext(ctx, "openrouter response received", "index", item.Index, "status", resp.Status)
 
 	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		slog.Error("openrouter returned non-success status", "index", item.Index, "status", resp.Status, "body", strings.TrimSpace(string(respBody)))
-		return 0, fmt.Errorf("openrouter returned %s: %s", resp.Status, strings.TrimSpace(string(respBody)))
+		err := fmt.Errorf("openrouter returned %s: %s", resp.Status, strings.TrimSpace(string(respBody)))
+		telemetry.RecordSpanError(span, err)
+		slog.ErrorContext(ctx, "openrouter returned non-success status", "index", item.Index, "status", resp.Status, "body", strings.TrimSpace(string(respBody)))
+		return 0, err
 	}
 
 	var chatResp types.OpenRouterChatResponse
 	if err := json.Unmarshal(respBody, &chatResp); err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
 	if len(chatResp.Choices) == 0 {
-		return 0, fmt.Errorf("openrouter returned no choices")
+		err := fmt.Errorf("openrouter returned no choices")
+		telemetry.RecordSpanError(span, err)
+		return 0, err
 	}
-	slog.Info("openrouter choices parsed", "index", item.Index, "choices", len(chatResp.Choices))
+	slog.InfoContext(ctx, "openrouter choices parsed", "index", item.Index, "choices", len(chatResp.Choices))
 
 	rating, err := parseRating(chatResp.Choices[0].Message.Content)
 	if err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
 	if err := validateRating(rating); err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
 	rating.PersonalPreference = float64(item.PersonalPreference)
 	score, err := Score(rating)
 	if err != nil {
+		telemetry.RecordSpanError(span, err)
 		return 0, err
 	}
-	slog.Info("rate item completed", "index", item.Index, "source_name", item.Source, "rating", score)
+	span.SetAttributes(attribute.Float64("rating.score", score))
+	slog.InfoContext(ctx, "rate item completed", "index", item.Index, "source_name", item.Source, "rating", score)
 	return score, nil
+}
+
+func traceAttrs(values ...any) []trace.SpanStartOption {
+	attrs := make([]attribute.KeyValue, 0, len(values)/2)
+	for i := 0; i+1 < len(values); i += 2 {
+		key, ok := values[i].(string)
+		if !ok {
+			continue
+		}
+		switch value := values[i+1].(type) {
+		case string:
+			attrs = append(attrs, attribute.String(key, value))
+		case int:
+			attrs = append(attrs, attribute.Int(key, value))
+		case bool:
+			attrs = append(attrs, attribute.Bool(key, value))
+		case float64:
+			attrs = append(attrs, attribute.Float64(key, value))
+		}
+	}
+	return []trace.SpanStartOption{trace.WithAttributes(attrs...)}
 }
 
 func promptFor(item types.Information) string {

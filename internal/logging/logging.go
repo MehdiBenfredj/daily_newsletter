@@ -1,21 +1,26 @@
 package logging
 
 import (
+	"context"
 	"io"
 	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"go.opentelemetry.io/contrib/bridges/otelslog"
+	sdklog "go.opentelemetry.io/otel/sdk/log"
+	"go.opentelemetry.io/otel/trace"
 )
 
 const LogDirEnv = "LOG_DIR"
 
-func ConfigureFromEnv() (func() error, error) {
-	return Configure(os.Getenv(LogDirEnv))
+func ConfigureFromEnv(loggerProvider *sdklog.LoggerProvider) (func() error, error) {
+	return Configure(os.Getenv(LogDirEnv), loggerProvider)
 }
 
-func Configure(logDir string) (func() error, error) {
+func Configure(logDir string, loggerProvider *sdklog.LoggerProvider) (func() error, error) {
 	writers := []io.Writer{os.Stdout}
 	var file *os.File
 	var logFile string
@@ -42,7 +47,12 @@ func Configure(logDir string) (func() error, error) {
 		AddSource: true,
 		Level:     slog.LevelInfo,
 	})
-	slog.SetDefault(slog.New(handler))
+	var defaultHandler slog.Handler = traceContextHandler{next: handler}
+	if loggerProvider != nil {
+		otelHandler := otelslog.NewHandler("github.com/MehdiBenfredj/daily_newsletter", otelslog.WithLoggerProvider(loggerProvider), otelslog.WithSource(true))
+		defaultHandler = multiHandler{handlers: []slog.Handler{defaultHandler, otelHandler}}
+	}
+	slog.SetDefault(slog.New(defaultHandler))
 
 	if logDir == "" {
 		slog.Warn("log directory env var is not set; logging to stdout only", "env_var", LogDirEnv)
@@ -56,6 +66,79 @@ func Configure(logDir string) (func() error, error) {
 		}
 		return file.Close()
 	}, nil
+}
+
+type multiHandler struct {
+	handlers []slog.Handler
+}
+
+func (h multiHandler) Enabled(ctx context.Context, level slog.Level) bool {
+	for _, handler := range h.handlers {
+		if handler.Enabled(ctx, level) {
+			return true
+		}
+	}
+	return false
+}
+
+func (h multiHandler) Handle(ctx context.Context, record slog.Record) error {
+	var err error
+	for _, handler := range h.handlers {
+		if handler.Enabled(ctx, record.Level) {
+			err = joinErrors(err, handler.Handle(ctx, record.Clone()))
+		}
+	}
+	return err
+}
+
+func (h multiHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
+	handlers := make([]slog.Handler, 0, len(h.handlers))
+	for _, handler := range h.handlers {
+		handlers = append(handlers, handler.WithAttrs(attrs))
+	}
+	return multiHandler{handlers: handlers}
+}
+
+func (h multiHandler) WithGroup(name string) slog.Handler {
+	handlers := make([]slog.Handler, 0, len(h.handlers))
+	for _, handler := range h.handlers {
+		handlers = append(handlers, handler.WithGroup(name))
+	}
+	return multiHandler{handlers: handlers}
+}
+
+type traceContextHandler struct {
+	next slog.Handler
+}
+
+func (h traceContextHandler) Enabled(ctx context.Context, level slog.Level) bool {
+	return h.next.Enabled(ctx, level)
+}
+
+func (h traceContextHandler) Handle(ctx context.Context, record slog.Record) error {
+	spanContext := trace.SpanContextFromContext(ctx)
+	if spanContext.IsValid() {
+		record.AddAttrs(
+			slog.String("trace_id", spanContext.TraceID().String()),
+			slog.String("span_id", spanContext.SpanID().String()),
+		)
+	}
+	return h.next.Handle(ctx, record)
+}
+
+func (h traceContextHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
+	return traceContextHandler{next: h.next.WithAttrs(attrs)}
+}
+
+func (h traceContextHandler) WithGroup(name string) slog.Handler {
+	return traceContextHandler{next: h.next.WithGroup(name)}
+}
+
+func joinErrors(left, right error) error {
+	if left != nil {
+		return left
+	}
+	return right
 }
 
 func expandHomeDir(path string) (string, error) {

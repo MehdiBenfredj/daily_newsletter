@@ -17,7 +17,7 @@ func TestConfigureCreatesTimestampedLogFileInConfiguredDirectory(t *testing.T) {
 	})
 
 	logDir := t.TempDir()
-	closeLog, err := Configure(logDir)
+	closeLog, err := Configure(logDir, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,7 +65,7 @@ func TestConfigureExpandsHomeDirectoryInLogDir(t *testing.T) {
 	home := t.TempDir()
 	t.Setenv("HOME", home)
 
-	closeLog, err := Configure("~/logs")
+	closeLog, err := Configure("~/logs", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -91,7 +91,7 @@ func TestConfigureExpandsBareHomeDirectory(t *testing.T) {
 	home := t.TempDir()
 	t.Setenv("HOME", home)
 
-	closeLog, err := Configure("~")
+	closeLog, err := Configure("~", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -117,7 +117,7 @@ func TestConfigureWithoutFileLogsToDefaultHandler(t *testing.T) {
 	var output bytes.Buffer
 	slog.SetDefault(slog.New(slog.NewTextHandler(&output, nil)))
 
-	closeLog, err := Configure("")
+	closeLog, err := Configure("", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
