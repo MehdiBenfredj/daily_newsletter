@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"log/slog"
@@ -13,6 +14,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/MehdiBenfredj/daily_newsletter/internal/cache"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/env"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/fetch"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/logging"
@@ -100,7 +102,8 @@ func run() error {
 	slog.InfoContext(ctx, "output items prepared", "items", len(informationItems))
 
 	rater := rate.NewOpenRouterRater()
-	informationItems = rateInformationItems(ctx, informationItems, rater)
+	ratingCache := ratingCacheFromEnv(ctx)
+	informationItems = rateInformationItems(ctx, informationItems, rater, ratingCache)
 	slog.InfoContext(ctx, "rating completed", "rated_items", len(informationItems))
 
 	sort.Slice(informationItems, func(i, j int) bool {
@@ -123,7 +126,19 @@ type ratingResult struct {
 	err    error
 }
 
-func rateInformationItems(ctx context.Context, outputItems []types.Information, rater types.OpenRouterRater) []types.Information {
+func ratingCacheFromEnv(ctx context.Context) cache.RatingCache {
+	var ratingCache cache.RatingCache
+	redisRatingCache, cacheEnabled, err := cache.NewRedisRatingCacheFromEnv()
+	if err != nil {
+		slog.WarnContext(ctx, "rating cache unavailable; continuing without cache", "error", err)
+	}
+	if cacheEnabled {
+		ratingCache = redisRatingCache
+	}
+	return ratingCache
+}
+
+func rateInformationItems(ctx context.Context, outputItems []types.Information, rater types.OpenRouterRater, ratingCache cache.RatingCache) []types.Information {
 	ctx, span := telemetry.Tracer().Start(ctx, "items.rate_batch", traceAttrs("items", len(outputItems))...)
 	defer span.End()
 	results := make(chan ratingResult, len(outputItems))
@@ -138,12 +153,32 @@ func rateInformationItems(ctx context.Context, outputItems []types.Information, 
 			item := outputItems[i]
 			itemCtx, itemSpan := telemetry.Tracer().Start(ctx, "item.rate", traceAttrs("item.index", item.Index, "source.name", item.Source, "item.title", item.Title)...)
 			defer itemSpan.End()
+			if ratingCache != nil {
+				rating, err := ratingCache.Get(itemCtx, item.URL)
+				if err == nil {
+					itemSpan.SetAttributes(attribute.Bool("rating.cache_hit", true))
+					slog.InfoContext(itemCtx, "item rating loaded from cache", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "rating", rating)
+					results <- ratingResult{index: i, rating: rating}
+					return
+				}
+				itemSpan.SetAttributes(attribute.Bool("rating.cache_hit", false))
+				if !errors.Is(err, cache.ErrCacheMiss) {
+					slog.WarnContext(itemCtx, "item rating cache lookup failed; rating item", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "error", err)
+				}
+			}
 			slog.InfoContext(itemCtx, "rating item", "index", item.Index, "source_name", item.Source, "title", item.Title)
 			rating, err := rate.Rate(itemCtx, item, rater)
 			if err != nil {
 				telemetry.RecordSpanError(itemSpan, err)
 				results <- ratingResult{index: i, err: fmt.Errorf("rate item %d (%q): %w", item.Index, item.Title, err)}
 				return
+			}
+			if ratingCache != nil {
+				if err := ratingCache.Set(itemCtx, item.URL, rating); err != nil {
+					slog.WarnContext(itemCtx, "item rating cache write failed", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "rating", rating, "error", err)
+				} else {
+					slog.InfoContext(itemCtx, "item rating cached", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "rating", rating)
+				}
 			}
 			results <- ratingResult{index: i, rating: rating}
 		}()

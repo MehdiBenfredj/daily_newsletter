@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"io"
 	"log/slog"
 	"math"
@@ -14,6 +15,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/MehdiBenfredj/daily_newsletter/internal/cache"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 )
 
@@ -56,7 +58,7 @@ func TestRateOutputItemsRunsInParallelAndPreservesIndexes(t *testing.T) {
 		Url:    server.URL,
 	}
 
-	rated := rateInformationItems(context.Background(), items, rater)
+	rated := rateInformationItems(context.Background(), items, rater, nil)
 	if got := requests.Load(); got != int32(len(items)) {
 		t.Fatalf("requests = %d, want %d", got, len(items))
 	}
@@ -103,7 +105,7 @@ func TestRateOutputItemsSkipsAndLogsFailures(t *testing.T) {
 		Url:    server.URL,
 	}
 
-	rated := rateInformationItems(context.Background(), items, rater)
+	rated := rateInformationItems(context.Background(), items, rater, nil)
 	if len(rated) != 1 {
 		t.Fatalf("rated items = %d, want 1", len(rated))
 	}
@@ -120,6 +122,96 @@ func TestRateOutputItemsSkipsAndLogsFailures(t *testing.T) {
 			t.Fatalf("logs missing %q: %s", want, logs.String())
 		}
 	}
+}
+
+func TestRateOutputItemsUsesCachedRating(t *testing.T) {
+	discardLogs(t)
+
+	items := []types.Information{
+		{Index: 1, URL: "https://example.com/cached", Source: "Source A", Title: "Cached item"},
+	}
+	ratingCache := &stubRatingCache{
+		values: map[string]float64{
+			"https://example.com/cached": 8.25,
+		},
+	}
+	rated := rateInformationItems(context.Background(), items, types.OpenRouterRater{}, ratingCache)
+	if len(rated) != 1 {
+		t.Fatalf("rated items = %d, want 1", len(rated))
+	}
+	if got := rated[0].Rating; got != 8.25 {
+		t.Fatalf("rating = %f, want 8.25", got)
+	}
+	if ratingCache.sets != 0 {
+		t.Fatalf("cache writes = %d, want 0", ratingCache.sets)
+	}
+}
+
+func TestRateOutputItemsCachesRatingAfterMiss(t *testing.T) {
+	setRatingCoefficientEnv(t)
+	discardLogs(t)
+
+	var requests atomic.Int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requests.Add(1)
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"choices":[{"message":{"role":"assistant","content":"{\"personal_relevance\":8,\"impact\":7,\"source_trust\":9,\"novelty\":6,\"actionability\":5,\"depth_insight\":6,\"signal_to_noise\":7}"}}]}`))
+	}))
+	defer server.Close()
+
+	items := []types.Information{
+		{Index: 1, URL: "https://example.com/miss", Source: "Source A", Title: "Miss item"},
+	}
+	rater := types.OpenRouterRater{
+		ApiKey: "test-key",
+		Model:  "test-model",
+		Client: server.Client(),
+		Url:    server.URL,
+	}
+	ratingCache := &stubRatingCache{values: map[string]float64{}}
+
+	rated := rateInformationItems(context.Background(), items, rater, ratingCache)
+	if requests.Load() != 1 {
+		t.Fatalf("requests = %d, want 1", requests.Load())
+	}
+	if len(rated) != 1 {
+		t.Fatalf("rated items = %d, want 1", len(rated))
+	}
+	if math.Abs(ratingCache.values["https://example.com/miss"]-6.04) > 0.000000001 {
+		t.Fatalf("cached rating = %f, want 6.04", ratingCache.values["https://example.com/miss"])
+	}
+}
+
+func TestRatingCacheFromEnvReturnsNilInterfaceWhenUnavailable(t *testing.T) {
+	discardLogs(t)
+	t.Setenv(cache.RedisURLEnv, "http://localhost:6379")
+
+	ratingCache := ratingCacheFromEnv(context.Background())
+	if ratingCache != nil {
+		t.Fatalf("rating cache = %#v, want nil", ratingCache)
+	}
+}
+
+type stubRatingCache struct {
+	values map[string]float64
+	sets   int
+}
+
+func (c *stubRatingCache) Get(ctx context.Context, url string) (float64, error) {
+	rating, ok := c.values[url]
+	if !ok {
+		return 0, cache.ErrCacheMiss
+	}
+	return rating, nil
+}
+
+func (c *stubRatingCache) Set(ctx context.Context, url string, rating float64) error {
+	if c.values == nil {
+		return errors.New("stub cache values are nil")
+	}
+	c.values[url] = rating
+	c.sets++
+	return nil
 }
 
 func discardLogs(t *testing.T) {
