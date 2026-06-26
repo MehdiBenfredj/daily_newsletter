@@ -208,3 +208,24 @@ func getenvDefault(key, fallback string) string {
 	}
 	return fallback
 }
+
+func TraceAttrs(values ...any) []trace.SpanStartOption {
+	attrs := make([]attribute.KeyValue, 0, len(values)/2)
+	for i := 0; i+1 < len(values); i += 2 {
+		key, ok := values[i].(string)
+		if !ok {
+			continue
+		}
+		switch value := values[i+1].(type) {
+		case string:
+			attrs = append(attrs, attribute.String(key, value))
+		case int:
+			attrs = append(attrs, attribute.Int(key, value))
+		case bool:
+			attrs = append(attrs, attribute.Bool(key, value))
+		case float64:
+			attrs = append(attrs, attribute.Float64(key, value))
+		}
+	}
+	return []trace.SpanStartOption{trace.WithAttributes(attrs...)}
+}

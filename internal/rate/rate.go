@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log/slog"
@@ -12,8 +13,10 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
+	"github.com/MehdiBenfredj/daily_newsletter/internal/cache"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/telemetry"
 	"github.com/MehdiBenfredj/daily_newsletter/internal/types"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
@@ -165,6 +168,79 @@ func LoadRatingCoefficients() (types.RatingCoefficients, error) {
 
 	slog.Info("rating coefficients loaded", "personal_relevance", coefficients.PersonalRelevance, "impact", coefficients.Impact, "source_trust", coefficients.SourceTrust, "novelty", coefficients.Novelty, "actionability", coefficients.Actionability, "depth_insight", coefficients.DepthInsight, "signal_to_noise", coefficients.SignalToNoise, "personal_preference", coefficients.PersonalPreference, "total", total)
 	return coefficients, nil
+}
+
+func RateInformationItems(ctx context.Context, outputItems []types.Information, rater types.OpenRouterRater, ratingCache cache.RatingCache) []types.Information {
+	ctx, span := telemetry.Tracer().Start(ctx, "items.rate_batch", traceAttrs("items", len(outputItems))...)
+	defer span.End()
+	results := make(chan ratingResult, len(outputItems))
+	var wg sync.WaitGroup
+	slog.InfoContext(ctx, "rating items in parallel", "items", len(outputItems))
+	for i := range outputItems {
+		// Capture the current index so this goroutine writes back to the right item.
+		i := i
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			item := outputItems[i]
+			itemCtx, itemSpan := telemetry.Tracer().Start(ctx, "item.rate", traceAttrs("item.index", item.Index, "source.name", item.Source, "item.title", item.Title)...)
+			defer itemSpan.End()
+			if ratingCache != nil {
+				rating, err := ratingCache.Get(itemCtx, item.URL)
+				if err == nil {
+					itemSpan.SetAttributes(attribute.Bool("rating.cache_hit", true))
+					slog.InfoContext(itemCtx, "item rating loaded from cache", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "rating", rating)
+					results <- ratingResult{index: i, rating: rating}
+					return
+				}
+				itemSpan.SetAttributes(attribute.Bool("rating.cache_hit", false))
+				if !errors.Is(err, cache.ErrCacheMiss) {
+					slog.WarnContext(itemCtx, "item rating cache lookup failed; rating item", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "error", err)
+				}
+			}
+			slog.InfoContext(itemCtx, "rating item", "index", item.Index, "source_name", item.Source, "title", item.Title)
+			rating, err := Rate(itemCtx, item, rater)
+			if err != nil {
+				telemetry.RecordSpanError(itemSpan, err)
+				results <- ratingResult{index: i, err: fmt.Errorf("rate item %d (%q): %w", item.Index, item.Title, err)}
+				return
+			}
+			if ratingCache != nil {
+				if err := ratingCache.Set(itemCtx, item.URL, rating); err != nil {
+					slog.WarnContext(itemCtx, "item rating cache write failed", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "rating", rating, "error", err)
+				} else {
+					slog.InfoContext(itemCtx, "item rating cached", "index", item.Index, "source_name", item.Source, "title", item.Title, "url", item.URL, "rating", rating)
+				}
+			}
+			results <- ratingResult{index: i, rating: rating}
+		}()
+	}
+	wg.Wait()
+	close(results)
+
+	failed := make([]bool, len(outputItems))
+	for result := range results {
+		item := outputItems[result.index]
+		if result.err != nil {
+			failed[result.index] = true
+			telemetry.ItemsSkipped.Add(ctx, 1)
+			slog.ErrorContext(ctx, "item rating failed; skipping item", "index", item.Index, "source_name", item.Source, "title", item.Title, "error", result.err)
+			continue
+		}
+		outputItems[result.index].Rating = result.rating
+		telemetry.ItemsRated.Add(ctx, 1)
+		slog.InfoContext(ctx, "item rated", "index", item.Index, "source_name", item.Source, "rating", result.rating)
+	}
+
+	rated := make([]types.Information, 0, len(outputItems))
+	for i, item := range outputItems {
+		if !failed[i] {
+			rated = append(rated, item)
+		}
+	}
+	span.SetAttributes(attribute.Int("rated_items", len(rated)), attribute.Int("skipped_items", len(outputItems)-len(rated)))
+	slog.InfoContext(ctx, "rating items finished", "items", len(outputItems), "rated_items", len(rated), "skipped_items", len(outputItems)-len(rated))
+	return rated
 }
 
 func Rate(ctx context.Context, item types.Information, r types.OpenRouterRater) (float64, error) {
@@ -338,4 +414,10 @@ func validateRating(rating types.Rating) error {
 	}
 	slog.Info("rating validated")
 	return nil
+}
+
+type ratingResult struct {
+	index  int
+	rating float64
+	err    error
 }
